@@ -1,0 +1,60 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
+
+    <div class="col-xs-12">
+        <div class="leftside">
+            <!-- Page Title -->
+            <div class="pagetitle">
+                <h1><i class="bx bxs-user-account"></i> {{title}}</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/"><i class="bi bi-house"></i> Inicio</a></li>
+                        <li class="breadcrumb-item active">{{title}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End Page Title -->
+        </div>
+        <div class="buton">
+            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+        </div>
+        <div class="clear"></div>
+
+        <section class="section dashboard">
+
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <form class="form p-t-20 form-horizontal form-material" [formGroup]="editorForm" (submit)="crearEditor()">
+                        <div class="form-group ">
+                            <div class="col-xs-12">
+                                <input class="form-control" type="text" formControlName="username" placeholder="username">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-xs-12">
+                                <input class="form-control" type="text" formControlName="email" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-xs-12">
+                                <input class="form-control" type="password" autocomplete="false" formControlName="password" placeholder="Contraseña">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input class="form-control" type="password" autocomplete="false" formControlName="password2" placeholder="Confirmar Contraseña">
+                            </div>
+                        </div>
+
+
+                        <input type="hidden" formControlName="id">
+                        <button (click)="crearEditor()" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+</div>
+<!--/main-->

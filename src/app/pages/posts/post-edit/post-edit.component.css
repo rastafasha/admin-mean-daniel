@@ -1,0 +1,12 @@
+.mostrar{
+    display: block;
+}
+
+.ocultar{
+    display: none;
+}
+
+.listacategorias{
+    height: 190px;
+    overflow: hidden;
+}

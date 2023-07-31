@@ -1,0 +1,63 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
+
+    <div class="col-xs-12">
+        <div class="leftside">
+            <!-- Page Title -->
+            <div class="pagetitle">
+                <!-- <h1><i class="bx bxs-user-account"></i> {{title}}</h1> -->
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/"><i class="fa fa-home"></i> Inicio</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/dashboard/planes/all">planes</a></li>
+                        <li class="breadcrumb-item active">{{plan.name}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End Page Title -->
+        </div>
+        <div class="buton">
+            <button class="btn btn-outline-danger" href="javascript:void(0)" (click)="goBack()">Volver</button>
+        </div>
+        <div class="clear"></div>
+
+
+
+        <section class="section dashboard">
+
+            <div class="planespage">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="card text-center mb-3 itemproduct">
+
+                            <div class="db-wrapper">
+                                <div class="db-pricing-eleven" [style.background]="plan.color">
+                                    <div class="price">
+                                        <div *ngIf="plan.price ">
+                                            <sup>$</sup>{{plan.price}}
+                                        </div>
+                                        <div *ngIf="!plan.price ">
+                                            <small>Gratis (sólo registrate)</small>
+                                        </div>
+                                        <small>{{plan.tiempo}}</small>
+                                    </div>
+                                    <div class="type">
+                                        {{plan.name}}
+                                    </div>
+                                    <div [innerHtml]="plan.adicional | safe: 'html'" class="description"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </section>
+    </div>
+
+
+</div>
+<!--/main-->

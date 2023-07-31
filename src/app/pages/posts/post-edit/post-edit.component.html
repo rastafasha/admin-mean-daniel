@@ -1,0 +1,229 @@
+
+
+<!-- =======| Main |======= -->
+<script type="text/javascript">
+    function mostrar(id) {
+        if (id == "crearcategoria") {
+            $("#crearcategoria").show();
+        }
+
+        if (id == "seleccione") {
+        $("#crearcategoria").hide();
+
+    }
+        
+    }
+    </script>
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
+
+    <div class="col-xs-12">
+        <div class="leftside">
+            <!-- Page Title -->
+            <div class="pagetitle">
+                <h1><i class="bx bxs-user-account"></i> {{titlePage}}</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/"><i class="bi bi-house"></i> Inicio</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/dashboard/configuraciones">Configuraciones</a></li>
+                        <li class="breadcrumb-item active">{{titlePage}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End Page Title -->
+        </div>
+        <div class="buton">
+            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+        </div>
+        <div class="clear"></div>
+
+
+
+        <section class="section dashboard">
+
+            <div class="row">
+                <div class="col-12 col-md-6">
+                     <!-- editarcategoria -->
+                     <label for="exampleInputEmail1">Desea una nueva categoria? <span class="required">*</span></label>
+                     <div class="row crearcategoria " id="crearcategoria" >
+
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title" *ngIf="categorySeleccionado">{{title}}: {{planSeleccionado.name}}</h4>
+                                    <h4 class="card-title" *ngIf="!categorySeleccionado">{{title}}</h4>
+                                    <form class="form p-t-20 form-horizontal form-material" [formGroup]="categoryForm" (submit)="updateCategory()">
+                                        <div class="form-group" style="margin-bottom: 25px;">
+                                            <label for="exampleInputuname">Nombre<span class="required">*</span></label>
+                                            <div class="input-group">
+        
+                                                <input type="text" formControlName="nombre" class="form-control" id="exampleInputuname" placeholder="Nombre" required>
+                                            </div>
+                                        </div>
+                                        <button type="submit"  class="btn btn-success waves-effect waves-light m-r-10 btn-block">
+                                        <i class="fa fa-save"></i> Guardar cambios
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <div class="row">
+                                <div class="col-lg-12" *ngIf="msm_error">
+                                    <div class="alert alert-primary alert-danger fade show" role="alert">
+                                        <span class="font-weight-medium">Mensaje:</span> {{msm_error}}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="close_alert()">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 card listacategorias">
+                                    <div class="table-responsive table-sm">
+                                        <table class="table table-sm">
+                                            <thead class="thead-dark">
+                                                <tr>
+            
+                                                    <th>Nombre</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngFor="let item of categorias">
+                                                <tr>
+                                                    <td style="font-size: 13px;">{{item.nombre}}</td>
+                                                    <td class="text-center">
+                                                        <a class="nav-link-style text-danger" data-toggle="modal" [attr.data-target]="'#delete-'+item._id" style="cursor:pointer">
+                                                            <div class="czi-trash"></div>
+                                                        </a>
+                                                        <div class="modal fade" [attr.id]="'delete-'+item._id" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title">Confirmación</h4>
+                                                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <p class="font-size-sm">¿Desea eliminar definitivamente el regsitro?</p>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancelar</button>
+                                                                        <button class="btn btn-primary btn-shadow btn-sm" type="button" (click)="eliminar(item._id)">Suprimir</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- editarcategoria -->
+
+                    <form enctype="multipart/form-data" [formGroup]="postForm" (ngSubmit)="editPost()">
+                        <div class="form-group">
+                            <label for="select-input" style="line-height: 2.2;">Categoria <span class="required">*</span></label>
+                            <select class="form-control " formControlName="categoria"  >
+                            <option disabled  value="seleccione">SELECCIONAR</option>
+                            <option *ngFor="let item of categorias" [value]="item._id" >{{item.nombre}}</option>
+                            <!-- <option  value="crearcategoria">agregar?</option> -->
+                        </select>
+                        </div>
+                        <div class="form-group">
+                            <!-- <a routerLink="/dashboard/categories">
+                                <button class="btn btn-outline-success btn-block">Crear Categoria</button>
+                            </a> -->
+                            <!-- <a onclick="mostrarEditorCategorias()">
+                                <button class="btn btn-outline-success btn-block">Crear Categoria</button>
+                            </a> -->
+                        </div>
+
+                       
+
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Titulo <span class="required">*</span></label>
+                            <input formControlName="name" type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Precio <span class="required">*</span></label>
+                            <input formControlName="price" type="number" min="0" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">url amigable para compartir</label>
+                            <input formControlName="slug" type="text" class="form-control">
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="select-input">Destacado?<span class="required">*</span></label>
+                                    <select class="form-control " formControlName="isFeatured">
+                                      <option disabled value="">SELECCIONAR</option>
+                                      <option  value="true">Activo</option>
+                                      <option  value="false">Inactivo</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label>Descripcion corta para carrito<span class="required">*</span></label>
+                            <div class="col-md-12">
+                                <textarea formControlName="adicional" id="adicional" cols="30" rows="4" class="form-control"></textarea>
+                                <!-- <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>" formControlName="adicional" value="description" rows="5" class="form-control" required></ckeditor> -->
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label>Descripcion <span class="required">*</span></label>
+                            <div class="col-md-12">
+                                <textarea formControlName="description" id="description" cols="30" rows="4" class="form-control"></textarea>
+                                <!-- <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>" formControlName="description" value="description" rows="5" class="form-control" required></ckeditor> -->
+
+                            </div>
+                        </div>
+                        <!-- <input type="hidden" formControlName="id"> -->
+                        <button (click)="editPost()" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <div class="col-12 col-md-6">
+                    <label> Anexe su foto</label>
+                    <br>
+                    <div class="row">
+
+                        <div class="col-xs-12">
+                            <div class="especificaciones" *ngIf="!post">
+                                <h4>Debe Crear un post para agregar la imagen</h4>
+
+                            </div>
+                            <div class="especificaciones" *ngIf="post">
+                                <h4>Especificaciones:</h4>
+                                <ul>
+                                    <li>Tamaño máximo: 300px X 300px</li>
+                                    <li>Peso máximo: 2 mb</li>
+                                    <li>Formato permitido: jpg, .gif, .png</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xs-12" *ngIf="post">
+                            <div class="text-center">
+                                <img *ngIf="!imgTemp " [src]="post.img | imagenPipe: 'blogs'" class="img-responsive img-thumbnail" alt="">
+                                <!-- <img *ngIf="post.img" [src]="post.img | imagenPipe: 'blogs'" class="img-responsive img-thumbnail" alt=""> -->
+                                <img *ngIf="imgTemp" [src]="imgTemp" class="img-responsive">
+                            </div>
+                            <input type="file" (change)="cambiarImagen($event.target.files[0])">
+                            <br>
+                            <br>
+                            <button type="button" [disabled]="!imagenSubir" (click)="subirImagen()" class="btn btn-success waves-effect waves-light m-r-10 btn-block">
+              <i class="fa fa-save"></i> Cambiar imagen
+             </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+</div>
+<!--/main-->

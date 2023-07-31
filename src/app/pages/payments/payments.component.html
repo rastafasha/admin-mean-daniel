@@ -1,0 +1,110 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="profile">
+
+    <div class="col-xs-12">
+        <div class="leftside">
+            <!-- Page Title -->
+            <div class="pagetitle">
+                <h1><i class="bx bxs-user-account"></i> {{title}}</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/"><i class="bi bi-house"></i> Inicio</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/">Panel Admin</a></li>
+                        <li class="breadcrumb-item active">{{title}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End Page Title -->
+        </div>
+        <div class="buton">
+            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+        </div>
+
+        <div class="clear"></div>
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- buscador -->
+                <form class="form-horizontal">
+                    <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                        <div class="input-group">
+                            <input type="search" name="search" type="text" class="form-control col-xs-12" placeholder="Buscar.." [(ngModel)]="query" aria-describedby="button-addon1" class="form-control border-0 bg-light">
+                            <div class="input-group-append">
+                                <button id="button-addon1" type="submit" class="btn btn-link text-primary" (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- buscador -->
+            </div>
+        </div>
+        <section class="section dashboard">
+
+
+
+            <!-- Recent Pagos -->
+            <div class="col-12">
+                <div class="card recent-sales overflow-auto">
+
+
+                    <div class="card-body">
+                        <h5 class="card-title"> <i class="bi bi-currency-exchange"> </i> Transacciones <span>| Todas</span>
+                        </h5>
+
+                        <table class="table table-borderless datatable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">imagen</th>
+                                    <th scope="col">Referencia</th>
+                                    <th scope="col">Usuario</th>
+                                    <th scope="col">Monto</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Validación</th>
+                                    <th scope="col">Fecha | Hora</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr *ngFor="let pago of payments |  paginate: { itemsPerPage: count, currentPage: p }"> -->
+                                <tr *ngFor="let pago of pagos ">
+                                    <td>
+                                        <img [src]="pago.img | imagenPipe: 'pagos'" style="width:60px; height: 60px;" alt="">
+                                    </td>
+                                    <th scope="row"><a [routerLink]="['/dashboard/payment-detail', pago._id]">{{pago.referencia}}</a></th>
+                                    <th><a [routerLink]="['/dashboard/user/', pago.usuario.uid]">{{pago.usuario.username}}</a></th>
+                                    <td>{{pago.monto}}</td>
+
+                                    <td>
+                                        <span class="badge bg-success" *ngIf="pago.status === 'APPROVED'">Aprobado</span>
+                                        <span class="badge bg-primary" *ngIf="pago.status === 'PENDING'">Pendiente</span>
+                                        <span class="badge bg-danger" *ngIf="pago.status === 'REJECTED'">Rechazado</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success" *ngIf="pago.validacion === 'APPROVED'">Aprobado</span>
+                                        <span class="badge bg-primary" *ngIf="pago.validacion === 'PENDING'">Pendiente</span>
+                                        <span class="badge bg-danger" *ngIf="pago.validacion === 'REJECTED'">Rechazado</span>
+                                    </td>
+                                    <td>{{pago.createdAt | date:'MMM d, y, h:mm:ss a'}}</td>
+                                    <td>
+                                        <div class="form-check form-switch" title="Verificar">
+                                            <a [routerLink]="['/dashboard/payment/edit/', pago._id]">
+                                                <button class="btn btn-success">Editar</button>
+                                            </a>
+
+                                        </div>
+
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                        <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+                    </div>
+
+                </div>
+            </div>
+            <!-- End Recent Pagos -->
+        </section>
+    </div>
+</div>
+<!-- End #main-->

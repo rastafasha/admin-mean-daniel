@@ -1,0 +1,20 @@
+:root {
+    --vinotinto: #930b32;
+    --gris: #9ca3ad;
+    --gris-claro: #cfd5de;
+}
+
+.bg-vinotinto {
+    background-color: var(--vinotinto);
+    color: #fff;
+}
+
+.bg-gris {
+    background-color: var(--gris);
+    color: #fff;
+}
+
+.bg-gris-claro {
+    background-color: var(--gris-claro);
+    color: #fff;
+}

@@ -1,0 +1,35 @@
+<div class="card-body">
+
+    <table class="table table-borderless table-responsive">
+        <thead>
+            <tr>
+                <th scope="col">Referencia</th>
+                <th scope="col">Usuario </th>
+                <th scope="col">Monto</th>
+                <th scope="col">Status</th>
+                <th scope="col">Fecha</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let payment of payments| slice: 0:5">
+            <tr>
+                <th scope="row"><a [routerLink]="['./payment-detail', payment._id]">{{payment.referencia}}</a></th>
+                <th scope="row"><a [routerLink]="['/dashboard/user/', payment.usuario.uid]">{{payment.usuario.username}}</a></th>
+                
+                <td>{{payment.monto}}</td>
+                <td>
+                    <span class="badge bg-success" *ngIf="payment.status === 'APPROVED'">Aprobado</span>
+                    <span class="badge bg-primary" *ngIf="payment.status === 'PENDING'">Pendiente</span>
+                    <span class="badge bg-danger" *ngIf="payment.status === 'REJECTED'">Rechazado</span>
+                </td>
+                <td>{{payment.createdAt | date:'MMM d, y, h:mm:ss a'}}</td>
+            </tr>
+
+
+        </tbody>
+    </table>
+    <div class="col-xs-12 col-sm-3">
+        <button class="btn btn-primary" routerLink="./payments">
+      Ver todos
+    </button>
+    </div>
+</div>

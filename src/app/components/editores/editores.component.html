@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-11 col-sm-11">
+            <!-- buscador -->
+            <!-- <app-search></app-search> -->
+            <!-- buscador -->
+        </div>
+        <div class="col-xs-1 col-sm-1">
+            <div class="text-right">
+                <button class="btn btn-primary" [routerLink]="['/dashboard/editor/create']">
+  <i class="fa fa-pencil"></i>
+  Crear
+</button>
+            </div>
+        </div>
+    </div>
+    <div class="card recent-sales overflow-auto">
+        <div class="card-body">
+            <table [ngClass]="loading? 'table table-borderless datatable':'table table-borderless'">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Creado</th>
+                        <th class="text-nowrap">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let editor of editores">
+
+                        <td>{{editor.id}}</td>
+                        <td><a [routerLink]="['/dashboard/user/', editor.id]">{{editor.username}}</a> </td>
+                        <td>{{editor.email}}</td>
+                        <td>{{editor.created_at | date:'MMM d, y, h:mm:ss a'}} </td>
+                        <td class="text-nowrap text-center">
+                            <a [routerLink]="['/dashboard/editor/edit', editor.id]" class="cursor" data-toggle="tooltip" data-original-title="Edit">
+                                <i class="fa fa-edit text-success" style="font-size: 18px;"></i>
+                            </a>
+                            <a (click)="eliminarEditor(editor.id)" class="cursor" data-toggle="tooltip" data-original-title="Borrar">
+                                <i class="fa fa-trash text-danger" style="font-size: 18px; margin-left: 10px; margin-right: 10px;"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
