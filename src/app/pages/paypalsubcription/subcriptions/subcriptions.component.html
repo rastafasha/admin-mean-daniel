@@ -1,0 +1,96 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
+
+    <div class="col-xs-12">
+        <div class="leftside">
+            <!-- Page Title -->
+            <div class="pagetitle">
+                <h1><i class="bx bxs-user-account"></i> {{title}}</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/"><i class="fa fa-home"></i> Inicio</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/dashboard/paypal-subcription-home">Paypal :: Planes - Subcripciones</a></li>
+                        <li class="breadcrumb-item active">{{title}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End Page Title -->
+            <div class="buton">
+                <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+            </div>
+        </div>
+        
+        <div class="clear"></div>
+
+
+        <section class="section dashboard">
+
+
+            <!-- Recent Pagos -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-11 col-sm-11">
+                        <!-- buscador -->
+                        <form class="form-horizontal">
+                            <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                                <div class="input-group">
+                                    <input type="search" name="search" type="text" class="form-control col-xs-12" placeholder="Buscar.." [(ngModel)]="query" aria-describedby="button-addon1" class="form-control border-0 bg-light">
+                                    <div class="input-group-append">
+                                        <button id="button-addon1" type="submit" class="btn btn-link text-primary" (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- buscador -->
+                    </div>
+                    
+                </div>
+                <div class="card recent-sales overflow-auto">
+                    <div class="card-body">
+                        <table [ngClass]="loading? 'table table-borderless datatable':'table table-borderless'">
+                            <thead>
+                                <tr>
+                                    <th>orderID</th>
+                                    <th>Usuario</th>
+                                    <th>plan_id</th>
+                                    <th>Monto</th>
+                                    <th>Status</th>
+                                    <th>Creado</th>
+                                    <th>Actualizado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let subcripcion of subcriptions">
+
+                                    <td>
+                                        <a [routerLink]="['/dashboard/paypal-subcription/', subcripcion._id]">
+                                        {{subcripcion.orderID | slice: 0:15}}...</a>
+                                    </td>
+                                    <td><a [routerLink]="['/dashboard/user/', subcripcion.usuario.uid]">
+                                        {{subcripcion.usuario.uid | slice: 0:15}}...
+                                    </a>
+                                </td>
+                                    <td>{{subcripcion.plan_id | slice: 0:15}}...</td>
+                                    <td>{{subcripcion.monto|currency}} </td>
+                                    <td>
+                                        <span class="badge bg-success" *ngIf="subcripcion.status === 'COMPLETED'">Completado</span>
+                                        <span class="badge bg-danger" *ngIf="subcripcion.status === 'CANCELED'">Cancelado</span>
+                                    </td>
+                                    <td>{{subcripcion.createdAt | date:'MMM d, y, h:mm:ss a'}} </td>
+                                    <td>{{subcripcion.updatedAt | date:'MMM d, y, h:mm:ss a'}} </td>
+                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+                    </div>
+                </div>
+            </div>
+            <!-- End Recent Pagos -->
+
+        </section>
+
+
+    </div>
+</div>
+<!--/main-->

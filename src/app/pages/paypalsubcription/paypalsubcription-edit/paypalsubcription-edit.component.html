@@ -1,0 +1,221 @@
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
+    <div class="col-xs-12">
+        <div class="leftside">
+            <!-- Page Title -->
+            <div class="pagetitle">
+                <h1><i class="bx bxs-user-account"></i> {{title}}</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a routerLink="/"><i class="bi bi-house"></i> Inicio</a>
+                        </li>
+                        <li class="breadcrumb-item"><a routerLink="/dashboard/paypal-subcription-home">Paypal :: Planes - Subcripciones</a></li>
+                        
+                        <li class="breadcrumb-item active">{{title}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End Page Title -->
+            <div class="buton">
+                <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">
+                    Volver
+                </button>
+            </div>
+        </div>
+
+        <div class="clear"></div>
+
+        <section class="section dashboard">
+            <div class="container">
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                          Desea un producto?
+                </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <form class="form p-t-20 form-horizontal form-material" [formGroup]="productopaypalForm" (submit)="updateProduct()">
+                                            <div class="form-group" style="margin-bottom: 25px">
+                                                <label for="exampleInputuname">Nombre<span class="required">*</span></label>
+                                                <div class="input-group">
+                                                    <input type="text" formControlName="name" class="form-control"
+                                                        id="exampleInputuname" placeholder="Nombre" required />
+                                                </div>
+                                            </div>
+        
+                                            <div class="col-md-12">
+                                                <label>Descripción <span class="required">*</span></label>
+                                                <div class="col-md-12">
+                                                    <textarea formControlName="description" id="description" cols="10"
+                                                        rows="4" class="form-control"></textarea>
+                                                    <!-- <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>" formControlName="description" value="description" rows="5" class="form-control" required></ckeditor> -->
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label for="select-input">type<span class="required">*</span></label>
+                                                        <select class="form-control" formControlName="type">
+                                                            <option disabled value="">SELECCIONAR</option>
+                                                            <option value="PHYSICAL">Fisico</option>
+                                                            <option value="DIGITAL">Digital</option>
+                                                            <option value="SERVICE">Servicio</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label for="select-input">category<span
+                                                                class="required">*</span></label>
+                                                        <select class="form-control" formControlName="category">
+                                                            <option disabled value="">SELECCIONAR</option>
+                                                            <option value="SOFTWARE">Software</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+        
+                                            <div class="form-group" style="margin-bottom: 25px">
+                                                <label for="exampleInputuname">image_url<span
+                                                        class="required">*</span></label>
+                                                <div class="input-group">
+                                                    <input type="text" formControlName="image_url" class="form-control"
+                                                        id="exampleInputuname" placeholder="Nombre" required />
+                                                </div>
+                                            </div>
+                                            <button type="submit" (click)="updateProduct()"
+                                                class="btn btn-success waves-effect waves-light m-r-10 btn-block">
+                                                <i class="fa fa-save"></i> Guardar cambios
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="col-lg-12 card listacategorias">
+                                            <div class="table-responsive table-sm">
+                                                <table class="table table-sm">
+                                                    <thead class="thead-dark">
+                                                        <tr>
+                    
+                                                            <th>Nombre</th>
+                                                            <th>Editar</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngFor="let item of productPaypal">
+                                                        <tr>
+                                                            <td style="font-size: 13px;">{{item.name}}</td>
+                                                            <td class="text-center">
+                                                                <a class="nav-link-style text-danger" data-toggle="modal" [attr.data-target]="'#delete-'+item._id" style="cursor:pointer">
+                                                                    <div class="fa fa-trash"></div>
+                                                                </a>
+                                                                <div class="modal fade" [attr.id]="'delete-'+item._id" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title">Confirmación</h4>
+                                                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <p class="font-size-sm">¿Desea eliminar definitivamente el regsitro?</p>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancelar</button>
+                                                                                <button class="btn btn-primary btn-shadow btn-sm" type="button" (click)="eliminar(item._id)">Suprimir</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                {{title}}
+              </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <form enctype="multipart/form-data" [formGroup]="planpaypalForm" (ngSubmit)="editPlan()">
+                                    <div class="row">
+                                        <div class="form-group col-xs-12 col-sm-6 col-md-6">
+                                            <label for="select-input" style="line-height: 2.2;">product_id <span class="required">*</span></label>
+                                            <select class="form-control " formControlName="product_id"  >
+                                            <option disabled  value="seleccione">SELECCIONAR</option>
+                                            <option *ngFor="let item of productPaypal" [value]="item.id" >{{item.name}} | {{item.id}} </option>
+                                        </select>
+                                        </div>
+                                        <div class="form-group col-xs-12 col-sm-6 col-md-6">
+                                            <label for="exampleInputEmail1">name <span class="required">*</span></label>
+                                            <input formControlName="name" type="text" class="form-control" required />
+                                        </div>
+                
+                                        <div class="form-group col-xs-12 col-sm-6 col-md-6">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="select-input">status<span class="required">*</span></label>
+                                                    <select class="form-control" formControlName="status" >
+                                                        <option disabled value="">SELECCIONAR</option>
+                                                        <option value="ACTIVE">Activo</option>
+                                                        <option value="INACTIVE">Inactivo</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-12 col-sm-6 col-md-6">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="select-input">frequency (tiempo)<span class="required">*</span></label>
+                                                    <select class="form-control" formControlName="interval_unit" value="planpaypalSeleccionado.billing_cycles[0].frequency.interval_unit" >
+                                                        <option disabled value="">SELECCIONAR</option>
+                                                        <!-- <option *ngFor="let item of planpaypalSeleccionado" [value]="item.interval_unit" >{{item.interval_unit}} </option> -->
+                                                        <option value="MONTH">Mensual</option>
+                                                        <option value="YEAR">Anual</option>
+                                                        <option value="WEEK">Semanal</option>
+                                                        <option value="DAY">diario</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-12 col-sm-6 col-md-6">
+                                            <label for="exampleInputEmail1">total_cycles (meses 12)<span class="required">*</span></label>
+                                            <input formControlName="total_cycles" value="planpaypalSeleccionado.billing_cycles[0].total_cycles" type="number" min="0" class="form-control" required />
+                                        </div>
+                                        <div class="form-group col-xs-12 col-sm-6 col-md-6">
+                                            <label for="exampleInputEmail1">fixed_price (precio mensual)<span class="required">*</span></label>
+                                            <input formControlName="fixed_price" value="planpaypalSeleccionado.billing_cycles[0].fixed_price" type="number" min="0" class="form-control" required />
+                                        </div>
+                                        <div class="form-group col-xs-12 col-sm-6 col-md-6">
+                                            <label for="exampleInputEmail1">setup_fee (valor del plan)<span class="required">*</span></label>
+                                            <input formControlName="setup_fee" type="number" min="0" class="form-control" required />
+                                        </div>
+                                        <div class="form-group col-xs-12 col-sm-6 col-md-6">
+                                            <label for="exampleInputEmail1">percentage (10USD + 10% = 11 USD) <span class="required">*</span></label>
+                                            <input formControlName="percentage" type="number" min="0" class="form-control" required />
+                                        </div>
+                                    </div>
+                                    <!-- <input type="hidden" formControlName="id"> -->
+                                    <button (click)="editPlan()" class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<!--/main-->

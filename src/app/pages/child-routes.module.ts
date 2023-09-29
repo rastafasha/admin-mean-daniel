@@ -29,6 +29,13 @@ import { EditorEditComponent } from './editor/editor-edit/editor-edit.component'
 import { BannerEditComponent } from './banner/banner-edit/banner-edit.component';
 import { BannerIndexComponent } from './banner/banner-index/banner-index.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
+import { BinancepayIndexComponent } from './conf/binancepay/binancepay-index/binancepay-index.component';
+import { BinancepayEditComponent } from './conf/binancepay/binancepay-edit/binancepay-edit.component';
+import { PaypalsubcriptionEditComponent } from './paypalsubcription/paypalsubcription-edit/paypalsubcription-edit.component';
+import { PaypalsubcriptionIndexComponent } from './paypalsubcription/paypalsubcription-index/paypalsubcription-index.component';
+import { PaypalhomeComponent } from './paypalsubcription/paypalhome/paypalhome.component';
+import { SubcriptionsComponent } from './paypalsubcription/subcriptions/subcriptions.component';
+import { SubcriptionComponent } from './paypalsubcription/subcription/subcription.component';
 // import { CondicionesComponent } from './condiciones/condiciones.component';
 
 
@@ -58,6 +65,20 @@ const childRoutes: Routes = [
     { path: 'categoria/crear', component: CategoryEditComponent, data:{title:'Crear Categoria'} },
     { path: 'category/edit/:id', component: CategoryEditComponent, data:{title:'Editar Categoria'} },
 
+    { path: 'binancepay', component: BinancepayIndexComponent, data:{title:'binancepay'} },
+    { path: 'binancepay/:id', component: BinancepayIndexComponent, data:{title:'binancepay'} },
+    { path: 'binancepay/crear', component: BinancepayEditComponent, data:{title:'Crear binancepay'} },
+    { path: 'binancepay/edit/:id', component: BinancepayEditComponent, data:{title:'Editar binancepay'} },
+
+    { path: 'paypal-subcription-home', component: PaypalhomeComponent, data:{title:'paypal-subcription'} },
+    { path: 'paypal-plans', component: PaypalsubcriptionIndexComponent, data:{title:'paypal-subcription'} },
+    { path: 'paypal-plan/:id', component: PaypalsubcriptionIndexComponent, data:{title:'paypal-subcription'} },
+    { path: 'paypal-plan/crear', component: PaypalsubcriptionEditComponent, data:{title:'Crear paypal-subcription'} },
+    { path: 'paypal-plan/edit/:id', component: PaypalsubcriptionEditComponent, data:{title:'Editar paypal-subcription'} },
+    
+    { path: 'paypal-subcriptions', component: SubcriptionsComponent, data:{title:'Editar paypal-subcription'} },
+    { path: 'paypal-subcription/:id', component: SubcriptionComponent, data:{title:'paypal-subcription'} },
+
 
     //editores
     { path: 'editor/create', component: EditorEditComponent, data:{title:'Crear Editor'} },
@@ -73,7 +94,7 @@ const childRoutes: Routes = [
     { path: 'banner/edit/:id', component: BannerEditComponent, data:{title:'Editar Curso'} },
 
     //admin
-    { path: 'payments',   component: PaymentsComponent, data:{title:'Pagos'} },
+    { path: 'compras',   component: PaymentsComponent, data:{title:'Pagos'} },
     { path: 'payment-detail/:id', component: PaymentDetailsComponent, data:{title:'Detalle Pago'} },
     { path: 'payment/edit/:id', component: PaymentEditComponent, data:{title:'Editar Pago'} },
     { path: 'factura/:id', component: ReciboFacturaComponent, data:{title:'Buscar'} },

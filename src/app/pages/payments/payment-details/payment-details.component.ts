@@ -9,6 +9,7 @@ import { User } from 'src/app/models/user';
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/services/user.service';
 import { FileUploadService } from 'src/app/services/file-upload.service';
+import { Post } from 'src/app/models/post';
 @Component({
   selector: 'app-payment-details',
   templateUrl: './payment-details.component.html',
@@ -16,9 +17,10 @@ import { FileUploadService } from 'src/app/services/file-upload.service';
 })
 export class PaymentDetailsComponent implements OnInit {
 
-  title = "Detalle Pago";
+  title = "Detalle Compra";
   public payment: Payment[] =[];
   public pago: Payment;
+  public blogs: any = {};
   error: string;
 
 
@@ -59,24 +61,22 @@ export class PaymentDetailsComponent implements OnInit {
       res =>{
         this.payment = res;
         error => this.error = error
-        console.log(this.payment);
+        // console.log(this.payment);
       }
     );
   }
 
   getUser(): void {
-
     this.usuario = JSON.parse(localStorage.getItem('user'));
-    console.log(this.usuario);
-
   }
 
   getPagoById(_id:string){
     this.paymentService.getPagoById(_id).subscribe(
       res =>{
         this.pago = res;
+        this.blogs = res.blog;
         error => this.error = error;
-        console.log(this.pago);
+        
       }
     );
   }
@@ -103,7 +103,7 @@ export class PaymentDetailsComponent implements OnInit {
             validacion: res.validacion,
           });
           this.pagoSeleccionado = res;
-          console.log(this.pagoSeleccionado);
+          // console.log(this.pagoSeleccionado);
         }
       );
     }

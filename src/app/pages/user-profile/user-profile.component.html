@@ -14,10 +14,11 @@
                 </nav>
             </div>
             <!-- End Page Title -->
+            <div class="buton">
+                <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+            </div>
         </div>
-        <div class="buton">
-            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
-        </div>
+        
         <div class="clear"></div>
 
         <section class="section profile">
@@ -36,9 +37,10 @@
                             <h3>{{usuario.username}}</h3>
                             <p>{{usuario.email}}</p>
                             <h3>
-                                <span class="badge bg-dark-light" *ngIf="usuario.role === 'SUPERADMIN'">SuperAdmin</span>
+                                <span class="badge bg-dark" *ngIf="usuario.role === 'SUPERADMIN'">SuperAdmin</span>
                                 <span class="badge bg-primary" *ngIf="usuario.role === 'ADMIN'">Admin</span>
                                 <span class="badge bg-success" *ngIf="usuario.role === 'EDITOR'">Editor</span>
+                                <span class="badge bg-success" *ngIf="usuario.role === 'MEMBER'">Miembro</span>
                                 <span class="badge bg-secondary" *ngIf="usuario.role === 'USER'">Invitado</span>
                             </h3>
 
@@ -61,7 +63,10 @@
                                     <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#detalle">Detalles</button>
                                 </li>
                                 <li class="nav-item">
-                                    <button class="nav-link " data-bs-toggle="tab" data-bs-target="#historial">Historial Pagos</button>
+                                    <button class="nav-link " data-bs-toggle="tab" data-bs-target="#historial">Historial Compras</button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link " *ngIf="usuario.role === 'EDITOR'|| usuario.role === 'SUPERADMIN' || usuario.role === 'ADMIN'" data-bs-toggle="tab" data-bs-target="#blogs">Blogs Creados</button>
                                 </li>
 
 
@@ -71,11 +76,11 @@
                                 <div class="tab-pane fade show active detail  pt-3" id="detalle">
 
 
-                                    <div *ngIf="!usuario">
+                                    <div *ngIf="!profile">
                                         <p>No posee perfil</p>
                                     </div>
                                     <div class="col-xs-12">
-                                        <div *ngIf="usuario">
+                                        <div *ngIf="profile">
                                             <div class="row">
                                                 <div class="col-xs-6 col-sm-6 col-md-4 b-r">
                                                     <div class="col-12  label"><i class="bi bi-person-circle"></i> Nombre</div>
@@ -129,30 +134,6 @@
                                             </div>
                                             <hr>
                                             <div class="row">
-                                                <div class="col-xs-12 col-sm-6  b-r">
-                                                    <div class="col-12  label"><i class="bi bi-telephone"></i> Email Paypal</div>
-                                                    <div class="col-12 info">{{profile.emailPaypal}}</div>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-6  b-r">
-                                                    <div class="col-12  label"><i class="bi bi-geo"></i> Nombre Paypal</div>
-                                                    <div class="col-12  info">{{profile.nombrePaypal}}</div>
-                                                </div>
-                                                <!-- <div class="col-xs-12 col-sm-6 col-md-3 b-r">
-                                                    <div class="col-12  label"><i class="bi bi-file-text"></i> UserId Binance</div>
-                                                    <div class="col-12  info">
-                                                        <p>{{profile.userIdBinance}}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-6 col-md-3 b-r">
-                                                    <div class="col-12  label"><i class="bi bi-file-text"></i> Email Binance</div>
-                                                    <div class="col-12  info">
-                                                        <p>{{profile.emailBinance}}</p>
-
-                                                    </div>
-                                                </div> -->
-                                            </div>
-                                            <hr>
-                                            <div class="row">
                                                 <div class="col-xs-12 col-sm-6 col-md-3 b-r">
                                                     <div class="col-12  label"><i class="fa fa-facebook"></i> Facebook</div>
                                                     <div class="col-12 info">
@@ -187,16 +168,85 @@
                                                 </div>
 
                                             </div>
+                                            <hr>
+                                            <div class="row" *ngIf="usuario.role === 'EDITOR'|| usuario.role === 'SUPERADMIN' || usuario.role === 'ADMIN'">
+                                                <div class="col-xs-12 col-sm-6  b-r">
+                                                    <div class="col-12  label"><i class="bi bi-telephone"></i> Email Paypal</div>
+                                                    <div class="col-12 info">{{profile.emailPaypal}}</div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-6  b-r">
+                                                    <div class="col-12  label"><i class="bi bi-geo"></i> Nombre Paypal</div>
+                                                    <div class="col-12  info">{{profile.nombrePaypal}}</div>
+                                                </div>
+                                                <!-- <div class="col-xs-12 col-sm-6 col-md-3 b-r">
+                                                    <div class="col-12  label"><i class="bi bi-file-text"></i> UserId Binance</div>
+                                                    <div class="col-12  info">
+                                                        <p>{{profile.userIdBinance}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-6 col-md-3 b-r">
+                                                    <div class="col-12  label"><i class="bi bi-file-text"></i> Email Binance</div>
+                                                    <div class="col-12  info">
+                                                        <p>{{profile.emailBinance}}</p>
+
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                            
                                         </div>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
                                 <div class="tab-pane fade  historial" id="historial">
                                     <!-- <ul *ngFor="let payment of user.payments |  paginate: { itemsPerPage: count, currentPage: p }"> -->
-                                    <ul *ngFor="let payment of pagos">
-                                        <li><a [routerLink]="['/dashboard/payment-detail', payment._id]">
-                                        Referencia: {{payment.referencia}} |  Fecha: {{payment.createdAt | date:'MMM d, y, h:mm:ss a'}}
-                                      </a>
+                                    <ul *ngFor="let payment of pagos" >
+
+                                        <li class="listgridHistorial">
+                                            <div class="imagenblog" >
+                                                <img src="./assets/images/no-image.jpg" style="width:50px; height:50px" class="rounded-circle">
+                                                
+                                            </div>
+                                            <a  [routerLink]="['/dashboard/payment-detail', payment._id]">
+                                                <span class="titulourl">
+                                                    Referencia: {{payment.referencia}}
+                                                </span> 
+                                              </a>
+                                              <span class="date">
+                                                Fecha: {{payment.createdAt | date:'MMM d, y, h:mm:ss a'}}
+                                              </span>
+                                              <span class="monto">
+                                                Monto: {{payment.monto | currency}}
+                                              </span>
+                                              <span class="status">
+                                                status: {{payment.status }}
+                                              </span>
+                                        </li>
+                                    </ul>
+                                    <br />
+                                    <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+
+
+                                </div>
+
+                                <div class="tab-pane fade  blogs" id="blogs">
+                                    <!-- <ul *ngFor="let payment of user.payments |  paginate: { itemsPerPage: count, currentPage: p }"> -->
+                                    <ul *ngFor="let blog of blogs" style="margin: 0; padding: 0;">
+                                        <li class="listgrid">
+                                            <div >
+                                                <div *ngIf="!blog.img " class="imagenblog">
+                                                    <img [src]="blog.img | imagenPipe: 'blogs'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                                </div>
+                                                <div *ngIf="blog.img" class="imagenblog">
+                                                    <img [src]="blog.img | imagenPipe: 'blogs'" style="height: 50px; width: 50px;" class="img-circle avatar">
+    
+                                                </div>
+                                            </div>
+                                            <a class="titulourl" [routerLink]="['/dashboard/post/edit', blog._id]">
+                                                Referencia: {{blog.name}} 
+                                              </a>
+                                              <span class="date">
+                                                Fecha: {{blog.createdAt | date:'MMM d, y, h:mm:ss a'}}
+                                              </span>
                                         </li>
                                     </ul>
                                     <br />

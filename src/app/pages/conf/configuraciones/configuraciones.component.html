@@ -14,10 +14,11 @@
                 </nav>
             </div>
             <!-- End Page Title -->
+            <div class="buton">
+                <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+            </div>
         </div>
-        <div class="buton">
-            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
-        </div>
+        
         <div class="clear"></div>
         <section class="section configuraciones">
 
@@ -28,7 +29,7 @@
                 <div class="row">
 
 
-                    <div class="col-xs-12 col-sm-6  col-md-4">
+                    <!-- <div class="col-xs-12 col-sm-6  col-md-4">
                         <div class="card">
                             <div class="card-body">
                                 <i class="bi bi-file-post"></i>
@@ -38,12 +39,12 @@
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="col-xs-12 col-sm-6  col-md-4">
                         <div class="card">
                             <div class="card-body">
-                                <i class="bi bi-coin"> </i>
+                                <i class="fa fa-bookmark"> </i>
                                 <h2> Categorias</h2>
                                 <a routerLink="/dashboard/categories">
                                     <button class="btn btn-outline-success btn-block">Ver todos</button>
@@ -53,8 +54,19 @@
                     </div>
                     <div class="col-xs-12 col-sm-6  col-md-4">
                         <div class="card">
+                            <div class="card-body">
+                                <i class="fa fa-bitcoin"> </i>
+                                <h2> Binance Pay</h2>
+                                <a routerLink="/dashboard/binancepay">
+                                    <button class="btn btn-outline-success btn-block">Ver todos</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6  col-md-4">
+                        <div class="card">
                             <div class="card-body ">
-                                <i class="bi bi-info-circle"> </i>
+                                <i class="fa fa-user"> </i>
                                 <h2> Roles</h2>
                                 <a routerLink="/dashboard/rolesconf">
                                     <button class="btn btn-outline-success btn-block">Ver todos</button>

@@ -193,7 +193,9 @@ img.avatar {
         align-items: center;
     }
     .leftside {
-        display: contents;
+        float: left;
+    display: flex;
+    width: 94%;
     }
     .leftside .pagetitle {
         display: flex;
@@ -266,7 +268,7 @@ img.avatar {
     .leftside {
         float: left;
         display: flex;
-        width: 73%;
+        width: 79%;
     }
     .buton {
         display: flex;
@@ -275,3 +277,14 @@ img.avatar {
         height: 40px;
     }
 }
+
+@media (min-width: 768px) and (max-width:1170px){
+    .mini-sidebar .page-wrapper {
+        margin-left: 130px;
+    }
+
+    .mini-sidebar .left-sidebar {
+        width: 130px;
+    }
+}
+

@@ -56,7 +56,7 @@ export class CategoryEditComponent implements OnInit {
 
     }else{
       //crear
-      this.title = 'Edit Categoría';
+      this.title = 'Editar Categoría';
     }
   }
 

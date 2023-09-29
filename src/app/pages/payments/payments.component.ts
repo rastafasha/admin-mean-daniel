@@ -15,7 +15,7 @@ import { BusquedasService } from 'src/app/services/busqueda.service';
 export class PaymentsComponent implements OnInit {
 
 
-  title = "Pagos"
+  title = "Compras"
 
   pagos: Payment;
   error:string;
@@ -59,7 +59,7 @@ export class PaymentsComponent implements OnInit {
       res =>{
         this.pagos = res;
         error => this.error = error;
-        console.log(this.pagos);
+        // console.log(this.pagos);
       }
     );
   }

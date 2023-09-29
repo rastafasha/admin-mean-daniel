@@ -1,0 +1,79 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
+
+    <div class="col-xs-12">
+        <div class="leftside">
+            <!-- Page Title -->
+            <div class="pagetitle">
+                <h1><i class="bx bxs-user-account"></i> {{titlePage}}</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/"><i class="bi bi-house"></i> Inicio</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/dashboard/binancepay">Binance pay</a></li>
+                        <li class="breadcrumb-item active">{{titlePage}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End Page Title -->
+            <div class="buton">
+                <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+            </div>
+        </div>
+        
+        <div class="clear"></div>
+
+
+
+        <section class="section dashboard">
+
+            <div class="row">
+                <div class="col-12 col-md-6">
+
+
+                    <form enctype="multipart/form-data" [formGroup]="binancepayForm" (ngSubmit)="editBinancepay()">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Monto<span class="required">*</span></label>
+                            <input formControlName="monto" type="title" class="form-control" required>
+                        </div>
+
+                        <!-- <input type="hidden" formControlName="id"> -->
+                        <button (click)="editBinancepay()" class="btn btn-primary">Guardar</button>
+                    </form>
+                </div>
+                <div class="col-12 col-md-6">
+                    <label> {{'Anexe su foto'}}</label>
+                    <br>
+                    <div class="row">
+
+                        <div class="col-xs-12">
+                            <div class="especificaciones">
+                                <h4>{{'Especificaciones'}}:</h4>
+                                <ul>
+                                    <li>{{'Tamaño máximo'}}: 1920px x 1080px</li>
+                                    <li>{{'Peso máximo'}}: 500 kb</li>
+                                    <li>{{'Formato permitido'}}: jpg, .gif, .png</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="text-center">
+                                <img *ngIf="!imgTemp " [src]="binancepay.img | imagenPipe: 'binancepays'" class="img-responsive img-thumbnail" alt="">
+                                <!-- <img *ngIf="!imgTemp" src="./assets/images/no-image.jpg" class="img-responsive img-thumbnail" alt=""> -->
+                                <img *ngIf="imgTemp" [src]="imgTemp" class="img-responsive">
+                            </div>
+                            <input type="file" (change)="cambiarImagen($event.target.files[0])">
+                            <br>
+                            <br>
+                            <button type="button" [disabled]="!imagenSubir" (click)="subirImagen()" class="btn btn-success waves-effect waves-light m-r-10 btn-block">
+                  <i class="fa fa-save"></i> Cambiar imagen
+                 </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+</div>
+<!--/main-->

@@ -7,6 +7,7 @@ import { User } from '../models/user';
 import { Payment } from '../models/payment';
 import { Post } from '../models/post';
 import { Category } from '../models/category';
+import { planPaypalSubcription } from '../models/planPaypalSubcription';
 
 const base_url = environment.apiUrl;
 
@@ -54,8 +55,11 @@ export class BusquedasService {
   private trasnformarCategorias(resultados: any[]): Category[] {
     return resultados;
   }
+  private trasnformarSubcriptions(resultados: any[]): planPaypalSubcription[] {
+    return resultados;
+  }
 
-  buscar(tipo: 'usuarios' | 'pagos' | 'blogs' | 'categorias', termino: string) {
+  buscar(tipo: 'usuarios' | 'pagos' | 'blogs' | 'categorias'|'subcriptions', termino: string) {
     const url = `${base_url}/todo/coleccion/${tipo}/${termino}`;
     return this.http.get<any[]>(url, this.headers).pipe(
       map((resp: any) => {
@@ -71,6 +75,9 @@ export class BusquedasService {
 
           case 'categorias':
             return this.trasnformarCategorias(resp.resultados);
+
+          case 'subcriptions':
+            return this.trasnformarSubcriptions(resp.resultados);
           default:
             return [];
         }

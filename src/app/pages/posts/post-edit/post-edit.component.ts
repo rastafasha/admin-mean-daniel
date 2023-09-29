@@ -95,7 +95,7 @@ export class PostEditComponent implements OnInit {
     this.categoryService.getCategories().subscribe(
       res =>{
         this.categorias = res;
-        console.log(this.categorias)
+        // console.log(this.categorias)
       }
     );
   }
@@ -104,7 +104,7 @@ export class PostEditComponent implements OnInit {
     this.categoryService.getCategoriesLista().subscribe(
       res =>{
         this.categoriaslista = res;
-        console.log(this.categoriaslista)
+        // console.log(this.categoriaslista)
       }
     );
   }
@@ -144,7 +144,7 @@ export class PostEditComponent implements OnInit {
             nombre: res.nombre,
           });
           this.categorySeleccionado = res;
-          console.log(this.categorySeleccionado);
+          // console.log(this.categorySeleccionado);
         }
       );
     } 
@@ -169,6 +169,7 @@ export class PostEditComponent implements OnInit {
             price: res.price,
             description: res.description,
             adicional: res.adicional,
+            introhome: res.introhome,
             slug: res.slug,
             categoria: res.categoria,
             status: res.status,
@@ -177,7 +178,7 @@ export class PostEditComponent implements OnInit {
             usuario: this.user.uid,
           });
           this.post = res;
-          console.log(this.post);
+          // console.log(this.post);
         }
       );
     } else {
@@ -191,6 +192,7 @@ export class PostEditComponent implements OnInit {
       price: [''],
       description: [''],
       adicional: [''],
+      introhome: [''],
       slug: [''],
       isFeatured: [''],
       categoria: [''],
@@ -219,6 +221,9 @@ export class PostEditComponent implements OnInit {
   }
   get adicional() {
     return this.postForm.get('adicional');
+  }
+  get introhome() {
+    return this.postForm.get('introhome');
   }
   get usuario() {
     return this.postForm.get('usuario');
@@ -264,6 +269,7 @@ export class PostEditComponent implements OnInit {
     formData.append('categoria', this.postForm.get('categoria').value);
     formData.append('isFeatured', this.postForm.get('isFeatured').value);
     formData.append('adicional', this.postForm.get('adicional').value);
+    formData.append('introhome', this.postForm.get('introhome').value);
     // formData.append('usuario', this.postForm.get('usuario').value);
 
 

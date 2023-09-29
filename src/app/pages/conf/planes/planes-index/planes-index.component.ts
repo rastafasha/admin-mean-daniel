@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { HttpBackend, HttpClient, HttpHandler } from '@angular/common/http';
 
-import { Location } from '@angular/common';
 import { Plan } from 'src/app/models/plan';
 import { User } from 'src/app/models/user';
 import { PlanesService } from 'src/app/services/planes.service';
+import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
 
 @Component({

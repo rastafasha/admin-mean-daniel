@@ -12,7 +12,7 @@ import { Payment } from 'src/app/models/payment';
   styleUrls: ['./user-historialpagos.component.css']
 })
 export class UserHistorialpagosComponent implements OnInit {
-  title = "Historial Mis Pagos";
+  title = "Historial Mis Compras";
   userProfile!: User;
   userPagos!: Payment;
   user: User;

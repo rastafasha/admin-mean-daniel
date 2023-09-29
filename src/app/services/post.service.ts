@@ -71,8 +71,8 @@ export class PostService {
       )
   }
 
-  getByUser(blog:any) {
-    const url = `${baseUrl}/blogs/user_blog/${blog._id}`;
+  getByUser(usuario:string) {
+    const url = `${baseUrl}/blogs/user_blog/${usuario}`;
     return this.http.get<any>(url,this.headers)
       .pipe(
         map((resp:{ok: boolean, blogs: Post}) => resp.blogs)

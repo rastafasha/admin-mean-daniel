@@ -8,6 +8,8 @@ import { PaymentService } from 'src/app/services/payment.service';
 import { UserService } from 'src/app/services/user.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { Profile } from 'src/app/models/profile';
+import { Post } from 'src/app/models/post';
+import { PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -18,7 +20,9 @@ export class UserProfileComponent implements OnInit {
 
   title = "Detalles de la cuenta";
   usuario: User;
+  user: User;
   profile: Profile;
+  public blogs: Post;
   error: string;
 
   public pagos: Payment[] =[];
@@ -34,6 +38,7 @@ export class UserProfileComponent implements OnInit {
     private userService: UserService,
     private profileService: ProfileService,
     private paymentService: PaymentService,
+    private postService: PostService,
     private activatedRoute: ActivatedRoute,
     private location: Location,
 
@@ -45,7 +50,9 @@ export class UserProfileComponent implements OnInit {
     window.scrollTo(0,0);
     this.closeMenu();
     this.activatedRoute.params.subscribe( ({id}) => this.getUserRemoto(id));
-    // this.activatedRoute.params.subscribe( ({id}) => this.getUserPagos(id));
+    this.activatedRoute.params.subscribe( ({id}) => this.getProfile(id));
+    this.activatedRoute.params.subscribe( ({id}) => this.getPagos(id));
+    this.activatedRoute.params.subscribe( ({id}) => this.getBlogs(id));
   }
 
   closeMenu(){
@@ -57,50 +64,36 @@ export class UserProfileComponent implements OnInit {
   }
 
 
-  getUserRemoto(uid:string){
-    this.userService.getUserById(uid).subscribe(
+
+  getUserRemoto(id){
+    this.userService.getUserById(id).subscribe(
       res =>{
         this.usuario = res;
         error => this.error = error;
-        this.getProfile();
-        this.getPagos();
-        // this.getUserPagos();
+        // console.log(this.usuario);
       }
     );
 
   }
 
-  getProfile(){
-    this.profileService.getByUser(this.usuario.uid).subscribe(
+  getProfile(id:string){
+    
+    this.profileService.getByUser(id).subscribe(
       res =>{
         this.profile = res[0];
         error => this.error = error;
-        console.log(this.profile);
       }
     );
   }
 
-  getPagos(){
-    this.paymentService.getPagosbyUser(this.usuario.uid).subscribe(
+  getPagos(id){
+    this.paymentService.getPagosbyUser(id).subscribe(
       res =>{
         this.pagos = res;
         error => this.error = error;
-        console.log(this.pagos);
       }
     );
   }
-
-
-  // getUserPagos(){
-
-  //   this.paymentService.getPagosbyUser('64c512f064ea4d83f702d13d').subscribe((data: any) => {
-  //     this.userPagos = data[0];
-  //     console.log('userPagos',this.userPagos)
-  //   });
-  // }
-
-
-
 
 
   goBack() {
@@ -116,8 +109,13 @@ export class UserProfileComponent implements OnInit {
     )
   }
 
-
-
-
-
+  getBlogs(_id:string){
+    this.postService.getByUser(_id).subscribe(
+      res =>{
+        this.blogs = res;
+        error => this.error = error;
+        // console.log(this.blogs);
+      }
+    );
+  }
 }

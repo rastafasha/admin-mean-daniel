@@ -20,6 +20,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 // import { AngularFileUploaderModule } from 'angular-file-uploader';
 import { CategoryEditComponent } from './category/category-edit/category-edit.component';
 import { CategoryIndexComponent } from './category/category-index/category-index.component';
+import { BinancepayIndexComponent } from './binancepay/binancepay-index/binancepay-index.component';
+import { BinancepayEditComponent } from './binancepay/binancepay-edit/binancepay-edit.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { CategoryIndexComponent } from './category/category-index/category-index
     RolesViewComponent,
     CategoryEditComponent,
     CategoryIndexComponent,
+    BinancepayIndexComponent,
+    BinancepayEditComponent,
 
   ],
   exports: [
@@ -38,6 +42,8 @@ import { CategoryIndexComponent } from './category/category-index/category-index
     RolesViewComponent,
     CategoryEditComponent,
     CategoryIndexComponent,
+    BinancepayIndexComponent,
+    BinancepayEditComponent,
     // PaymentmethodEditComponent
   ],
   imports: [

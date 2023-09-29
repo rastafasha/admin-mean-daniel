@@ -15,10 +15,11 @@
                 </nav>
             </div>
             <!-- End Page Title -->
+            <div class="buton">
+                <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+            </div>
         </div>
-        <div class="buton">
-            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
-        </div>
+        
 
         <div class="clear"></div>
         <div class="row">
@@ -60,11 +61,11 @@
                                     <th scope="col">Status</th>
                                     <th scope="col">Validación</th>
                                     <th scope="col">Fecha | Hora</th>
-                                    <th scope="col">Acciones</th>
+                                    <!-- <th scope="col">Acciones</th> -->
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- <tr *ngFor="let pago of payments |  paginate: { itemsPerPage: count, currentPage: p }"> -->
+                                <!-- <tr *ngFor="let pago of pagos |  paginate: { itemsPerPage: count, currentPage: p }"> -->
                                 <tr *ngFor="let pago of pagos ">
                                     <td>
                                         <img [src]="pago.img | imagenPipe: 'pagos'" style="width:60px; height: 60px;" alt="">
@@ -74,17 +75,17 @@
                                     <td>{{pago.monto}}</td>
 
                                     <td>
-                                        <span class="badge bg-success" *ngIf="pago.status === 'APPROVED'">Aprobado</span>
+                                        <span class="badge bg-success" *ngIf="pago.status === 'COMPLETED'">Completado</span>
                                         <span class="badge bg-primary" *ngIf="pago.status === 'PENDING'">Pendiente</span>
-                                        <span class="badge bg-danger" *ngIf="pago.status === 'REJECTED'">Rechazado</span>
+                                        <span class="badge bg-danger" *ngIf="pago.status === 'CANCELED'">Cancelado</span>
                                     </td>
                                     <td>
-                                        <span class="badge bg-success" *ngIf="pago.validacion === 'APPROVED'">Aprobado</span>
+                                        <span class="badge bg-success" *ngIf="pago.validacion === 'APROVED'">Aprobado</span>
                                         <span class="badge bg-primary" *ngIf="pago.validacion === 'PENDING'">Pendiente</span>
                                         <span class="badge bg-danger" *ngIf="pago.validacion === 'REJECTED'">Rechazado</span>
                                     </td>
                                     <td>{{pago.createdAt | date:'MMM d, y, h:mm:ss a'}}</td>
-                                    <td>
+                                    <!-- <td>
                                         <div class="form-check form-switch" title="Verificar">
                                             <a [routerLink]="['/dashboard/payment/edit/', pago._id]">
                                                 <button class="btn btn-success">Editar</button>
@@ -92,7 +93,7 @@
 
                                         </div>
 
-                                    </td>
+                                    </td> -->
                                 </tr>
 
 

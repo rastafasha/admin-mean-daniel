@@ -13,6 +13,13 @@
                 <h3>Buscar</h3>
             </div>
         </a>
+        <a class="nav-link collapsed cursor" routerLink="/dashboard/paypal-subcription-home">
+
+            <div class="icontext shadow">
+                <i class="fa fa-paypal"></i>
+                <h3>Planes Paypal </h3>
+            </div>
+        </a>
         <a class="nav-link collapsed cursor" routerLink="/dashboard/banners">
 
             <div class="icontext shadow">
@@ -22,7 +29,7 @@
         </a>
         <a class="nav-link collapsed cursor" routerLink="/dashboard/categories">
             <div class="icontext shadow">
-                <i class="fa fa-info-circle"> </i>
+                <i class="fa fa-bookmark"> </i>
                 <h3>Categorías</h3>
             </div>
         </a>
@@ -33,13 +40,13 @@
                 <h3>Posts</h3>
             </div>
         </a>
-        <a class="nav-link collapsed cursor" routerLink="/dashboard/planes/all">
+        <!-- <a class="nav-link collapsed cursor" routerLink="/dashboard/planes/all">
 
             <div class="icontext shadow">
                 <i class="fa fa-bookmark-o"></i>
                 <h3>Planes</h3>
             </div>
-        </a>
+        </a> -->
         <a class="nav-link collapsed cursor" routerLink="/dashboard/users">
 
             <div class="icontext shadow">
@@ -47,14 +54,21 @@
                 <h3>Usuarios</h3>
             </div>
         </a>
-        <a class="nav-link collapsed cursor" routerLink="/dashboard/payments">
+        <a class="nav-link collapsed cursor" routerLink="/dashboard/compras">
 
             <div class="icontext shadow">
                 <i class="fa fa-area-chart"> </i>
-                <h3>Pagos</h3>
+                <h3>Compras</h3>
             </div>
         </a>
-        <a class="nav-link collapsed cursor" [routerLink]="['/dashboard/profile/', user.id]">
+        <a class="nav-link collapsed cursor" routerLink="/dashboard/binancepay">
+
+            <div class="icontext shadow">
+                <i class="fa fa-bitcoin"> </i>
+                <h3>Binance Pay</h3>
+            </div>
+        </a>
+        <a class="nav-link collapsed cursor" [routerLink]="['/dashboard/profile/', user.uid]">
 
             <div class="icontext shadow">
                 <i class="fa fa-user"> </i>

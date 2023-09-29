@@ -50,6 +50,8 @@ import { EditorEditComponent } from './editor/editor-edit/editor-edit.component'
 import { BannerEditComponent } from './banner/banner-edit/banner-edit.component';
 import { BannerIndexComponent } from './banner/banner-index/banner-index.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
+import { PaypalsubcriptionModule } from './paypalsubcription/paypalsubcription.module';
+import { CursosModule } from './cursos/cursos.module';
 
 @NgModule({
   declarations: [
@@ -111,6 +113,8 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
     PipesModule,
     ConfModule,
     ComponentsModule,
+    PaypalsubcriptionModule,
+    CursosModule
     // NgxPaginationModule,
     // CKEditorModule,
     // AngularFileUploaderModule,

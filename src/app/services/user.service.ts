@@ -11,9 +11,10 @@ import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
 
+declare const gapi: any;
+
 const base_url = environment.apiUrl;
 const userGoogle = environment.clientGoogle
-declare const gapi: any;
 
 @Injectable({
   providedIn: 'root'
@@ -28,14 +29,14 @@ export class UserService {
     private router: Router,
     private ngZone: NgZone
     ) {
-      // this.googleInit();
+      this.googleInit();
   }
 
   get token():string{
     return localStorage.getItem('token') || '';
   }
 
-  get role(): 'SUPERADMIN' | 'ADMIN' | 'EDITOR' | 'USER' {
+  get role(): 'SUPERADMIN' | 'ADMIN' | 'EDITOR' | 'USER' | 'MEMBER' {
     return this.usuario.role;
   }
 
@@ -66,7 +67,8 @@ export class UserService {
 
       gapi.load('auth2', () =>{
         this.auth2 = gapi.auth2.init({
-          client_id: userGoogle,
+          // client_id: userGoogle,
+          client_id: '291137676127-svvuuca518djs47q2v78se9q6iggi4nq.apps.googleusercontent.com',
           cookiepolicy: 'single_host_origin',
         });
         resolve();
@@ -81,6 +83,7 @@ export class UserService {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     this.router.navigateByUrl('/login');
+
     this.auth2.signOut().then(()=>{
       this.ngZone.run(()=>{
         this.router.navigateByUrl('/login');
@@ -148,7 +151,7 @@ export class UserService {
     )
   }
 
-  loginGoogle(token){
+  loginGoogle(token){debugger
     return this.http.post(`${base_url}/auth/google`, {token})
     .pipe(
       tap((resp: any) => {
@@ -183,7 +186,7 @@ export class UserService {
       )
   }
 
-  getUserById(_id: string)  {
+  getUserById(_id: any)  {
     const url = `${base_url}/usuarios/${_id}`;
     return this.http.get<any>(url, this.headers)
       .pipe(
@@ -205,11 +208,11 @@ export class UserService {
       )
   }
 
-  getAllEditors(usuario:User)  {
-    const url = `${base_url}/usuarios/editores/${usuario.role}`;
+  getAllEditors()  {
+    const url = `${base_url}/usuarios/editores`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, usuarios: User}) => resp.usuarios)
+        map((resp:{ok: boolean, editores: User}) => resp.editores)
       )
   }
 

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Plan } from 'src/app/models/plan';
 import { MessageService } from 'src/app/services/message.service';
 import { PlanesService } from 'src/app/services/planes.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-planes-page',
@@ -19,6 +20,7 @@ export class PlanesPageComponent implements OnInit {
     private messageService: MessageService,
     private router: Router,
     private planesService: PlanesService,
+    private location: Location,
 
     ) { }
 
@@ -39,5 +41,9 @@ export class PlanesPageComponent implements OnInit {
     );
   }
 
+
+  goBack() {
+    this.location.back(); // <-- go back to previous location on cancel
+  }
 
 }

@@ -55,6 +55,35 @@
     flex-wrap: wrap;
 }
 
+
+.listgridHistorial,
+.listgrid{
+    display: grid;
+    width: 100%;
+    float: left;
+    height: auto;
+}
+
+.imagenblog{
+    grid-area: 1 / 1 / 1 / 1;
+}
+.titulourl{
+    grid-area: 1 / 2 / 2 / 2;
+
+}
+.date{
+    grid-area: 2 / 2 / 2 / 2;
+    margin-top: -20px;
+}
+.monto{
+    grid-area: 3 / 2 / 4 / 2;
+    /* margin-top: -30px; */
+}
+.status{
+    grid-area: 4 / 2 / 4 / 2;
+    /* margin-top: -30px; */
+}
+
 @media(min-width:1024px) {
     .listapermisos {
         grid-template-columns: repeat(1, 1fr);
@@ -77,6 +106,41 @@
     }
     .dragNDrop .div1 {
         width: 10rem !important;
+    }
+
+    .listgridHistorial{
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        grid-template-rows: repeat(5, auto);
+        grid-column-gap: 14px;
+        grid-row-gap: 0px;
+        text-align: left;
+        justify-content: flex-start;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 8px;
+        width: 44%;
+        float: left;
+        margin: 5px;
+        box-sizing: content-box;
+    }
+
+    .listgrid{
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        grid-template-rows: repeat(2, auto);
+        grid-column-gap: 14px;
+        grid-row-gap: 0px;
+        text-align: left;
+        justify-content: flex-start;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 8px;
+        width: 44%;
+    float: left;
+    height: 140px;
+    margin: 5px;
+    box-sizing: content-box;
     }
 }
 

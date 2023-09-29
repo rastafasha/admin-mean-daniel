@@ -35,7 +35,7 @@ export class EditoresComponent implements OnInit {
 
   getEditores(): void {
     // return this.planesService.carga_info();
-    this.userService.getAllEditors(this.editor).subscribe(
+    this.userService.getAllEditors().subscribe(
       res =>{
         this.editores = res;
         error => this.error = error;

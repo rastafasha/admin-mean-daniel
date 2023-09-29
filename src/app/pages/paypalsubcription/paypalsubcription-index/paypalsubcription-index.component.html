@@ -1,0 +1,96 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
+
+    <div class="col-xs-12">
+        <div class="leftside">
+            <!-- Page Title -->
+            <div class="pagetitle">
+                <h1><i class="bx bxs-user-account"></i> {{title}}</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/"><i class="fa fa-home"></i> Inicio</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/dashboard/paypal-subcription-home">Paypal :: Planes - Subcripciones</a></li>
+                        <li class="breadcrumb-item active">{{title}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End Page Title -->
+            <div class="buton">
+                <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+            </div>
+        </div>
+        
+        <div class="clear"></div>
+
+
+
+        <section class="section dashboard">
+
+
+            <!-- Recent Pagos -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-11 col-sm-11">
+                        <!-- buscador -->
+                        <!-- <app-search></app-search> -->
+                        <!-- buscador -->
+                    </div>
+                    <div class="col-xs-1 col-sm-1">
+                        <div class="text-right">
+                            <button class="btn btn-primary" (click)="irA()">
+                  <i class="fa fa-pencil"></i>
+                  Crear
+                </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card recent-sales overflow-auto">
+                    <div class="card-body">
+                        <table [ngClass]="loading? 'table table-borderless datatable':'table table-borderless'">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>product_id</th>
+                                    <th>Creado</th>
+                                    <th>Status</th>
+                                    <th class="text-nowrap">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let plan of plans.plans">
+
+                                    <td>{{plan.name}}</td>
+                                    <td>{{plan.product_id}}</td>
+                                    <td>{{plan.create_time}} </td>
+                                    
+                                    <td>
+                                        <!-- {{plan.status }} -->
+                                        <span class="badge bg-success" *ngIf="plan.status === 'ACTIVE'">Activo</span>
+                                        <span class="badge bg-danger" *ngIf="plan.status === 'INACTIVE'">Inactivo</span>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-success" *ngIf="plan.status == 'INACTIVE'" (click)="activar(plan.id)"><span class="fa fa-check"></span> Activar</button>
+                                        <button type="button" class="btn btn-primary" *ngIf="plan.status == 'ACTIVE'" (click)="desactivar(plan.id)"><span class="fa fa-check"></span> Desactivar</button>
+
+                                    </td>
+                                    <td class="text-nowrap text-center">
+                                        <a [routerLink]="['/dashboard/paypal-subcription/edit', plan.id]" class="cursor" data-toggle="tooltip" data-original-title="Edit">
+                                            <i class="fa fa-edit text-success" style="font-size: 18px;"></i>
+                                        </a>
+                                        <a (click)="eliminarPlan(plan.id)" class="cursor" data-toggle="tooltip" data-original-title="Borrar">
+                                            <i class="fa fa-trash text-danger" style="font-size: 18px; margin-left: 10px; margin-right: 10px;"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- End Recent Pagos -->
+
+        </section>
+
+    </div>
+</div>
+<!--/main-->

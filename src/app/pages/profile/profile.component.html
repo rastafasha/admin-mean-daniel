@@ -5,19 +5,20 @@
         <div class="leftside">
             <!-- Page Title -->
             <div class="pagetitle">
-                <h1><i class="bx bxs-user-account"></i> {{pageTitle}} </h1>
+                <h1><i class="bx bxs-user-account"></i> Mi Perfil </h1>
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a routerLink="/"><i class="fa fa-home"></i> Inicio</a></li>
-                        <li class="breadcrumb-item active">{{pageTitle}}</li>
+                        <li class="breadcrumb-item active">Mi Perfil</li>
                     </ol>
                 </nav>
             </div>
             <!-- End Page Title -->
+            <div class="buton">
+                <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+            </div>
         </div>
-        <div class="buton">
-            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
-        </div>
+        
         <div class="clear"></div>
 
         <section class="section profile">
@@ -39,6 +40,7 @@
                                 <span class="badge bg-dark-light" *ngIf="user.role === 'SUPERADMIN'">SuperAdmin</span>
                                 <span class="badge bg-primary" *ngIf="user.role === 'ADMIN'">Admin</span>
                                 <span class="badge bg-success" *ngIf="user.role === 'EDITOR'">Editor</span>
+                                <span class="badge bg-success" *ngIf="user.role === 'MEMBER'">Miembro</span>
                                 <span class="badge bg-secondary" *ngIf="user.role === 'USER'">Invitado</span>
                             </div>
 
@@ -58,8 +60,12 @@
                                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#perfil">Mi perfil</button>
                                 </li>
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">CambiarContraseña</button>
+                                    <button class="nav-link " *ngIf="usuario.role === 'EDITOR'|| usuario.role === 'SUPERADMIN' || usuario.role === 'ADMIN'" data-bs-toggle="tab" data-bs-target="#blogs">Mis Blogs Creados</button>
                                 </li>
+                                <!-- <li class="nav-item">
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">CambiarContraseña</button>
+                                </li> -->
+                                
                             </ul>
                             <div class="tab-content pt-2">
 
@@ -113,7 +119,7 @@
                                                 <div class="clear"></div>
                                                 <br>
 
-                                                <div class="col-xs-12" *ngIf="user.role == 'MEMBER' || user.role == 'EDITOR' || user.role == 'SUPERADMIN' || user.role == 'ADMIN'">
+                                                <div class="col-xs-12" *ngIf="user.role == 'EDITOR' || user.role == 'SUPERADMIN' || user.role == 'ADMIN'">
                                                     <h4>Tipos de Pago</h4>
                                                     <div class="col-xs-12 col-md-6">
                                                         <label for="exampleInputEmail1">Email Paypal </label>
@@ -249,6 +255,33 @@
                                         </div>
                                     </form> -->
                                     <!-- End Change Password Form -->
+                                </div>
+
+                                <div class="tab-pane fade  blogs" id="blogs">
+                                    <!-- <ul *ngFor="let payment of user.payments |  paginate: { itemsPerPage: count, currentPage: p }"> -->
+                                    <ul *ngFor="let blog of blogs" style="margin: 0; padding: 0;">
+                                        <li class="listgrid">
+                                            <div >
+                                                <div *ngIf="!blog.img " class="imagenblog">
+                                                    <img [src]="blog.img | imagenPipe: 'blogs'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                                </div>
+                                                <div *ngIf="blog.img" class="imagenblog">
+                                                    <img [src]="blog.img | imagenPipe: 'blogs'" style="height: 50px; width: 50px;" class="img-circle avatar">
+    
+                                                </div>
+                                            </div>
+                                            <a class="titulourl" [routerLink]="['/dashboard/post/edit', blog._id]">
+                                                Referencia: {{blog.name}} 
+                                              </a>
+                                              <span class="date">
+                                                Fecha: {{blog.createdAt | date:'MMM d, y, h:mm:ss a'}}
+                                              </span>
+                                        </li>
+                                    </ul>
+                                    <br />
+                                    <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+
+
                                 </div>
                             </div>
                             <!-- End Bordered Tabs -->

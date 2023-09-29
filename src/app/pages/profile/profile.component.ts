@@ -9,6 +9,8 @@ import { environment } from 'src/environments/environment';
 import { ProfileService } from 'src/app/services/profile.service';
 import { Profile } from 'src/app/models/profile';
 import { FileUploadService } from 'src/app/services/file-upload.service';
+import { Post } from 'src/app/models/post';
+import { PostService } from 'src/app/services/post.service';
 
 
 @Component({
@@ -51,6 +53,7 @@ export class ProfileComponent implements OnInit {
   public pass_error = false;
 
   public usuario: User;
+  public blogs: Post;
 
   public perfilForm: FormGroup;
   public imagenSubir: File;
@@ -69,7 +72,8 @@ export class ProfileComponent implements OnInit {
     private _router : Router,
     private profileService: ProfileService,
     private fb: FormBuilder,
-    private fileUploadService: FileUploadService
+    private fileUploadService: FileUploadService,
+    private postService: PostService,
 
   ) {
     this.usuario = this.userService.usuario;
@@ -116,6 +120,7 @@ export class ProfileComponent implements OnInit {
     
     this.activatedRoute.params.subscribe( ({id}) => this.listar(id));
     this.activatedRoute.params.subscribe( ({id}) => this.iniciarFormularioPerfil(id));
+    this.activatedRoute.params.subscribe( ({id}) => this.getBlogs(id));
 
   }
 
@@ -131,6 +136,16 @@ export class ProfileComponent implements OnInit {
       console.log('no hay registro')
     }
     
+  }
+
+  getBlogs(_id:string){
+    this.postService.getByUser(_id).subscribe(
+      res =>{
+        this.blogs = res;
+        error => this.error = error;
+        // console.log(this.blogs);
+      }
+    );
   }
 
 

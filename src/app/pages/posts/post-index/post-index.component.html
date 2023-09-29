@@ -14,10 +14,11 @@
                 </nav>
             </div>
             <!-- End Page Title -->
+            <div class="buton">
+                <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+            </div>
         </div>
-        <div class="buton">
-            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
-        </div>
+        
 
         <div class="clear"></div>
 
@@ -65,6 +66,7 @@
                                 <tr>
                                     <th>imagen</th>
                                     <th>title</th>
+                                    <th>Por</th>
                                     <th>Destacado?</th>
                                     <th>Precio</th>
                                     <th>Categoria</th>
@@ -88,12 +90,17 @@
                                         </div>
                                     </td>
                                     <td>{{blog.name}}</td>
+                                    <td><a [routerLink]="['/dashboard/user/', blog.usuario.uid]">
+                                        {{blog.usuario.username}} 
+                                    </a>
+                                    </td>
                                     <td>
                                         <span class="badge bg-success" *ngIf="blog.isFeatured === true">Si</span>
                                         <span class="badge bg-danger" *ngIf="blog.isFeatured === false">No</span>
                                     </td>
 
-                                    <td>{{blog.price}} </td>
+                                    
+                                    <td>{{blog.price|currency}} </td>
                                     <td>{{blog.categoria.nombre}} </td>
 
                                     <td>
