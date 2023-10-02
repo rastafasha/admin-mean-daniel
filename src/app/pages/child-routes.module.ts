@@ -36,6 +36,9 @@ import { PaypalsubcriptionIndexComponent } from './paypalsubcription/paypalsubcr
 import { PaypalhomeComponent } from './paypalsubcription/paypalhome/paypalhome.component';
 import { SubcriptionsComponent } from './paypalsubcription/subcriptions/subcriptions.component';
 import { SubcriptionComponent } from './paypalsubcription/subcription/subcription.component';
+import { PublicidadComponent } from './publicidad/publicidad/publicidad.component';
+import { LateralIndexComponent } from './publicidad/lateral/lateral-index/lateral-index.component';
+import { LateralEditComponent } from './publicidad/lateral/lateral-edit/lateral-edit.component';
 // import { CondicionesComponent } from './condiciones/condiciones.component';
 
 
@@ -112,6 +115,12 @@ const childRoutes: Routes = [
     { path: 'search/:searchItem', component: UsersComponent, data:{title:'Buscar'} },
     { path: 'help', component: HelpComponent, data:{title:'Ayuda'} },
     { path: 'contact', component: ContactComponent, data:{title:'Contacto'} },
+    
+    //publicidad
+    { path: 'publicidad', component: PublicidadComponent, data:{title:'publicidad'} },
+    { path: 'publicidad-lateral', component: LateralIndexComponent, data:{title:'publicidad'} },
+    { path: 'publicidad-lateral/create', component: LateralEditComponent, data:{title:'Editar publicidad'} },
+    { path: 'publicidad-lateral/edit/:id', component: LateralEditComponent, data:{title:'Editar publicidad'} },
 
 
     { path: '', redirectTo: 'admin', pathMatch: 'full' },

@@ -5,6 +5,8 @@ import { map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { generateSubcription, planPaypalSubcription, productPaypalSubcription } from '../models/planPaypalSubcription';
+import { User } from '../models/user';
+import { subcriptionPaypal } from '../models/subcriptionPaypal';
 
 const CLIENT = 'AQhKPBY5mgg0JustLJCcf6ncmd9RghCiNhXT_b6rNUakyQtnEn8MzCn_dkHAyt5n7_P0Omo5M05to5j0';
 const SECRET = 'EFFuT6X5iP76O94nCeLrILzQCtCpqDc1EbBUMDKlj34B_55Pk_f4reWcvmFArH4oQklbeHZdsunITll0';
@@ -22,6 +24,7 @@ export class PlanPaypalSubcriptionService {
   public planPaypal: planPaypalSubcription;
   public data: planPaypalSubcription;
   public generateSubcription: generateSubcription;
+  public subcription: subcriptionPaypal;
   public productPaypal: productPaypalSubcription;
 
   constructor(private http: HttpClient) { }
@@ -138,13 +141,6 @@ export class PlanPaypalSubcriptionService {
   }
   
 
-  //generateSubcriptionPaypal
-  generateSubcriptionPaypal(generateSubcription:generateSubcription) {
-    const url = `${baseUrl}/paypal/generate-subscription`;
-    return this.http.post(url, generateSubcription, this.headers);
-
-  }
-
   activar(id: planPaypalSubcription):Observable<any> {
     // const url = `${PAYPAL_API}/v1/billing/plans/${id}/activate`;
     const url = `${baseUrl}/paypal/activar-plan/${id}`;
@@ -167,6 +163,13 @@ export class PlanPaypalSubcriptionService {
         map((resp:{ok: boolean, subcriptionPaypals: planPaypalSubcription}) => resp.subcriptionPaypals)
       )
   }
+  getRecientes()  {
+    const url = `${baseUrl}/subcriptionpaypal/recientes`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp:{ok: boolean, subcriptions: planPaypalSubcription}) => resp.subcriptions)
+      )
+  }
 
   getSubcription(_id: string) {
     const url = `${baseUrl}/subcriptionpaypal/${_id}`;
@@ -174,6 +177,14 @@ export class PlanPaypalSubcriptionService {
       .pipe(
         map((resp:{ok: boolean, subcriptionPaypal: planPaypalSubcription}) => resp.subcriptionPaypal)
         );
+  }
+ 
+  getByUser(usuario:any) {
+    const url = `${baseUrl}/subcriptionpaypal/user_profile/${usuario}`;
+    return this.http.get<any>(url,this.headers)
+      .pipe(
+        map((resp:{ok: boolean, subcriptions: subcriptionPaypal}) => resp.subcriptions)
+      )
   }
   
 

@@ -58,6 +58,36 @@
                         </div>
                     </div>
                 </div>
+                <!---subcripciones-->
+                <div class="col-6 ">
+                    <div class="card shadow-sm ">
+                        <div class="card-body">
+                            <h4 class="card-title">Subcripciones</h4>
+                            <div class="alert alert-info" *ngIf="!subcriptions">
+                                <p class="mb-0"> No hay pagos con ese termino</p>
+                            </div>
+                            <div class="table-responsive" *ngIf="pagos">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Order Id</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let subcripcion of subcriptions" class="animated fadeIn fast cursor">
+                                            
+                                            <td>
+                                                <a [routerLink]="['/dashboard/user/', subcripcion.usuario]">
+                                                    {{subcripcion.orderID }}</a>
+                                                
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!---pagos-->
                 <div class="col-6 ">
                     <div class="card shadow-sm ">

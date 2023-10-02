@@ -28,6 +28,7 @@
 }
 
 :root {
+    --vinotinto: #930b32;
     --azul: #353888;
     --azulclaro: #4a77e2;
     --morado: #774477;
@@ -52,6 +53,10 @@ hr {
     margin-bottom: 1rem;
     border: 0;
     border-top: 1px solid rgba(0, 0, 0, .1);
+}
+
+a{
+    color: var(--vinotinto);
 }
 
 img.avatar {
@@ -183,6 +188,14 @@ img.avatar {
     min-height: 100vh;
     font-family: 'Jost', sans-serif;
     background: linear-gradient(to bottom, #0f0c29, var(--azul), var(--azulclaro));
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: var(--vinotinto);
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link {
+    color: var(--azul);
 }
 
 @media (min-width: 1024px) {

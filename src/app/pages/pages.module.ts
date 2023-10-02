@@ -20,8 +20,6 @@ import { ComponentsModule } from '../components/components.module';
 
 // paginacion
 // import { NgxPaginationModule } from 'ngx-pagination';
-// Import Angular plugin.
-// import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 //paypal
 // import { NgxPayPalModule } from 'ngx-paypal';
 // import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -51,7 +49,9 @@ import { BannerEditComponent } from './banner/banner-edit/banner-edit.component'
 import { BannerIndexComponent } from './banner/banner-index/banner-index.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
 import { PaypalsubcriptionModule } from './paypalsubcription/paypalsubcription.module';
-import { CursosModule } from './cursos/cursos.module';
+// import { CursosModule } from './cursos/cursos.module';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { PublicidadModule } from './publicidad/publicidad.module';
 
 @NgModule({
   declarations: [
@@ -114,9 +114,10 @@ import { CursosModule } from './cursos/cursos.module';
     ConfModule,
     ComponentsModule,
     PaypalsubcriptionModule,
-    CursosModule
+    PublicidadModule,
+    // CursosModule,
     // NgxPaginationModule,
-    // CKEditorModule,
+    CKEditorModule,
     // AngularFileUploaderModule,
 
   ],

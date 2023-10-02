@@ -76,7 +76,8 @@ File: scss
 *******************/
 
 a {
-    color: #398bf7;
+    /* color: #398bf7; */
+    color: var(--vinotinto)
 }
 
 a.link:hover,

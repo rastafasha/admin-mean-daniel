@@ -46,10 +46,14 @@
 .imagenblog{
     grid-area: 1 / 1 / 1 / 1;
 }
+
 .titulourl{
     grid-area: 1 / 2 / 2 / 2;
 
 }
+
+
+
 .date{
     grid-area: 2 / 2 / 2 / 2;
     margin-top: -20px;
@@ -62,6 +66,23 @@
     grid-area: 4 / 2 / 4 / 2;
     /* margin-top: -30px; */
 }
+
+
+.listgridSubcripcione{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 14px;
+    background-color: #fafafa;
+    width: 44%;
+    float: left;
+    box-sizing: content-box;
+    margin: 3px;
+}
+
+
+
 
 @media(min-width:1024px) {
     .detail .col-sm-8,

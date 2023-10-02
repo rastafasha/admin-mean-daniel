@@ -84,6 +84,20 @@
     /* margin-top: -30px; */
 }
 
+.listgridSubcripcione{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 14px;
+    background-color: #fafafa;
+    width: 43%;
+    float: left;
+    box-sizing: content-box;
+    margin: 3px;
+}
+
+
 @media(min-width:1024px) {
     .listapermisos {
         grid-template-columns: repeat(1, 1fr);

@@ -7,6 +7,7 @@ import { User } from 'src/app/models/user';
 import { BusquedasService } from 'src/app/services/busqueda.service';
 
 import { Location } from '@angular/common';
+import { planPaypalSubcription } from 'src/app/models/planPaypalSubcription';
 
 @Component({
   selector: 'app-busqueda',
@@ -21,6 +22,7 @@ export class BusquedaComponent implements OnInit {
   usuarios: User;
   blogs: Post;
   pagos: Payment;
+  subcriptions: planPaypalSubcription;
 
   query:string ='';
 
@@ -46,6 +48,7 @@ export class BusquedaComponent implements OnInit {
         this.categorias = resp.categorias;
         this.blogs = resp.blogs;
         this.pagos = resp.pagos;
+        this.subcriptions = resp.subcriptions;
       }
     )
   }
@@ -61,6 +64,7 @@ export class BusquedaComponent implements OnInit {
         this.categorias = resp.categorias;
         this.blogs = resp.blogs;
         this.pagos = resp.pagos;
+        this.subcriptions = resp.subcriptions;
       
           
         }

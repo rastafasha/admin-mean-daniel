@@ -12,9 +12,14 @@ import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
 //ckeditor
+
 import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 const baseUrl = environment.apiUrl;
+
+interface HtmlInputEvent extends Event{
+  target : HTMLInputElement & EventTarget;
+}
 
 @Component({
   selector: 'app-post-edit',
@@ -26,8 +31,9 @@ export class PostEditComponent implements OnInit {
   /**
    * Editor type area wyswyg
    */
+  // public Editor = ClassicEditor;
   public Editor = DecoupledEditor;
-   public editorData = `<p>This is a CKEditor 5 WYSIWYG editor instance created with Angular.</p>`;
+  public editorData = `<p>This is a CKEditor 5 WYSIWYG editor instance created with Angular.</p>`;
 
 
   public postForm: FormGroup;
@@ -84,6 +90,8 @@ export class PostEditComponent implements OnInit {
     this.activatedRoute.params.subscribe( ({id}) => this.getPost(id));
     window.scrollTo(0,0);
   }
+
+  
 
   getUser(): void {
 

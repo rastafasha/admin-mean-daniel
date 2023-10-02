@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   //apirest local
-  apiUrl: "http://localhost:3000/api",
-  apiUrlMedia: "http://localhost:3000/api/uploads",
+  apiUrl: "http://localhost:5001/api",
+  apiUrlMedia: "http://localhost:5001/api/uploads/",
   //remoto
   // apiUrl: "https://backend-daniel-node-mongo.vercel.app/api",
   // apiUrlMedia: "https://backend-daniel-node-mongo.vercel.app/storage/app",

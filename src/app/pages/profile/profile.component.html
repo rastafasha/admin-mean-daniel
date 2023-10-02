@@ -60,6 +60,9 @@
                                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#perfil">Mi perfil</button>
                                 </li>
                                 <li class="nav-item">
+                                    <button class="nav-link "  data-bs-toggle="tab" data-bs-target="#subcriptions">Mis Subcripciones</button>
+                                </li>
+                                <li class="nav-item">
                                     <button class="nav-link " *ngIf="usuario.role === 'EDITOR'|| usuario.role === 'SUPERADMIN' || usuario.role === 'ADMIN'" data-bs-toggle="tab" data-bs-target="#blogs">Mis Blogs Creados</button>
                                 </li>
                                 <!-- <li class="nav-item">
@@ -278,6 +281,33 @@
                                               </span>
                                         </li>
                                     </ul>
+                                    <br />
+                                    <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+
+
+                                </div>
+                                <div class="tab-pane fade  blogs" id="subcriptions">
+                                    <!-- <ul *ngFor="let payment of user.payments |  paginate: { itemsPerPage: count, currentPage: p }"> -->
+                                        <ul *ngFor="let subcription of subcriptions" style="margin: 0; padding: 0;" >
+
+                                            <li class="listgridSubcripcione">
+                                                <span class="orderId">
+                                                    orderID: {{subcription.orderID}}
+                                                </span>
+                                                <span class="planid">
+                                                    plan_id: {{subcription.plan_id}}
+                                                </span>
+                                                  <span class="dates">
+                                                    Fecha: {{subcription.createdAt | date:'MMM d, y, h:mm:ss a'}}
+                                                  </span>
+                                                  <span class="montos">
+                                                    Monto: {{subcription.monto | currency}}
+                                                  </span>
+                                                  <span class="statuss">
+                                                    status: {{subcription.status }}
+                                                  </span>
+                                            </li>
+                                        </ul>
                                     <br />
                                     <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
 

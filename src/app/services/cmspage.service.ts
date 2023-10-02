@@ -38,7 +38,7 @@ export class CmspageService {
   }
 
   contactForm(data:any):Observable<any>{
-    const url = `${this.ServerUrl}/contactos`;
+    const url = `${this.ServerUrl}/contactos/crear`;
     return this.http.post(url, data, this.headers);
   }
 

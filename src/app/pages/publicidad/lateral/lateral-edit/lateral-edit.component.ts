@@ -10,30 +10,20 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Banner } from 'src/app/models/banner';
 import { BannerService } from 'src/app/services/banner.service';
 import { FileUploadService } from 'src/app/services/file-upload.service';
+import { Sideadvice } from 'src/app/models/sideadvice';
+import { SideadviceService } from 'src/app/services/sideadvice.service';
 const baseUrl = environment.apiUrl;
 
-//ckeditor
-import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
-import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
-
 @Component({
-  selector: 'app-banner-edit',
-  templateUrl: './banner-edit.component.html',
-  styleUrls: ['./banner-edit.component.css']
+  selector: 'app-lateral-edit',
+  templateUrl: './lateral-edit.component.html',
+  styleUrls: ['./lateral-edit.component.css']
 })
-export class BannerEditComponent implements OnInit {
+export class LateralEditComponent implements OnInit {
 
+   public sideadviceForm: FormGroup;
 
-   /**
-   * Editor type area wyswyg
-   */
-   public Editor = DecoupledEditor;
-   public editorData = `<p>This is a CKEditor 5 WYSIWYG editor instance created with Angular.</p>`;
-
-
-   public bannerForm: FormGroup;
-
-   public banner: Banner;
+   public sideadvice: Sideadvice;
 
    public imgSelect : String | ArrayBuffer;
   public imagenSubir: File;
@@ -53,11 +43,10 @@ export class BannerEditComponent implements OnInit {
    constructor(
      private fb: FormBuilder,
      private router: Router,
-     private bannerService: BannerService,
+     private sideadviceService: SideadviceService,
      private location: Location,
      private activatedRoute: ActivatedRoute,
      private userService: UserService,
-     private sanitizer: DomSanitizer,
      private fileUploadService: FileUploadService,
      ) {
        this.user = this.userService.usuario;
@@ -78,63 +67,42 @@ export class BannerEditComponent implements OnInit {
 
    getBanner(_id: string){
      if (_id !== null && _id !== undefined) {
-       this.titlePage = 'Editando Banner';
-       this.bannerService.getBanner(_id).subscribe(
+       this.titlePage = 'Editando Publicidad Lateral';
+       this.sideadviceService.getBanner(_id).subscribe(
          res => {
-           this.bannerForm.patchValue({
+           this.sideadviceForm.patchValue({
              id: res._id,
              titulo: res.titulo,
              target: res.target,
-             gotBoton: res.gotBoton,
-             botonName: res.botonName,
              url: res.url,
              img : res.img,
-             description: res.description,
            });
-           this.banner = res;
-          //  console.log(this.banner);
+           this.sideadvice = res;
+          //  console.log(this.sideadvice);
          }
        );
      } else {
-       this.titlePage = 'Creando Banner';
+       this.titlePage = 'Creando Publicidad Lateral';
      }
    }
 
    validarFormulario(){
-     this.bannerForm = this.fb.group({
+     this.sideadviceForm = this.fb.group({
        titulo: ['', Validators.required],
-       description: [''],
        target: ['', Validators.required],
-       gotBoton: ['', Validators.required],
-       botonName: [''],
        url: [''],
      })
    }
    get titulo() {
-     return this.bannerForm.get('titulo');
+     return this.sideadviceForm.get('titulo');
    }
 
-   get description() {
-     return this.bannerForm.get('description');
-   }
    get target() {
-    return this.bannerForm.get('target');
+    return this.sideadviceForm.get('target');
   }
-   get gotBoton() {
-     return this.bannerForm.get('gotBoton');
-   }
-
-   get botonName() {
-     return this.bannerForm.get('botonName');
-   }
    get url() {
-     return this.bannerForm.get('url');
+     return this.sideadviceForm.get('url');
    }
-
-  //  get img() {
-  //    return this.bannerForm.get('img');
-  //  }
-
 
    cambiarImagen(file: File){
     this.imagenSubir = file;
@@ -153,8 +121,8 @@ export class BannerEditComponent implements OnInit {
 
   subirImagen(){
     this.fileUploadService
-    .actualizarFoto(this.imagenSubir, 'banners', this.banner._id)
-    .then(img => { this.banner.img = img;
+    .actualizarFoto(this.imagenSubir, 'sideadvertisings', this.sideadvice._id)
+    .then(img => { this.sideadvice.img = img;
       Swal.fire('Guardado', 'La imagen fue actualizada', 'success');
 
     }).catch(err =>{
@@ -163,66 +131,44 @@ export class BannerEditComponent implements OnInit {
     })
   }
 
-
-
-
-
    editCurso(){
 
      const formData = new FormData();
-     formData.append('titulo', this.bannerForm.get('titulo').value);
-     formData.append('target', this.bannerForm.get('target').value);
-     formData.append('gotBoton', this.bannerForm.get('gotBoton').value);
-     formData.append('botonName', this.bannerForm.get('botonName').value);
-     formData.append('description', this.bannerForm.get('description').value);
-     formData.append('url', this.bannerForm.get('url').value);
+     formData.append('titulo', this.sideadviceForm.get('titulo').value);
+     formData.append('target', this.sideadviceForm.get('target').value);
+     formData.append('url', this.sideadviceForm.get('url').value);
 
 
-     if(this.banner){
+     if(this.sideadvice){
        //actualizar
        const data = {
-         ...this.bannerForm.value,
-         _id: this.banner._id
+         ...this.sideadviceForm.value,
+         _id: this.sideadvice._id
        }
 
-       this.bannerService.updateBanner(data).subscribe(
+       this.sideadviceService.updateBanner(data).subscribe(
          resp =>{
            Swal.fire('Actualizado', `Actualizado correctamente`, 'success');
-           this.router.navigateByUrl(`/dashboard/banners`);
+           this.router.navigateByUrl(`/dashboard/publicidad-lateral`);
          });
 
      }else{
        //crear
      const data = {
-       ...this.bannerForm.value
+       ...this.sideadviceForm.value
      }
-       this.bannerService.createBanner(data).subscribe(
+       this.sideadviceService.createBanner(data).subscribe(
          (resp: any) =>{
          Swal.fire('Creado', ` creado correctamente`, 'success');
-         this.router.navigateByUrl(`/dashboard/banners`);
+         this.router.navigateByUrl(`/dashboard/publicidad-lateral`);
        });
      }
      return false;
    }
 
 
-goBack() {
-  this.location.back(); // <-- go back to previous location on cancel
-}
-
-
-
-
-   //ckeditor
-
-   public onReady( editor ) {
-     editor.ui.getEditableElement().parentElement.insertBefore(
-         editor.ui.view.toolbar.element,
-         editor.ui.getEditableElement()
-     );
-
-
-   }
-
+  goBack() {
+    this.location.back(); // <-- go back to previous location on cancel
+  }
 
 }
