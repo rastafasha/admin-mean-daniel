@@ -10,6 +10,7 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
 import { SubcriptionsComponent } from './subcriptions/subcriptions.component';
 import { SubcriptionComponent } from './subcription/subcription.component';
 import { PaypalhomeComponent } from './paypalhome/paypalhome.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -36,7 +37,7 @@ import { PaypalhomeComponent } from './paypalhome/paypalhome.component';
     RouterModule,
     HttpClientModule,
     PipesModule,
-    // NgxPaginationModule,
+    NgxPaginationModule,
   ]
 })
 export class PaypalsubcriptionModule { }

@@ -65,8 +65,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- <tr *ngFor="let sideadvice of sideadvices |  paginate: { itemsPerPage: count, currentPage: p }"> -->
-                                <tr *ngFor="let sideadvice of sideadvices ">
+                                <tr *ngFor="let sideadvice of sideadvices |  paginate: { itemsPerPage: count, currentPage: p }">
+                                
                                     <td>
                                         <div class="image">
                                             <div *ngIf="!sideadvice.img ">
@@ -102,7 +102,7 @@
                             </tbody>
 
                         </table>
-                        <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
 
                     </div>
 

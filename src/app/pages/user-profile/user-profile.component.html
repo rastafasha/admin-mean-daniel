@@ -200,9 +200,9 @@
                                     </div>
                                     <div class="clear"></div>
                                 </div>
+                                <!-- compras -->
                                 <div class="tab-pane fade  historial" id="historial">
-                                    <!-- <ul *ngFor="let payment of user.payments |  paginate: { itemsPerPage: count, currentPage: p }"> -->
-                                    <ul *ngFor="let payment of pagos" >
+                                    <ul *ngFor="let payment of pagos |  paginate: { itemsPerPage: count, currentPage: p }">
 
                                         <li class="listgridHistorial">
                                             <div class="imagenblog" >
@@ -226,13 +226,15 @@
                                         </li>
                                     </ul>
                                     <br />
-                                    <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+                                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
 
 
                                 </div>
+                                <!-- subcripciones -->
+
                                 <div class="tab-pane fade historial  subcripciones" id="subcripciones">
-                                    <!-- <ul *ngFor="let payment of user.payments |  paginate: { itemsPerPage: count, currentPage: p }"> -->
-                                    <ul *ngFor="let subcription of subcriptions" >
+                                    <ul *ngFor="let subcription of subcriptions |  paginate: { itemsPerPage: count, currentPage: p }">
+                                    
 
                                         <li class="listgridSubcripcione">
                                             <span class="orderId">
@@ -253,14 +255,14 @@
                                         </li>
                                     </ul>
                                     <br />
-                                    <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+                                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
 
 
                                 </div>
-
+                                <!-- blogs -->
                                 <div class="tab-pane fade  blogs" id="blogs">
-                                    <!-- <ul *ngFor="let payment of user.payments |  paginate: { itemsPerPage: count, currentPage: p }"> -->
-                                    <ul *ngFor="let blog of blogs" style="margin: 0; padding: 0;">
+                                    <ul *ngFor="let blog of blogs|  paginate: { itemsPerPage: count, currentPage: p }" style="margin: 0; padding: 0;">
+                                    
                                         <li class="listgrid">
                                             <div >
                                                 <div *ngIf="!blog.img " class="imagenblog">
@@ -280,7 +282,7 @@
                                         </li>
                                     </ul>
                                     <br />
-                                    <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+                                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
 
 
                                 </div>

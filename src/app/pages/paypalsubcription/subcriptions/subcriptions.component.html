@@ -60,7 +60,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let subcripcion of subcriptions">
+                                <tr *ngFor="let subcripcion of subcriptions |  paginate: { itemsPerPage: count, currentPage: p }">
 
                                     <td>
                                         <a [routerLink]="['/dashboard/paypal-subcription/', subcripcion._id]">
@@ -82,7 +82,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
                     </div>
                 </div>
             </div>

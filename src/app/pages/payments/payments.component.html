@@ -65,8 +65,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- <tr *ngFor="let pago of pagos |  paginate: { itemsPerPage: count, currentPage: p }"> -->
-                                <tr *ngFor="let pago of pagos ">
+                                <tr *ngFor="let pago of pagos |  paginate: { itemsPerPage: count, currentPage: p }">
+                                
                                     <td>
                                         <img [src]="pago.img | imagenPipe: 'pagos'" style="width:60px; height: 60px;" alt="">
                                     </td>
@@ -85,21 +85,12 @@
                                         <span class="badge bg-danger" *ngIf="pago.validacion === 'REJECTED'">Rechazado</span>
                                     </td>
                                     <td>{{pago.createdAt | date:'MMM d, y, h:mm:ss a'}}</td>
-                                    <!-- <td>
-                                        <div class="form-check form-switch" title="Verificar">
-                                            <a [routerLink]="['/dashboard/payment/edit/', pago._id]">
-                                                <button class="btn btn-success">Editar</button>
-                                            </a>
-
-                                        </div>
-
-                                    </td> -->
                                 </tr>
 
 
                             </tbody>
                         </table>
-                        <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
                     </div>
 
                 </div>

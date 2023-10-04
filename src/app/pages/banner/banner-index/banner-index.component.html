@@ -65,8 +65,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- <tr *ngFor="let banner of banners |  paginate: { itemsPerPage: count, currentPage: p }"> -->
-                                <tr *ngFor="let banner of banners ">
+                                <tr *ngFor="let banner of banners |  paginate: { itemsPerPage: count, currentPage: p }">
                                     <td>
                                         <div class="image">
                                             <div *ngIf="!banner.img ">
@@ -103,7 +102,7 @@
                             </tbody>
 
                         </table>
-                        <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
 
                     </div>
 

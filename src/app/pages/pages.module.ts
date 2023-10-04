@@ -19,7 +19,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { ComponentsModule } from '../components/components.module';
 
 // paginacion
-// import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 //paypal
 // import { NgxPayPalModule } from 'ngx-paypal';
 // import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -116,7 +116,7 @@ import { PublicidadModule } from './publicidad/publicidad.module';
     PaypalsubcriptionModule,
     PublicidadModule,
     // CursosModule,
-    // NgxPaginationModule,
+    NgxPaginationModule,
     CKEditorModule,
     // AngularFileUploaderModule,
 

@@ -15,10 +15,11 @@
             </div>
             <!-- End Page Title -->
             <div class="buton">
-                <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+                <button class="btn btn-outline-danger pull-right" href="javascript:void(0)"
+                    (click)="goBack()">Volver</button>
             </div>
         </div>
-        
+
         <div class="clear"></div>
 
         <section class="section profile">
@@ -31,7 +32,8 @@
                                 <img src="./assets/images/no-image.jpg" class="rounded-circle">
                             </div>
                             <div *ngIf="profileSeleccionado ">
-                                <img [src]="profile.img | imagenPipe: 'profiles'" [alt]="user.username" class="rounded-circle">
+                                <img [src]="profile.img | imagenPipe: 'profiles'" [alt]="user.username"
+                                    class="rounded-circle">
                             </div>
                             <div class="inffichasmall">
                                 <h2>{{user.username}}</h2>
@@ -57,37 +59,44 @@
                             <!-- Bordered Tabs -->
                             <ul class="nav nav-tabs nav-tabs-bordered">
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#perfil">Mi perfil</button>
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#perfil">Mi
+                                        perfil</button>
                                 </li>
                                 <li class="nav-item">
-                                    <button class="nav-link "  data-bs-toggle="tab" data-bs-target="#subcriptions">Mis Subcripciones</button>
+                                    <button class="nav-link " data-bs-toggle="tab" data-bs-target="#subcriptions">Mis
+                                        Subcripciones</button>
                                 </li>
                                 <li class="nav-item">
-                                    <button class="nav-link " *ngIf="usuario.role === 'EDITOR'|| usuario.role === 'SUPERADMIN' || usuario.role === 'ADMIN'" data-bs-toggle="tab" data-bs-target="#blogs">Mis Blogs Creados</button>
+                                    <button class="nav-link "
+                                        *ngIf="usuario.role === 'EDITOR'|| usuario.role === 'SUPERADMIN' || usuario.role === 'ADMIN'"
+                                        data-bs-toggle="tab" data-bs-target="#blogs">Mis Blogs Creados</button>
                                 </li>
                                 <!-- <li class="nav-item">
                                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">CambiarContraseña</button>
                                 </li> -->
-                                
+
                             </ul>
                             <div class="tab-content pt-2">
 
                                 <div class="tab-pane fade show active perfil" id="perfil">
 
 
-                                    <form class="form-horizontal form-material" (ngSubmit)="guardarPerfil()" [formGroup]="perfilForm">
+                                    <form class="form-horizontal form-material" (ngSubmit)="guardarPerfil()"
+                                        [formGroup]="perfilForm">
                                         <div class="row">
 
 
                                             <div class="col-xs-12 col-sm-6 col-md-8">
                                                 <div class="col-xs-12 col-md-6">
                                                     <label>Nombres <span class="required">*</span></label>
-                                                    <input type="text" formControlName="first_name"  class="form-control" required>
+                                                    <input type="text" formControlName="first_name" class="form-control"
+                                                        required>
 
                                                 </div>
                                                 <div class="col-xs-12 col-md-6">
                                                     <label>Apellidos <span class="required">*</span></label>
-                                                    <input type="text" formControlName="last_name" class="form-control" required>
+                                                    <input type="text" formControlName="last_name" class="form-control"
+                                                        required>
 
                                                 </div>
 
@@ -106,31 +115,39 @@
                                                 </div>
 
                                                 <div class="col-xs-12 col-md-6">
-                                                    <label for="exampleInputEmail1">Teléfonos Principal  <span class="required">*</span></label>
-                                                    <input type="text" formControlName="telhome" class="form-control" required>
+                                                    <label for="exampleInputEmail1">Teléfonos Principal <span
+                                                            class="required">*</span></label>
+                                                    <input type="text" formControlName="telhome" class="form-control"
+                                                        required>
 
                                                 </div>
                                                 <div class="col-xs-12 col-md-6">
-                                                    <label for="exampleInputEmail1">Teléfonos Móvil  </label>
+                                                    <label for="exampleInputEmail1">Teléfonos Móvil </label>
                                                     <input type="text" formControlName="telmovil" class="form-control">
 
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1">Descripcion Corta (maximo 50 carateres: ejemplo: padre, deportista, escritor)<span class="required">*</span></label>
-                                                    <textarea formControlName="shortdescription" id="shortdescription" cols="30" rows="4" class="form-control"></textarea>
+                                                    <label for="exampleInputEmail1">Descripcion Corta (maximo 50
+                                                        carateres: ejemplo: padre, deportista, escritor)<span
+                                                            class="required">*</span></label>
+                                                    <textarea formControlName="shortdescription" id="shortdescription"
+                                                        cols="30" rows="4" class="form-control"></textarea>
                                                 </div>
                                                 <div class="clear"></div>
                                                 <br>
 
-                                                <div class="col-xs-12" *ngIf="user.role == 'EDITOR' || user.role == 'SUPERADMIN' || user.role == 'ADMIN'">
+                                                <div class="col-xs-12"
+                                                    *ngIf="user.role == 'EDITOR' || user.role == 'SUPERADMIN' || user.role == 'ADMIN'">
                                                     <h4>Tipos de Pago</h4>
                                                     <div class="col-xs-12 col-md-6">
                                                         <label for="exampleInputEmail1">Email Paypal </label>
-                                                        <input type="text" formControlName="emailPaypal" class="form-control">
+                                                        <input type="text" formControlName="emailPaypal"
+                                                            class="form-control">
                                                     </div>
                                                     <div class="col-xs-12 col-md-6">
                                                         <label for="exampleInputEmail1">Nombre Paypal </label>
-                                                        <input type="text" formControlName="nombrePaypal" class="form-control">
+                                                        <input type="text" formControlName="nombrePaypal"
+                                                            class="form-control">
                                                     </div>
                                                     <!-- <div class="col-xs-12 col-md-6">
                                                         <label for="exampleInputEmail1">Email Binance </label>
@@ -151,30 +168,38 @@
                                                     <div class="redes">
                                                         <div class="col-xs-12 col-md-6">
                                                             <label for="facebook" class="col-xs-12 col-form-label">
-                                <i class="bi bi-facebook"></i> Facebook</label>
+                                                                <i class="bi bi-facebook"></i> Facebook</label>
                                                             <div class="col-11">
-                                                                <input type="text" class="form-control" formControlName="facebook" placeholder="@nombredeusuario">
+                                                                <input type="text" class="form-control"
+                                                                    formControlName="facebook"
+                                                                    placeholder="@nombredeusuario">
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-12 col-md-6">
                                                             <label for="instagram" class="col-xs-12 col-form-label">
-                              <i class="bi bi-instagram"></i> Instagram</label>
+                                                                <i class="bi bi-instagram"></i> Instagram</label>
                                                             <div class="col-11">
-                                                                <input type="text" class="form-control" formControlName="instagram" placeholder="@nombredeusuario">
+                                                                <input type="text" class="form-control"
+                                                                    formControlName="instagram"
+                                                                    placeholder="@nombredeusuario">
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-12 col-md-6">
                                                             <label for="twitter" class="col-xs-12 col-form-label">
-                            <i class="bi bi-twitter"></i> Twitter</label>
+                                                                <i class="bi bi-twitter"></i> Twitter</label>
                                                             <div class="col-11">
-                                                                <input type="text" class="form-control" formControlName="twitter" placeholder="@nombredeusuario">
+                                                                <input type="text" class="form-control"
+                                                                    formControlName="twitter"
+                                                                    placeholder="@nombredeusuario">
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-12 col-md-6">
                                                             <label for="linkedin" class="col-xs-12 col-form-label">
-                          <i class="bi bi-linkedin"></i> Linkedin</label>
+                                                                <i class="bi bi-linkedin"></i> Linkedin</label>
                                                             <div class="col-11">
-                                                                <input type="text" class="form-control" formControlName="linkedin" placeholder="@nombredeusuario">
+                                                                <input type="text" class="form-control"
+                                                                    formControlName="linkedin"
+                                                                    placeholder="@nombredeusuario">
                                                             </div>
                                                         </div>
 
@@ -184,39 +209,44 @@
                                             <div class="col-xs-12 col-sm-6 col-md-4">
 
                                                 <div class="col-xs-12">
-                            <div class="especificaciones" *ngIf="!profileSeleccionado">
-                                <h4>Debe Crear un post para agregar la imagen</h4>
+                                                    <div class="especificaciones" *ngIf="!profileSeleccionado">
+                                                        <h4>Debe Crear un post para agregar la imagen</h4>
 
-                            </div>
-                            <div class="especificaciones" *ngIf="profileSeleccionado">
-                                <h4>Especificaciones:</h4>
-                                <ul>
-                                    <li>Tamaño máximo: 300px X 300px</li>
-                                    <li>Peso máximo: 2 mb</li>
-                                    <li>Formato permitido: jpg, .gif, .png</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-xs-12" *ngIf="profile">
-                            <div class="text-center">
-                                <img *ngIf="!imgTemp " [src]="profile.img | imagenPipe: 'profiles'" class="img-responsive img-thumbnail" alt="">
-                                <!-- <img *ngIf="post.img" [src]="post.img | imagenPipe: 'blogs'" class="img-responsive img-thumbnail" alt=""> -->
-                                <img *ngIf="imgTemp" [src]="imgTemp" class="img-responsive">
-                            </div>
-                            <input type="file" (change)="cambiarImagen($event.target.files[0])">
-                            <br>
-                            <br>
-                            <button type="button" [disabled]="!imagenSubir" (click)="subirImagen()" class="btn btn-success waves-effect waves-light m-r-10 btn-block">
-              <i class="fa fa-save"></i> Cambiar imagen
-             </button>
-                        </div>
+                                                    </div>
+                                                    <div class="especificaciones" *ngIf="profileSeleccionado">
+                                                        <h4>Especificaciones:</h4>
+                                                        <ul>
+                                                            <li>Tamaño máximo: 300px X 300px</li>
+                                                            <li>Peso máximo: 2 mb</li>
+                                                            <li>Formato permitido: jpg, .gif, .png</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12" *ngIf="profile">
+                                                    <div class="text-center">
+                                                        <img *ngIf="!imgTemp "
+                                                            [src]="profile.img | imagenPipe: 'profiles'"
+                                                            class="img-responsive img-thumbnail" alt="">
+                                                        <!-- <img *ngIf="post.img" [src]="post.img | imagenPipe: 'blogs'" class="img-responsive img-thumbnail" alt=""> -->
+                                                        <img *ngIf="imgTemp" [src]="imgTemp" class="img-responsive">
+                                                    </div>
+                                                    <input type="file" (change)="cambiarImagen($event.target.files[0])">
+                                                    <br>
+                                                    <br>
+                                                    <button type="button" [disabled]="!imagenSubir"
+                                                        (click)="subirImagen()"
+                                                        class="btn btn-success waves-effect waves-light m-r-10 btn-block">
+                                                        <i class="fa fa-save"></i> Cambiar imagen
+                                                    </button>
+                                                </div>
 
                                             </div>
 
                                         </div>
 
                                         <input type="hidden" formControlName="id">
-                                        <button class="btn btn-outline-success waves-effect waves-light m-r-10" type="submit" (click)="guardarPerfil()">Guardar</button>
+                                        <button class="btn btn-outline-success waves-effect waves-light m-r-10"
+                                            type="submit" (click)="guardarPerfil()">Guardar</button>
 
 
                                     </form>
@@ -261,55 +291,59 @@
                                 </div>
 
                                 <div class="tab-pane fade  blogs" id="blogs">
-                                    <!-- <ul *ngFor="let payment of user.payments |  paginate: { itemsPerPage: count, currentPage: p }"> -->
-                                    <ul *ngFor="let blog of blogs" style="margin: 0; padding: 0;">
+                                    <ul *ngFor="let blog of blogs |  paginate: { itemsPerPage: count, currentPage: p }"
+                                        style="margin: 0; padding: 0;">
+
                                         <li class="listgrid">
-                                            <div >
+                                            <div>
                                                 <div *ngIf="!blog.img " class="imagenblog">
-                                                    <img [src]="blog.img | imagenPipe: 'blogs'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                                    <img [src]="blog.img | imagenPipe: 'blogs'"
+                                                        style="height: 50px; width: 50px;" class="img-circle avatar">
                                                 </div>
                                                 <div *ngIf="blog.img" class="imagenblog">
-                                                    <img [src]="blog.img | imagenPipe: 'blogs'" style="height: 50px; width: 50px;" class="img-circle avatar">
-    
+                                                    <img [src]="blog.img | imagenPipe: 'blogs'"
+                                                        style="height: 50px; width: 50px;" class="img-circle avatar">
+
                                                 </div>
                                             </div>
                                             <a class="titulourl" [routerLink]="['/dashboard/post/edit', blog._id]">
-                                                Referencia: {{blog.name}} 
-                                              </a>
-                                              <span class="date">
+                                                Referencia: {{blog.name}}
+                                            </a>
+                                            <span class="date">
                                                 Fecha: {{blog.createdAt | date:'MMM d, y, h:mm:ss a'}}
-                                              </span>
+                                            </span>
                                         </li>
                                     </ul>
                                     <br />
-                                    <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+                                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
 
 
                                 </div>
                                 <div class="tab-pane fade  blogs" id="subcriptions">
-                                    <!-- <ul *ngFor="let payment of user.payments |  paginate: { itemsPerPage: count, currentPage: p }"> -->
-                                        <ul *ngFor="let subcription of subcriptions" style="margin: 0; padding: 0;" >
+                                    <ul *ngFor="let subcription of subcriptions |  paginate: { itemsPerPage: count, currentPage: p }"
+                                        style="margin: 0; padding: 0;">
 
-                                            <li class="listgridSubcripcione">
-                                                <span class="orderId">
-                                                    orderID: {{subcription.orderID}}
-                                                </span>
-                                                <span class="planid">
-                                                    plan_id: {{subcription.plan_id}}
-                                                </span>
-                                                  <span class="dates">
-                                                    Fecha: {{subcription.createdAt | date:'MMM d, y, h:mm:ss a'}}
-                                                  </span>
-                                                  <span class="montos">
-                                                    Monto: {{subcription.monto | currency}}
-                                                  </span>
-                                                  <span class="statuss">
-                                                    status: {{subcription.status }}
-                                                  </span>
-                                            </li>
-                                        </ul>
+
+                                        <li class="listgridSubcripcione">
+                                            <span class="orderId">
+                                                orderID: {{subcription.orderID}}
+                                            </span>
+                                            <span class="planid">
+                                                plan_id: {{subcription.plan_id}}
+                                            </span>
+                                            <span class="dates">
+                                                Fecha: {{subcription.createdAt | date:'MMM d, y, h:mm:ss a'}}
+                                            </span>
+                                            <span class="montos">
+                                                Monto: {{subcription.monto | currency}}
+                                            </span>
+                                            <span class="statuss">
+                                                status: {{subcription.status }}
+                                            </span>
+                                        </li>
+                                    </ul>
                                     <br />
-                                    <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+                                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
 
 
                                 </div>

@@ -55,8 +55,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- <tr *ngFor="let user of users |  paginate: { itemsPerPage: count, currentPage: p }"> -->
-                                <tr *ngFor="let user of users ">
+                                <tr *ngFor="let user of users |  paginate: { itemsPerPage: count, currentPage: p }">
+                                
                                     <td><a [routerLink]="['/dashboard/user/', user.uid]">{{user.username}}</a></td>
 
                                     <td>{{user.email}} </td>
@@ -80,15 +80,8 @@
                             </tbody>
 
                         </table>
-                        <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
 
-                        <!-- <table class="table table-borderless" *ngIf="loading">
-                        <tfoot>
-                            <tr>
-                                <td colspan="6">&nbsp; Encontrados {{ usersCount }} usuarios</td>
-                            </tr>
-                        </tfoot>
-                    </table> -->
 
                     </div>
 

@@ -36,6 +36,10 @@ export class ProfileComponent implements OnInit {
   _id:string;
   uid:string;
 
+  p: number = 1;
+  count: number = 8;
+
+
   passwordForm: FormGroup;
   errors:any = null;
   infoProfile: any;

@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Import Angular plugin.
+import { NgxPaginationModule } from 'ngx-pagination';
 // import { NgxPayPalModule } from 'ngx-paypal';
-// import { NgxPaginationModule } from 'ngx-pagination';
 // import { ChartComponent } from './chart/chart.component';
 // import { NgChartsModule } from 'ng2-charts';
 
@@ -49,7 +49,7 @@ import { SubscripcionesRecientesComponent } from './subscripciones-recientes/sub
     HttpClientModule,
     PipesModule,
     // NgxPayPalModule,
-    // NgxPaginationModule,
+    NgxPaginationModule,
   ]
 })
 export class ComponentsModule { }

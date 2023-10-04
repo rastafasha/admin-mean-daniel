@@ -68,7 +68,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let category of categorias ">
+                                <tr *ngFor="let category of categorias |  paginate: { itemsPerPage: count, currentPage: p }">
 
                                     <td>{{category.nombre}}</td>
                                     <td>{{category.createdAt | date:'MMM d, y, h:mm:ss a'}} </td>
@@ -88,7 +88,7 @@
                             </tbody>
 
                         </table>
-
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
 
                     </div>
 

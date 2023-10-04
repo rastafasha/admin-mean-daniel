@@ -14,7 +14,7 @@ import { RolesViewComponent } from './roles/roles-view/roles-view.component';
 // Import Angular plugin.
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 // paginacion
-// import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 // angular file uploader
 // import { AngularFileUploaderModule } from 'angular-file-uploader';
@@ -55,8 +55,8 @@ import { BinancepayEditComponent } from './binancepay/binancepay-edit/binancepay
     SharedModule,
     PipesModule,
     BrowserAnimationsModule,
-    // NgxPaginationModule,
-    // CKEditorModule,
+    NgxPaginationModule,
+    CKEditorModule,
     // AngularFileUploaderModule
   ]
 })

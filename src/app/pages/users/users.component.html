@@ -74,13 +74,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- <tr *ngFor="let user of usuarios |  paginate: { itemsPerPage: count, currentPage: p }"> -->
-                                        <tr *ngFor="let user of usuarios ">
-
-
-                                            <!-- <td><a [routerLink]="['/dashboard/user/', user.uid]">
-                                                <img [src]="user.img | imagenPipe: 'profiles'" style="width:60px; height: 60px;" alt="">
-                                            </a> </td> -->
+                                        <tr *ngFor="let user of usuarios |  paginate: { itemsPerPage: count, currentPage: p }">
+                                        
                                             <td><a [routerLink]="['/dashboard/user/', user.uid]">{{user.username}}</a> </td>
                                             <td>{{user.email}}</td>
                                             <td>
@@ -111,7 +106,7 @@
 
                                 </table>
 
-                                <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
 
                             </div>
 

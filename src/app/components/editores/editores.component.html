@@ -27,7 +27,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let editor of editores">
+                    <tr *ngFor="let editor of editores |  paginate: { itemsPerPage: count, currentPage: p }">
 
                         <td><a [routerLink]="['/dashboard/user/', editor.uid]">{{editor.username}}</a> </td>
                         <td>{{editor.email}}</td>
@@ -52,6 +52,7 @@
                     </tr>
                 </tbody>
             </table>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
         </div>
     </div>
 </div>

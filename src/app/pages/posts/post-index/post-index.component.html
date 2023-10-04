@@ -15,10 +15,11 @@
             </div>
             <!-- End Page Title -->
             <div class="buton">
-                <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+                <button class="btn btn-outline-danger pull-right" href="javascript:void(0)"
+                    (click)="goBack()">Volver</button>
             </div>
         </div>
-        
+
 
         <div class="clear"></div>
 
@@ -35,9 +36,13 @@
                         <form class="form-horizontal">
                             <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
                                 <div class="input-group">
-                                    <input type="search" name="search" type="text" class="form-control col-xs-12" placeholder="Buscar.." [(ngModel)]="query" aria-describedby="button-addon1" class="form-control border-0 bg-light">
+                                    <input type="search" name="search" type="text" class="form-control col-xs-12"
+                                        placeholder="Buscar.." [(ngModel)]="query" aria-describedby="button-addon1"
+                                        class="form-control border-0 bg-light">
                                     <div class="input-group-append">
-                                        <button id="button-addon1" type="submit" class="btn btn-link text-primary" (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i class="fa fa-search"></i></button>
+                                        <button id="button-addon1" type="submit" class="btn btn-link text-primary"
+                                            (click)="search()" name="submit" data-toggle="tooltip"
+                                            title="mostrar todos"><i class="fa fa-search"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -47,9 +52,9 @@
                     <div class="col-xs-1 col-sm-1">
                         <div class="text-right">
                             <button class="btn btn-primary" [routerLink]="['/dashboard/blog/create/']">
-                  <i class="fa fa-pencil"></i>
-                  Crear
-                </button>
+                                <i class="fa fa-pencil"></i>
+                                Crear
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -76,48 +81,55 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let blog of blogs ">
-                                    <!-- <tr *ngFor="let post of posts |  paginate: { itemsPerPage: count, currentPage: p }"> -->
+                                <tr *ngFor="let blog of blogs |  paginate: { itemsPerPage: count, currentPage: p }">
                                     <td>
                                         <div class="image">
                                             <div *ngIf="!blog.img ">
-                                                <img [src]="blog.img | imagenPipe: 'blogs'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                                <img [src]="blog.img | imagenPipe: 'blogs'"
+                                                    style="height: 50px; width: 50px;" class="img-circle avatar">
                                             </div>
                                             <div *ngIf="blog.img">
-                                                <img [src]="blog.img | imagenPipe: 'blogs'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                                <img [src]="blog.img | imagenPipe: 'blogs'"
+                                                    style="height: 50px; width: 50px;" class="img-circle avatar">
 
                                             </div>
                                         </div>
                                     </td>
                                     <td>{{blog.name}}</td>
                                     <td><a [routerLink]="['/dashboard/user/', blog.usuario.uid]">
-                                        {{blog.usuario.username}} 
-                                    </a>
+                                            {{blog.usuario.username}}
+                                        </a>
                                     </td>
                                     <td>
                                         <span class="badge bg-success" *ngIf="blog.isFeatured === true">Si</span>
                                         <span class="badge bg-danger" *ngIf="blog.isFeatured === false">No</span>
                                     </td>
 
-                                    
+
                                     <td>{{blog.price|currency}} </td>
                                     <td>{{blog.categoria.nombre}} </td>
 
                                     <td>
-                                        <!-- {{plan.status }} -->
                                         <span class="badge bg-success" *ngIf="blog.status === 'Activo'">Publicado</span>
-                                        <span class="badge bg-danger" *ngIf="blog.status === 'Desactivado'">No Publicado</span>
+                                        <span class="badge bg-danger" *ngIf="blog.status === 'Desactivado'">No
+                                            Publicado</span>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-success" *ngIf="blog.status == 'Desactivado'" (click)="activar(blog._id)"><span class="fa fa-check"></span> Activar</button>
-                                        <button type="button" class="btn btn-primary" *ngIf="blog.status == 'Activo'" (click)="desactivar(blog._id)"><span class="fa fa-check"></span> Desactivar</button>
+                                        <button type="button" class="btn btn-success"
+                                            *ngIf="blog.status == 'Desactivado'" (click)="activar(blog._id)"><span
+                                                class="fa fa-check"></span> Activar</button>
+                                        <button type="button" class="btn btn-primary" *ngIf="blog.status == 'Activo'"
+                                            (click)="desactivar(blog._id)"><span class="fa fa-check"></span>
+                                            Desactivar</button>
 
                                     </td>
                                     <td class="text-nowrap text-center">
-                                        <a [routerLink]="['/dashboard/post/edit', blog._id]" class="cursor" data-toggle="tooltip" data-original-title="Edit">
+                                        <a [routerLink]="['/dashboard/post/edit', blog._id]" class="cursor"
+                                            data-toggle="tooltip" data-original-title="Edit">
                                             <div class="btn btn-success"><i class="fa fa-edit"></i></div>
                                         </a>
-                                        <a (click)="eliminarPost(blog._id)" class="cursor" data-toggle="tooltip" data-original-title="Borrar">
+                                        <a (click)="eliminarPost(blog._id)" class="cursor" data-toggle="tooltip"
+                                            data-original-title="Borrar">
                                             <div class="btn btn-danger"><i class="fa fa-trash"></i></div>
                                         </a>
                                     </td>
@@ -125,7 +137,7 @@
                             </tbody>
 
                         </table>
-                        <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
 
                     </div>
 

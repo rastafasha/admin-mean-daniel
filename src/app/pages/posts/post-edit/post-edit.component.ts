@@ -33,6 +33,7 @@ export class PostEditComponent implements OnInit {
    */
   // public Editor = ClassicEditor;
   public Editor = DecoupledEditor;
+  public Editor1 = DecoupledEditor;
   public editorData = `<p>This is a CKEditor 5 WYSIWYG editor instance created with Angular.</p>`;
 
 
@@ -336,11 +337,7 @@ export class PostEditComponent implements OnInit {
     );
   }
 
-
-
   
-
-
 
 
 }

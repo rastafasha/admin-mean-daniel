@@ -57,7 +57,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let plan of plans.plans">
+                                <tr *ngFor="let plan of plans.plans |  paginate: { itemsPerPage: count, currentPage: p }">
 
                                     <td>{{plan.name}}</td>
                                     <td>{{plan.product_id}}</td>
@@ -84,6 +84,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
                     </div>
                 </div>
             </div>

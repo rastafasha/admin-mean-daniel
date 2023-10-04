@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -32,7 +33,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     SharedModule,
     PipesModule,
     BrowserAnimationsModule,
-    // NgxPaginationModule,
+    NgxPaginationModule,
     // CKEditorModule,
     // AngularFileUploaderModule
   ]
