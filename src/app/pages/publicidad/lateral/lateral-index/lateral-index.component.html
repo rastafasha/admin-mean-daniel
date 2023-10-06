@@ -70,7 +70,7 @@
                                     <td>
                                         <div class="image">
                                             <div *ngIf="!sideadvice.img ">
-                                                <img [src]="banner.img | imagenPipe: 'sideadvertisings'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                                <img src="./assets/images/no-image.jpg" style="width:50px; height:50px" class="rounded-circle">
                                             </div>
                                             <div *ngIf="sideadvice.img">
                                                 <img [src]="sideadvice.img | imagenPipe: 'sideadvertisings'" style="height: 50px; width: 50px;" class="img-circle avatar">

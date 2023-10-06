@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   //local
-   // apiUrl: "http://localhost:5001/api",
+  //  apiUrl: "http://localhost:5001/api",
   // apiUrlMedia: "http://localhost:5001/api/uploads/",
   //remoto
   apiUrl: "https://backend-daniel-node-mongo.vercel.app/api",

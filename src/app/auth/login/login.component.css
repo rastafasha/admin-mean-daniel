@@ -254,7 +254,7 @@ button:hover {
 @media(min-width:768px) and (max-width:990px) {
     .main {
         width: 350px;
-        height: 540px;
+        height: 600px;
         border-radius: 0px;
     }
 }
@@ -262,7 +262,7 @@ button:hover {
 @media(min-width:990px) and (max-width:1200px) {
     .main {
         width: 350px;
-        height: 540px;
+        height: 600px;
         border-radius: 0px;
     }
 }
@@ -270,7 +270,7 @@ button:hover {
 @media(min-width:1200px)  {
     .main {
         width: 350px;
-        height: 540px;
+        height: 600px;
         border-radius: 0px;
     }
 }
@@ -278,7 +278,7 @@ button:hover {
 @media(min-width:1260px)  {
     .main {
         width: 350px;
-        height: 540px;
+        height: 600px;
         border-radius: 0px;
     }
 }
@@ -302,7 +302,7 @@ button:hover {
         border-radius: 140% / 10%;
     }
     #chk:checked~.login {
-        transform: translateY(-350px);
+        transform: translateY(-390px);
     }
 }
 
@@ -313,4 +313,13 @@ button:hover {
     .login {
         height: 580px;
     }
+
+}
+
+#google-btn{
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
