@@ -50,8 +50,8 @@ import { BannerIndexComponent } from './banner/banner-index/banner-index.compone
 import { BusquedaComponent } from './busqueda/busqueda.component';
 import { PaypalsubcriptionModule } from './paypalsubcription/paypalsubcription.module';
 // import { CursosModule } from './cursos/cursos.module';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { PublicidadModule } from './publicidad/publicidad.module';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [

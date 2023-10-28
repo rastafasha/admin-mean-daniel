@@ -20,6 +20,7 @@ const baseUrl = environment.apiUrl;
   providedIn: 'root'
 })
 export class PlanPaypalSubcriptionService {
+  paginaPost = 0;
 
   public planPaypal: planPaypalSubcription;
   public data: planPaypalSubcription;
@@ -28,6 +29,8 @@ export class PlanPaypalSubcriptionService {
   public productPaypal: productPaypalSubcription;
 
   constructor(private http: HttpClient) { }
+
+  
 
   get token():string{
     return localStorage.getItem('token') || '';
@@ -77,6 +80,23 @@ export class PlanPaypalSubcriptionService {
     return this.http.post(url, planPaypal, this.headers);
 
   }
+
+
+
+
+  getplanPaypalsPage(pull: boolean= false){
+
+    if(pull) {
+      this.paginaPost = 0;
+    }
+
+    this.paginaPost ++;
+
+    return this.http.get<planPaypalSubcription>(`${baseUrl}paypal/plans/page/${this.paginaPost}`);
+    // return this.http.get<RespuestaPosts>(`${URL}posts/?pagina=${this.paginaPost}`);
+  }
+
+
 
   getplanPaypalsPage2()  {
     const url = `${baseUrl}/paypal/plans/page2`;

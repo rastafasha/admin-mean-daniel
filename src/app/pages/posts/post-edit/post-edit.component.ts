@@ -13,7 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 
 //ckeditor
 
-import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
+import * as Decoupled from '@ckeditor/ckeditor5-build-decoupled-document';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 const baseUrl = environment.apiUrl;
 
@@ -32,8 +32,8 @@ export class PostEditComponent implements OnInit {
    * Editor type area wyswyg
    */
   // public Editor = ClassicEditor;
-  public Editor = DecoupledEditor;
-  public Editor1 = DecoupledEditor;
+  public Editor = Decoupled;
+  public Editor1 = Decoupled;
   public editorData = `<p>This is a CKEditor 5 WYSIWYG editor instance created with Angular.</p>`;
 
 

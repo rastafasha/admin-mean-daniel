@@ -12,7 +12,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { RolesViewComponent } from './roles/roles-view/roles-view.component';
 
 // Import Angular plugin.
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 // paginacion
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -22,6 +21,7 @@ import { CategoryEditComponent } from './category/category-edit/category-edit.co
 import { CategoryIndexComponent } from './category/category-index/category-index.component';
 import { BinancepayIndexComponent } from './binancepay/binancepay-index/binancepay-index.component';
 import { BinancepayEditComponent } from './binancepay/binancepay-edit/binancepay-edit.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [

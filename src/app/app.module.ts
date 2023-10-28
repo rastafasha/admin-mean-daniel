@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './http-interceptors/auth-interceptor';
 import { PaypalInterceptor } from './http-interceptors/paypal-interceptor';
-
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [
@@ -27,6 +27,7 @@ import { PaypalInterceptor } from './http-interceptors/paypal-interceptor';
     AuthModule,
     SharedModule,
     PagesModule,
+    CKEditorModule
   ],
   providers: [
     // {
