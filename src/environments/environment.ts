@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   //apirest local
   apiUrl: "http://localhost:3000/api",
-  apiUrlMedia: "http://localhost:3000/api/uploads/",
+  apiUrlMedia: "http://localhost:3000/api/uploads",
   // apiUrlMedia: 'https://res.cloudinary.com/dmv6aukai/image/upload/v1741275492/articlesApp/uploads',
   mediaUrlRemoto: 'https://res.cloudinary.com/dmv6aukai/image/upload/v1741275492/articlesApp/uploads',
   //remoto
