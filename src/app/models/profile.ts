@@ -1,7 +1,7 @@
 import { environment } from "src/environments/environment";
 import { Post } from "./post";
 import { User } from "./user";
-const base_url = environment.apiUrlMedia;
+const base_url = environment.mediaUrlRemoto;
 export class Profile {
 
 

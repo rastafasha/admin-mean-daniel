@@ -49,6 +49,36 @@
               ],
               "outputHashing": "all"
             },
+            "adminarticles": {
+              "outputPath": "dist/adminarticles",
+              "index": {
+                "input": "src/env/adminarticles/index.html",
+                "output": "index.html"
+              },
+              "assets": [
+                "src/.htaccess",
+                "src/assets",
+                "src/manifest.webmanifest",
+                {
+                  "glob": "_redirects",
+                  "input": "src",
+                  "output": "/"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "3mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "75kb",
+                  "maximumError": "90kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
