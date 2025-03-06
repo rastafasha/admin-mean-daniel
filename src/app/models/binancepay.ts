@@ -24,11 +24,11 @@ export class Binancepay {
   get imagenUrl(){
 
     if(!this.img){
-      return `${base_url}binancepays/no-image.jpg`;
+      return `${base_url}/binancepays/no-image.jpg`;
     } else if(this.img.includes('https')){
       return this.img;
     } else if(this.img){
-      return `${base_url}binancepays/${this.img}`;
+      return `${base_url}/binancepays/${this.img}`;
     }else {
       return `${base_url}/no-image.jpg`;
       // return `./assets/img/no-image.jpg`;

@@ -23,11 +23,11 @@ export class Post {
   get imagenUrl(){
 
     if(!this.img){
-      return `${base_url}blogs/no-image.jpg`;
+      return `${base_url}/blogs/no-image.jpg`;
     } else if(this.img.includes('https')){
       return this.img;
     } else if(this.img){
-      return `${base_url}blogs/${this.img}`;
+      return `${base_url}/blogs/${this.img}`;
     }else {
       return `${base_url}/no-image.jpg`;
       // return `./assets/img/no-image.jpg`;

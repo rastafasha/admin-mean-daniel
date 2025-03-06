@@ -37,11 +37,11 @@ export class Profile {
   get imagenUrl(){
 
     if(!this.img){
-      return `${base_url}profiles/no-image.jpg`;
+      return `${base_url}/profiles/no-image.jpg`;
     } else if(this.img.includes('https')){
       return this.img;
     } else if(this.img){
-      return `${base_url}profiles/${this.img}`;
+      return `${base_url}/profiles/${this.img}`;
     }else {
       return `${base_url}/no-image.jpg`;
       // return `./assets/img/no-image.jpg`;
