@@ -7,7 +7,7 @@ export const environment = {
   //apirest local
   apiUrl: "http://localhost:3000/api",
   apiUrlMedia: "http://localhost:3000/api/uploads",
-  // apiUrlMedia: 'https://res.cloudinary.com/dmv6aukai/image/upload/v1741275492/articlesApp/uploads',
+  // apiUrlMedia: 'https://backend-daniel-node-mongo.vercel.app/api/uploads',
   mediaUrlRemoto: 'https://res.cloudinary.com/dmv6aukai/image/upload/v1741275492/articlesApp/uploads',
   //remoto
   // apiUrl: "https://backend-daniel-node-mongo.vercel.app/api",

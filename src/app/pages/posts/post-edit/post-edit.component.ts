@@ -253,16 +253,25 @@ export class PostEditComponent implements OnInit {
     }
   }
 
-  subirImagen(){
-    this.fileUploadService
-    .actualizarFoto(this.imagenSubir, 'blogs', this.post._id)
-    .then(img => { this.post.img = img;
-      Swal.fire('Guardado', 'La imagen fue actualizada', 'success');
+  subirImagen(){debugger
+    console.log('Imagen a subir:', this.imagenSubir);
+    this.fileUploadService.actualizarFoto(this.imagenSubir, 'blogs', this.post._id)
+      .then(img => { 
+        this.post.img = img;
+        if (!this.post.img ) {
+          Swal.fire('Error', 'No se ha seleccionado ningún archivo', 'error');
+          return;
+        }
+        if (this.post.img ) {
+          Swal.fire('Guardado', 'La imagen fue actualizada', 'success');
+          return;
+        }
 
-    }).catch(err =>{
-      Swal.fire('Error', 'No se pudo subir la imagen', 'error');
+      }).catch(err =>{
+        Swal.fire('Error', 'No se pudo subir la imagen', 'error');
 
-    })
+      })
+    
   }
 
 
@@ -304,6 +313,7 @@ export class PostEditComponent implements OnInit {
     }
       this.postService.createPost(data).subscribe(
         (resp: any) =>{
+          console.log(resp);
         Swal.fire('Creado', ` creado correctamente`, 'success');
         this.router.navigateByUrl(`/dashboard/posts`);
       })

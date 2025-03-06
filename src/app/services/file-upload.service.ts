@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
-
 const base_url = environment.apiUrlMedia;
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileUploadService {
-
 
   constructor() { }
 
@@ -17,14 +15,12 @@ export class FileUploadService {
     tipo: 'profiles'|'blogs'|'pagos'|'banners'|'binancepays'|'sideadvertisings',
     id: string
   ){
-
-    try{
-
+    try {
       const url = `${base_url}/${tipo}/${id}`;
       const formData = new FormData();
-      formData.append('img', archivo);
+      formData.append('imagen', archivo);
 
-      const resp = await fetch(url,{
+      const resp = await fetch(url, {
         method: 'PUT',
         headers: {
           'x-token': localStorage.getItem('token') || ''
@@ -34,20 +30,17 @@ export class FileUploadService {
 
       const data = await resp.json();
 
-      if(data.ok){
+      if(data.ok) {
+        console.log(data);
         return data.nombreArchivo;
-
-      }else{
+      } else {
+        console.log(data);
         console.log(data.msg);
         return false;
-
       }
-
-    }catch(error){
+    } catch(error) {
       console.log(error);
       return false;
     }
-
   }
-
 }
