@@ -1,5 +1,3 @@
-
-
 <!-- =======| Main |======= -->
 <script type="text/javascript">
     function mostrar(id) {
@@ -8,12 +6,12 @@
         }
 
         if (id == "seleccione") {
-        $("#crearcategoria").hide();
+            $("#crearcategoria").hide();
+
+        }
 
     }
-        
-    }
-    </script>
+</script>
 <div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
 
     <div class="col-xs-12">
@@ -31,10 +29,11 @@
             </div>
             <!-- End Page Title -->
             <div class="buton">
-                <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+                <button class="btn btn-outline-danger pull-right" href="javascript:void(0)"
+                    (click)="goBack()">Volver</button>
             </div>
         </div>
-       
+
         <div class="clear"></div>
 
 
@@ -43,25 +42,29 @@
 
             <div class="row">
                 <div class="col-12 col-md-6">
-                     <!-- editarcategoria -->
-                     <label for="exampleInputEmail1">Desea una nueva categoria? <span class="required">*</span></label>
-                     <div class="row crearcategoria " id="crearcategoria" >
+                    <!-- editarcategoria -->
+                    <label for="exampleInputEmail1">Desea una nueva categoria? <span class="required">*</span></label>
+                    <div class="row crearcategoria " id="crearcategoria">
 
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title" *ngIf="categorySeleccionado">{{title}}: {{planSeleccionado.name}}</h4>
+                                    <h4 class="card-title" *ngIf="categorySeleccionado">{{title}}:
+                                        {{planSeleccionado.name}}</h4>
                                     <h4 class="card-title" *ngIf="!categorySeleccionado">{{title}}</h4>
-                                    <form class="form p-t-20 form-horizontal form-material" [formGroup]="categoryForm" (submit)="updateCategory()">
+                                    <form class="form p-t-20 form-horizontal form-material" [formGroup]="categoryForm"
+                                        (submit)="updateCategory()">
                                         <div class="form-group" style="margin-bottom: 25px;">
                                             <label for="exampleInputuname">Nombre<span class="required">*</span></label>
                                             <div class="input-group">
-        
-                                                <input type="text" formControlName="nombre" class="form-control" id="exampleInputuname" placeholder="Nombre" required>
+
+                                                <input type="text" formControlName="nombre" class="form-control"
+                                                    id="exampleInputuname" placeholder="Nombre" required>
                                             </div>
                                         </div>
-                                        <button type="submit"  class="btn btn-success waves-effect waves-light m-r-10 btn-block">
-                                        <i class="fa fa-save"></i> Guardar cambios
+                                        <button type="submit"
+                                            class="btn btn-success waves-effect waves-light m-r-10 btn-block">
+                                            <i class="fa fa-save"></i> Guardar cambios
                                         </button>
                                     </form>
                                 </div>
@@ -69,13 +72,13 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <div class="row">
-                               
+
                                 <div class="col-lg-12 card listacategorias">
                                     <div class="table-responsive table-sm">
                                         <table class="table table-sm">
                                             <thead class="thead-dark">
                                                 <tr>
-            
+
                                                     <th>Nombre</th>
                                                     <th>Editar</th>
                                                 </tr>
@@ -84,22 +87,36 @@
                                                 <tr>
                                                     <td style="font-size: 13px;">{{item.nombre}}</td>
                                                     <td class="text-center">
-                                                        <a class="nav-link-style text-danger" data-toggle="modal" [attr.data-target]="'#delete-'+item._id" style="cursor:pointer">
+                                                        <a class="nav-link-style text-danger" data-toggle="modal"
+                                                            [attr.data-target]="'#delete-'+item._id"
+                                                            style="cursor:pointer">
                                                             <div class="fa fa-trash"></div>
                                                         </a>
-                                                        <div class="modal fade" [attr.id]="'delete-'+item._id" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal fade" [attr.id]="'delete-'+item._id"
+                                                            tabindex="-1" role="dialog" style="display: none;"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered"
+                                                                role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
                                                                         <h4 class="modal-title">Confirmación</h4>
-                                                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                                        <button class="close" type="button"
+                                                                            data-dismiss="modal"
+                                                                            aria-label="Close"><span
+                                                                                aria-hidden="true">×</span></button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        <p class="font-size-sm">¿Desea eliminar definitivamente el regsitro?</p>
+                                                                        <p class="font-size-sm">¿Desea eliminar
+                                                                            definitivamente el regsitro?</p>
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancelar</button>
-                                                                        <button class="btn btn-primary btn-shadow btn-sm" type="button" (click)="eliminar(item._id)">Suprimir</button>
+                                                                        <button class="btn btn-secondary btn-sm"
+                                                                            type="button"
+                                                                            data-dismiss="modal">Cancelar</button>
+                                                                        <button
+                                                                            class="btn btn-primary btn-shadow btn-sm"
+                                                                            type="button"
+                                                                            (click)="eliminar(item._id)">Suprimir</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -117,12 +134,13 @@
 
                     <form enctype="multipart/form-data" [formGroup]="postForm" (ngSubmit)="editPost()">
                         <div class="form-group">
-                            <label for="select-input" style="line-height: 2.2;">Categoria <span class="required">*</span></label>
-                            <select class="form-control " formControlName="categoria"  >
-                            <option disabled  value="seleccione">SELECCIONAR</option>
-                            <option *ngFor="let item of categorias" [value]="item._id" >{{item.nombre}}</option>
-                            <!-- <option  value="crearcategoria">agregar?</option> -->
-                        </select>
+                            <label for="select-input" style="line-height: 2.2;">Categoria <span
+                                    class="required">*</span></label>
+                            <select class="form-control " formControlName="categoria">
+                                <option disabled value="seleccione">SELECCIONAR</option>
+                                <option *ngFor="let item of categorias" [value]="item._id">{{item.nombre}}</option>
+                                <!-- <option  value="crearcategoria">agregar?</option> -->
+                            </select>
                         </div>
                         <div class="form-group">
                             <!-- <a routerLink="/dashboard/categories">
@@ -133,7 +151,7 @@
                             </a> -->
                         </div>
 
-                       
+
 
 
                         <div class="form-group">
@@ -153,9 +171,9 @@
                                 <div class="form-group">
                                     <label for="select-input">Destacado?<span class="required">*</span></label>
                                     <select class="form-control " formControlName="isFeatured">
-                                      <option disabled value="">SELECCIONAR</option>
-                                      <option  value="true">Activo</option>
-                                      <option  value="false">Inactivo</option>
+                                        <option disabled value="">SELECCIONAR</option>
+                                        <option value="true">Activo</option>
+                                        <option value="false">Inactivo</option>
                                     </select>
                                 </div>
                             </div>
@@ -164,7 +182,8 @@
                         <div class="col-md-12">
                             <label>Descripción corta para carrito<span class="required">*</span></label>
                             <div class="col-md-12">
-                                <textarea formControlName="adicional" id="adicional" cols="30" rows="4" class="form-control"></textarea>
+                                <textarea formControlName="adicional" id="adicional" cols="30" rows="4"
+                                    class="form-control"></textarea>
                                 <!-- <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>" formControlName="adicional" value="description" rows="5" class="form-control" required></ckeditor> -->
 
                             </div>
@@ -173,15 +192,19 @@
                             <label>Intro para el home<span class="required">*</span></label>
                             <div class="col-md-12">
                                 <!-- <textarea formControlName="introhome" id="introhome" cols="30" rows="4" class="form-control"></textarea> -->
-                               
-                                <ckeditor [editor]="Editor1" (ready)="onReady($event)" data="<p>Hello, world!</p>" formControlName="introhome" value="introhome" rows="5" class="form-control" required></ckeditor>
+
+                                <ckeditor [editor]="Editor1" (ready)="onReady($event)" data="<p>Hello, world!</p>"
+                                    formControlName="introhome" value="introhome" rows="5" class="form-control"
+                                    required></ckeditor>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <label>Descripción <span class="required">*</span></label>
                             <div class="col-md-12">
                                 <!-- <textarea formControlName="description" id="description" cols="30" rows="4" class="form-control"></textarea> -->
-                                <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>" formControlName="description" value="description" rows="5" class="form-control" required></ckeditor>
+                                <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>"
+                                    formControlName="description" value="description" rows="5" class="form-control"
+                                    required></ckeditor>
                             </div>
                         </div>
                         <!-- <input type="hidden" formControlName="id"> -->
@@ -194,11 +217,11 @@
                     <div class="row">
 
                         <div class="col-xs-12">
-                            <div class="especificaciones" *ngIf="!post">
+                            <div class="especificaciones" *ngIf="!postSeleccionado">
                                 <h4>Debe Crear un post para agregar la imagen</h4>
 
                             </div>
-                            <div class="especificaciones" *ngIf="post">
+                            <div class="especificaciones" *ngIf="postSeleccionado">
                                 <h4>Especificaciones:</h4>
                                 <ul>
                                     <li>Tamaño máximo: 300px X 300px</li>
@@ -207,18 +230,21 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-xs-12" *ngIf="post">
+                        <app-loading *ngIf="isLoading"></app-loading>
+                        <div class="col-xs-12" *ngIf="postSeleccionado && !isLoading">
                             <div class="text-center">
-                                <img *ngIf="!imgTemp " [src]="post.img | imagenPipe: 'blogs'" class="img-responsive img-thumbnail" alt="">
+                                <img *ngIf="!imgTemp " [src]="postSeleccionado.img | imagenPipe: 'blogs'"
+                                    class="img-responsive img-thumbnail" alt="">
                                 <!-- <img *ngIf="post.img" [src]="post.img | imagenPipe: 'blogs'" class="img-responsive img-thumbnail" alt=""> -->
                                 <img *ngIf="imgTemp" [src]="imgTemp" class="img-responsive">
                             </div>
                             <input type="file" (change)="cambiarImagen($event.target.files[0])">
                             <br>
                             <br>
-                            <button type="button" [disabled]="!imagenSubir" (click)="subirImagen()" class="btn btn-success waves-effect waves-light m-r-10 btn-block">
-              <i class="fa fa-save"></i> Cambiar imagen
-             </button>
+                            <button type="button" [disabled]="!imagenSubir" (click)="subirImagen()"
+                                class="btn btn-success waves-effect waves-light m-r-10 btn-block">
+                                <i class="fa fa-save"></i> Cambiar imagen
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -17,6 +17,7 @@ import { PipesModule } from '../pipes/pipes.module';
 
 //paypal
 import { SearchComponent } from './search/search.component';
+import { LoadingComponent } from './loading/loading.component';
 
 
 
@@ -35,7 +36,8 @@ declarations: [
     FooterComponent,
     MenuiconosComponent,
     BannerplanesComponent,
-    SearchComponent
+    SearchComponent,
+    LoadingComponent
 ],
 exports: [
     HeaderComponent,
@@ -43,7 +45,8 @@ exports: [
     FooterComponent,
     MenuiconosComponent,
     BannerplanesComponent,
-    SearchComponent
+    SearchComponent,
+    LoadingComponent
 ]
 })
 export class SharedModule { }

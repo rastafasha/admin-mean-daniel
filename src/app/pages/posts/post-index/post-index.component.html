@@ -43,6 +43,8 @@
                                         <button id="button-addon1" type="submit" class="btn btn-link text-primary"
                                             (click)="search()" name="submit" data-toggle="tooltip"
                                             title="mostrar todos"><i class="fa fa-search"></i></button>
+                                            <a href="javascript:;" (click)="PageSize()" class="btn btn-primary ms-2 "
+                                            style="border-radius: 100px;"><i class="fa fa-refresh"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -62,10 +64,8 @@
 
                 <div class="card recent-sales overflow-auto">
 
-
+                    <app-loading *ngIf="loading"></app-loading>
                     <div class="card-body">
-
-
                         <table [ngClass]="loading? 'table table-borderless datatable':'table table-borderless'">
                             <thead>
                                 <tr>

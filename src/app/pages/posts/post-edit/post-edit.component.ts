@@ -36,7 +36,7 @@ export class PostEditComponent implements OnInit {
   public Editor1 = Decoupled;
   public editorData = `<p>This is a CKEditor 5 WYSIWYG editor instance created with Angular.</p>`;
 
-
+  isLoading: boolean = false;
   public postForm: FormGroup;
 
   public post: Post;
@@ -186,7 +186,7 @@ export class PostEditComponent implements OnInit {
             img : res.img,
             usuario: this.user.uid,
           });
-          this.post = res;
+          this.postSeleccionado = res;
           // console.log(this.post);
         }
       );
@@ -239,7 +239,7 @@ export class PostEditComponent implements OnInit {
   }
 
   cambiarImagen(file: File){
-    this.imagenSubir = file;
+     this.imagenSubir = file;
 
     if(!file){
       return this.imgTemp = null;
@@ -253,23 +253,19 @@ export class PostEditComponent implements OnInit {
     }
   }
 
-  subirImagen(){debugger
-    console.log('Imagen a subir:', this.imagenSubir);
-    this.fileUploadService.actualizarFoto(this.imagenSubir, 'blogs', this.post._id)
-      .then(img => { 
-        this.post.img = img;
-        if (!this.post.img ) {
-          Swal.fire('Error', 'No se ha seleccionado ningún archivo', 'error');
-          return;
-        }
-        if (this.post.img ) {
-          Swal.fire('Guardado', 'La imagen fue actualizada', 'success');
-          return;
-        }
-
-      }).catch(err =>{
+  subirImagen(){
+    this.isLoading = true;
+    this.fileUploadService
+      .actualizarFoto(this.imagenSubir, 'blogs', this.postSeleccionado._id || '')
+      .then(img => {
+        this.postSeleccionado.img = img;
+        Swal.fire('Guardado', 'La imagen fue actualizada', 'success');
+        this.isLoading = false;
+        this.ngOnInit()
+      }).catch(err => {
         Swal.fire('Error', 'No se pudo subir la imagen', 'error');
-
+        this.isLoading = false;
+        this.ngOnInit()
       })
     
   }

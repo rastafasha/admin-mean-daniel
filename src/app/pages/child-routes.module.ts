@@ -29,8 +29,6 @@ import { EditorEditComponent } from './editor/editor-edit/editor-edit.component'
 import { BannerEditComponent } from './banner/banner-edit/banner-edit.component';
 import { BannerIndexComponent } from './banner/banner-index/banner-index.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
-import { BinancepayIndexComponent } from './conf/binancepay/binancepay-index/binancepay-index.component';
-import { BinancepayEditComponent } from './conf/binancepay/binancepay-edit/binancepay-edit.component';
 import { PaypalsubcriptionEditComponent } from './paypalsubcription/paypalsubcription-edit/paypalsubcription-edit.component';
 import { PaypalsubcriptionIndexComponent } from './paypalsubcription/paypalsubcription-index/paypalsubcription-index.component';
 import { PaypalhomeComponent } from './paypalsubcription/paypalhome/paypalhome.component';
@@ -67,11 +65,7 @@ const childRoutes: Routes = [
     { path: 'category/:id', component: CategoryIndexComponent, data:{title:'Categoria'} },
     { path: 'categoria/crear', component: CategoryEditComponent, data:{title:'Crear Categoria'} },
     { path: 'category/edit/:id', component: CategoryEditComponent, data:{title:'Editar Categoria'} },
-
-    { path: 'binancepay', component: BinancepayIndexComponent, data:{title:'binancepay'} },
-    { path: 'binancepay/:id', component: BinancepayIndexComponent, data:{title:'binancepay'} },
-    { path: 'binancepay/crear', component: BinancepayEditComponent, data:{title:'Crear binancepay'} },
-    { path: 'binancepay/edit/:id', component: BinancepayEditComponent, data:{title:'Editar binancepay'} },
+    
 
     { path: 'paypal-subcription-home', component: PaypalhomeComponent, data:{title:'paypal-subcription'} },
     { path: 'paypal-plans', component: PaypalsubcriptionIndexComponent, data:{title:'paypal-subcription'} },

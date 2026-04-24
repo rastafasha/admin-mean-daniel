@@ -42,12 +42,18 @@ export class PostIndexComponent implements OnInit {
 
   getPosts(): void {
     // return this.planesService.carga_info();
+    this.loading = true;
     this.postService.getPosts().subscribe(
       res =>{
         this.blogs = res;
         error => this.error = error;
+        this.loading = false;
       }
     );
+  }
+
+  PageSize(){
+    this.getPosts();
   }
 
   eliminarPost(post:Post){

@@ -19,8 +19,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 // import { AngularFileUploaderModule } from 'angular-file-uploader';
 import { CategoryEditComponent } from './category/category-edit/category-edit.component';
 import { CategoryIndexComponent } from './category/category-index/category-index.component';
-import { BinancepayIndexComponent } from './binancepay/binancepay-index/binancepay-index.component';
-import { BinancepayEditComponent } from './binancepay/binancepay-edit/binancepay-edit.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
@@ -31,8 +29,6 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     RolesViewComponent,
     CategoryEditComponent,
     CategoryIndexComponent,
-    BinancepayIndexComponent,
-    BinancepayEditComponent,
 
   ],
   exports: [
@@ -42,8 +38,6 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     RolesViewComponent,
     CategoryEditComponent,
     CategoryIndexComponent,
-    BinancepayIndexComponent,
-    BinancepayEditComponent,
     // PaymentmethodEditComponent
   ],
   imports: [

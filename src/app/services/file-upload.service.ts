@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
-const base_url = environment.apiUrlMedia;
+const base_url = environment.mediaUrlRemoto;
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class FileUploadService {
 
   async actualizarFoto(
     archivo: File,
-    tipo: 'profiles'|'blogs'|'pagos'|'banners'|'binancepays'|'sideadvertisings',
+    tipo: 'profiles'|'blogs'|'pagos'|'banners'|'sideadvertisings',
     id: string
   ){
     try {
@@ -34,7 +34,6 @@ export class FileUploadService {
         console.log(data);
         return data.nombreArchivo;
       } else {
-        console.log(data);
         console.log(data.msg);
         return false;
       }
