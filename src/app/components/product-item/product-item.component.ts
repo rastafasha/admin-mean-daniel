@@ -3,9 +3,10 @@ import { Plan } from 'src/app/models/plan';
 import { MessageService } from '../../services/message.service';
 
 @Component({
-  selector: 'app-product-item',
-  templateUrl: './product-item.component.html',
-  styleUrls: ['./product-item.component.css']
+    selector: 'app-product-item',
+    templateUrl: './product-item.component.html',
+    styleUrls: ['./product-item.component.css'],
+    standalone: false
 })
 export class ProductItemComponent implements OnInit {
 

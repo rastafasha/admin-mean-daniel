@@ -7,9 +7,10 @@ import { Banner } from 'src/app/models/banner';
 import { BannerService } from 'src/app/services/banner.service';
 
 @Component({
-  selector: 'app-banner-index',
-  templateUrl: './banner-index.component.html',
-  styleUrls: ['./banner-index.component.css']
+    selector: 'app-banner-index',
+    templateUrl: './banner-index.component.html',
+    styleUrls: ['./banner-index.component.css'],
+    standalone: false
 })
 export class BannerIndexComponent implements OnInit {
 

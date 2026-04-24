@@ -6,9 +6,10 @@ import { PlanPaypalSubcriptionService } from 'src/app/services/paypalSubcription
 
 
 @Component({
-  selector: 'app-subscripciones-recientes',
-  templateUrl: './subscripciones-recientes.component.html',
-  styleUrls: ['./subscripciones-recientes.component.css']
+    selector: 'app-subscripciones-recientes',
+    templateUrl: './subscripciones-recientes.component.html',
+    styleUrls: ['./subscripciones-recientes.component.css'],
+    standalone: false
 })
 export class SubscripcionesRecientesComponent implements OnInit {
 

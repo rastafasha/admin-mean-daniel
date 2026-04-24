@@ -4,9 +4,10 @@ import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-publicidad',
-  templateUrl: './publicidad.component.html',
-  styleUrls: ['./publicidad.component.css']
+    selector: 'app-publicidad',
+    templateUrl: './publicidad.component.html',
+    styleUrls: ['./publicidad.component.css'],
+    standalone: false
 })
 export class PublicidadComponent implements OnInit {
 

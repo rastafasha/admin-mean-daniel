@@ -10,9 +10,10 @@ import { PlanPaypalSubcriptionService } from 'src/app/services/paypalSubcription
 
 
 @Component({
-  selector: 'app-paypalsubcription-edit',
-  templateUrl: './paypalsubcription-edit.component.html',
-  styleUrls: ['./paypalsubcription-edit.component.css']
+    selector: 'app-paypalsubcription-edit',
+    templateUrl: './paypalsubcription-edit.component.html',
+    styleUrls: ['./paypalsubcription-edit.component.css'],
+    standalone: false
 })
 export class PaypalsubcriptionEditComponent implements OnInit {
   

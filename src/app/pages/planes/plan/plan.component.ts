@@ -4,9 +4,10 @@ import { Location } from '@angular/common';
 import { Plan } from 'src/app/models/plan';
 import { PlanesService } from 'src/app/services/planes.service';
 @Component({
-  selector: 'app-plan',
-  templateUrl: './plan.component.html',
-  styleUrls: ['./plan.component.css']
+    selector: 'app-plan',
+    templateUrl: './plan.component.html',
+    styleUrls: ['./plan.component.css'],
+    standalone: false
 })
 export class PlanComponent implements OnInit {
 

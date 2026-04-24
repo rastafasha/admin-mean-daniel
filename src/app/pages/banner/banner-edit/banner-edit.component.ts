@@ -17,9 +17,10 @@ import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
 
 @Component({
-  selector: 'app-banner-edit',
-  templateUrl: './banner-edit.component.html',
-  styleUrls: ['./banner-edit.component.css']
+    selector: 'app-banner-edit',
+    templateUrl: './banner-edit.component.html',
+    styleUrls: ['./banner-edit.component.css'],
+    standalone: false
 })
 export class BannerEditComponent implements OnInit {
 

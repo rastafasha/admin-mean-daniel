@@ -7,9 +7,10 @@ import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-editor-edit',
-  templateUrl: './editor-edit.component.html',
-  styleUrls: ['./editor-edit.component.css']
+    selector: 'app-editor-edit',
+    templateUrl: './editor-edit.component.html',
+    styleUrls: ['./editor-edit.component.css'],
+    standalone: false
 })
 export class EditorEditComponent implements OnInit {
 

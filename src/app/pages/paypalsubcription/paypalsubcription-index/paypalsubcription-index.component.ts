@@ -10,9 +10,10 @@ import { PlanPaypalSubcriptionService } from 'src/app/services/paypalSubcription
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-paypalsubcription-index',
-  templateUrl: './paypalsubcription-index.component.html',
-  styleUrls: ['./paypalsubcription-index.component.css']
+    selector: 'app-paypalsubcription-index',
+    templateUrl: './paypalsubcription-index.component.html',
+    styleUrls: ['./paypalsubcription-index.component.css'],
+    standalone: false
 })
 export class PaypalsubcriptionIndexComponent implements OnInit {
 

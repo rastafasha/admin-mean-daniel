@@ -6,9 +6,10 @@ import { PaymentService } from 'src/app/services/payment.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-recibo-factura',
-  templateUrl: './recibo-factura.component.html',
-  styleUrls: ['./recibo-factura.component.css']
+    selector: 'app-recibo-factura',
+    templateUrl: './recibo-factura.component.html',
+    styleUrls: ['./recibo-factura.component.css'],
+    standalone: false
 })
 export class ReciboFacturaComponent implements OnInit {
 

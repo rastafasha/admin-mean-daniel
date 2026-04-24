@@ -9,9 +9,10 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-dashboard-admin',
-  templateUrl: './dashboard-admin.component.html',
-  styleUrls: ['./dashboard-admin.component.css']
+    selector: 'app-dashboard-admin',
+    templateUrl: './dashboard-admin.component.html',
+    styleUrls: ['./dashboard-admin.component.css'],
+    standalone: false
 })
 export class DashboardAdminComponent implements OnInit {
   title = 'Panel Administrativo';

@@ -15,9 +15,10 @@ import { SideadviceService } from 'src/app/services/sideadvice.service';
 const baseUrl = environment.apiUrl;
 
 @Component({
-  selector: 'app-lateral-edit',
-  templateUrl: './lateral-edit.component.html',
-  styleUrls: ['./lateral-edit.component.css']
+    selector: 'app-lateral-edit',
+    templateUrl: './lateral-edit.component.html',
+    styleUrls: ['./lateral-edit.component.css'],
+    standalone: false
 })
 export class LateralEditComponent implements OnInit {
 

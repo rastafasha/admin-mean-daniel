@@ -7,9 +7,10 @@ import { MessageService } from '../../services/message.service';
 
 
 @Component({
-  selector: 'app-planesyproductos',
-  templateUrl: './planesyproductos.component.html',
-  styleUrls: ['./planesyproductos.component.css']
+    selector: 'app-planesyproductos',
+    templateUrl: './planesyproductos.component.html',
+    styleUrls: ['./planesyproductos.component.css'],
+    standalone: false
 })
 export class PlanesyproductosComponent implements OnInit {
 

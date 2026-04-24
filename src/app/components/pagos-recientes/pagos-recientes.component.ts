@@ -4,9 +4,10 @@ import { PaymentService } from 'src/app/services/payment.service';
 
 
 @Component({
-  selector: 'app-pagos-recientes',
-  templateUrl: './pagos-recientes.component.html',
-  styleUrls: ['./pagos-recientes.component.css']
+    selector: 'app-pagos-recientes',
+    templateUrl: './pagos-recientes.component.html',
+    styleUrls: ['./pagos-recientes.component.css'],
+    standalone: false
 })
 export class PagosRecientesComponent implements OnInit {
 

@@ -26,9 +26,10 @@ declare var jQuery:any;
 declare var $:any;
 
 @Component({
-  selector: 'app-reportar-pago',
-  templateUrl: './reportar-pago.component.html',
-  styleUrls: ['./reportar-pago.component.css']
+    selector: 'app-reportar-pago',
+    templateUrl: './reportar-pago.component.html',
+    styleUrls: ['./reportar-pago.component.css'],
+    standalone: false
 })
 export class ReportarPagoComponent implements OnInit {
 

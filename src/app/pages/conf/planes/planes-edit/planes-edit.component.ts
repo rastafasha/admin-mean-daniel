@@ -16,9 +16,10 @@ declare var jQuery:any;
 declare var $:any;
 
 @Component({
-  selector: 'app-planes-edit',
-  templateUrl: './planes-edit.component.html',
-  styleUrls: ['./planes-edit.component.css']
+    selector: 'app-planes-edit',
+    templateUrl: './planes-edit.component.html',
+    styleUrls: ['./planes-edit.component.css'],
+    standalone: false
 })
 export class PlanesEditComponent implements OnInit {
 

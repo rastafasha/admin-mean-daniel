@@ -13,9 +13,10 @@ declare var jQuery: any;
 
 
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styles: []
+    selector: 'app-menu',
+    templateUrl: './menu.component.html',
+    styles: [],
+    standalone: false
 })
 
 
