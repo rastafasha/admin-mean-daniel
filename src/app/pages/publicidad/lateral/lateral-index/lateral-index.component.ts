@@ -7,9 +7,10 @@ import { Sideadvice } from 'src/app/models/sideadvice';
 import { SideadviceService } from 'src/app/services/sideadvice.service';
 
 @Component({
-  selector: 'app-lateral-index',
-  templateUrl: './lateral-index.component.html',
-  styleUrls: ['./lateral-index.component.css']
+    selector: 'app-lateral-index',
+    templateUrl: './lateral-index.component.html',
+    styleUrls: ['./lateral-index.component.css'],
+    standalone: false
 })
 export class LateralIndexComponent implements OnInit {
 

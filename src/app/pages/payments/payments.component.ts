@@ -8,9 +8,10 @@ import { BusquedasService } from 'src/app/services/busqueda.service';
 
 
 @Component({
-  selector: 'app-payments',
-  templateUrl: './payments.component.html',
-  styleUrls: ['./payments.component.css']
+    selector: 'app-payments',
+    templateUrl: './payments.component.html',
+    styleUrls: ['./payments.component.css'],
+    standalone: false
 })
 export class PaymentsComponent implements OnInit {
 

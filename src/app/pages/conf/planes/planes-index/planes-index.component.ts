@@ -9,9 +9,10 @@ import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-planes-index',
-  templateUrl: './planes-index.component.html',
-  styleUrls: ['./planes-index.component.css']
+    selector: 'app-planes-index',
+    templateUrl: './planes-index.component.html',
+    styleUrls: ['./planes-index.component.css'],
+    standalone: false
 })
 export class PlanesIndexComponent implements OnInit {
   title = "Planes y productos"

@@ -12,9 +12,10 @@ import { Category } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
-  selector: 'app-category-edit',
-  templateUrl: './category-edit.component.html',
-  styleUrls: ['./category-edit.component.css']
+    selector: 'app-category-edit',
+    templateUrl: './category-edit.component.html',
+    styleUrls: ['./category-edit.component.css'],
+    standalone: false
 })
 export class CategoryEditComponent implements OnInit {
 

@@ -14,9 +14,10 @@ import { generateSubcription, planPaypalSubcription } from 'src/app/models/planP
 import { PlanPaypalSubcriptionService } from 'src/app/services/paypalSubcription.service';
 
 @Component({
-  selector: 'app-subcription',
-  templateUrl: './subcription.component.html',
-  styleUrls: ['./subcription.component.css']
+    selector: 'app-subcription',
+    templateUrl: './subcription.component.html',
+    styleUrls: ['./subcription.component.css'],
+    standalone: false
 })
 export class SubcriptionComponent implements OnInit {
 

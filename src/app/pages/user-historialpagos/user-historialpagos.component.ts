@@ -7,9 +7,10 @@ import { PaymentService } from 'src/app/services/payment.service';
 import { Payment } from 'src/app/models/payment';
 
 @Component({
-  selector: 'app-user-historialpagos',
-  templateUrl: './user-historialpagos.component.html',
-  styleUrls: ['./user-historialpagos.component.css']
+    selector: 'app-user-historialpagos',
+    templateUrl: './user-historialpagos.component.html',
+    styleUrls: ['./user-historialpagos.component.css'],
+    standalone: false
 })
 export class UserHistorialpagosComponent implements OnInit {
   title = "Historial Mis Compras";

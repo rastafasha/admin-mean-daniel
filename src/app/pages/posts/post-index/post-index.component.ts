@@ -9,9 +9,10 @@ import { BusquedasService } from 'src/app/services/busqueda.service';
 
 
 @Component({
-  selector: 'app-post-index',
-  templateUrl: './post-index.component.html',
-  styleUrls: ['./post-index.component.css']
+    selector: 'app-post-index',
+    templateUrl: './post-index.component.html',
+    styleUrls: ['./post-index.component.css'],
+    standalone: false
 })
 export class PostIndexComponent implements OnInit {
 

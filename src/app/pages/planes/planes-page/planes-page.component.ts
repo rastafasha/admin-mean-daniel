@@ -6,9 +6,10 @@ import { PlanesService } from 'src/app/services/planes.service';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-planes-page',
-  templateUrl: './planes-page.component.html',
-  styleUrls: ['./planes-page.component.css']
+    selector: 'app-planes-page',
+    templateUrl: './planes-page.component.html',
+    styleUrls: ['./planes-page.component.css'],
+    standalone: false
 })
 export class PlanesPageComponent implements OnInit {
 

@@ -4,9 +4,10 @@ import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-paypalhome',
-  templateUrl: './paypalhome.component.html',
-  styleUrls: ['./paypalhome.component.css']
+    selector: 'app-paypalhome',
+    templateUrl: './paypalhome.component.html',
+    styleUrls: ['./paypalhome.component.css'],
+    standalone: false
 })
 export class PaypalhomeComponent implements OnInit {
 

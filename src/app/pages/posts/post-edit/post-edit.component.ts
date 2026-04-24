@@ -22,9 +22,10 @@ interface HtmlInputEvent extends Event{
 }
 
 @Component({
-  selector: 'app-post-edit',
-  templateUrl: './post-edit.component.html',
-  styleUrls: ['./post-edit.component.css']
+    selector: 'app-post-edit',
+    templateUrl: './post-edit.component.html',
+    styleUrls: ['./post-edit.component.css'],
+    standalone: false
 })
 export class PostEditComponent implements OnInit {
 

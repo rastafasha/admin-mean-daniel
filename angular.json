@@ -11,34 +11,35 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/admin-node",
             "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "browser": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              {
+                "glob": "**/*",
+                "input": "public",
+                "output": "."
+              }
             ],
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "serviceWorker": "ngsw-config.json"
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "12kb"
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
                 }
               ],
               "fileReplacements": [
@@ -50,48 +51,31 @@
               "outputHashing": "all"
             },
             "adminarticles": {
-              "outputPath": "dist/adminarticles",
-              "index": {
-                "input": "src/env/adminarticles/index.html",
-                "output": "index.html"
-              },
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.adminarticles.ts"
                 }
               ],
+              "index": "src/env/adminarticles/index.html",
               "assets": [
+                {
+                  "glob": "**/*",
+                  "input": "public",
+                  "output": "."
+                },
                 "src/.htaccess",
-                "src/assets",
-                "src/manifest.webmanifest",
                 {
                   "glob": "_redirects",
                   "input": "src",
                   "output": "/"
                 }
-              ],
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "3mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "75kb",
-                  "maximumError": "90kb"
-                }
-              ],
-              "outputHashing": "all"
+              ]
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
@@ -100,30 +84,32 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "adminNode:build:production"
+              "buildTarget": "adminNode:build:production"
+            },
+            "adminarticles": {
+              "buildTarget": "adminNode:build:adminarticles"
             },
             "development": {
-              "browserTarget": "adminNode:build:development"
+              "buildTarget": "adminNode:build:development"
             }
           },
           "defaultConfiguration": "development"
         },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "adminNode:build"
-          }
-        },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              {
+                "glob": "**/*",
+                "input": "public",
+                "output": "."
+              }
             ],
             "styles": [
               "src/styles.css"
@@ -133,8 +119,5 @@
         }
       }
     }
-  },
-  "cli": {
-    "analytics": "9ca15559-0fea-4404-8e9f-e7a2ba2fc430"
   }
 }
