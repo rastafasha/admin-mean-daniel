@@ -19,6 +19,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { SearchComponent } from './search/search.component';
 import { LoadingComponent } from './loading/loading.component';
 import { BackButtonComponent } from './back-button/back-button.component';
+import { PwaNotifInstallerComponent } from './pwa-notif-installer/pwa-notif-installer.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ declarations: [
     BannerplanesComponent,
     SearchComponent,
     LoadingComponent,
-    BackButtonComponent
+    BackButtonComponent,
+    PwaNotifInstallerComponent
 ],
 exports: [
     HeaderComponent,
@@ -46,7 +48,8 @@ exports: [
     BannerplanesComponent,
     SearchComponent,
     LoadingComponent,
-    BackButtonComponent
+    BackButtonComponent,
+    PwaNotifInstallerComponent
 ]
 })
 export class SharedModule { }

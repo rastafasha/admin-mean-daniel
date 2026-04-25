@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { PasswordresetComponent } from './passwordreset/passwordreset.component';
 import { NewpasswordComponent } from './newpassword/newpassword.component';
 import { ComponentsModule } from '../components/components.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ComponentsModule } from '../components/components.module';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ComponentsModule
+    ComponentsModule,
+    SharedModule
   ]
 })
 export class AuthModule { }

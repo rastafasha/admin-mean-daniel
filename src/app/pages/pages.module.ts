@@ -52,6 +52,7 @@ import { PaypalsubcriptionModule } from './paypalsubcription/paypalsubcription.m
 // import { CursosModule } from './cursos/cursos.module';
 import { PublicidadModule } from './publicidad/publicidad.module';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { PwaNotifInstallerComponent } from "src/app/shared/pwa-notif-installer/pwa-notif-installer.component";
 
 @NgModule({
   declarations: [
@@ -118,9 +119,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     // CursosModule,
     NgxPaginationModule,
     CKEditorModule,
-    // AngularFileUploaderModule,
-
-  ],
+    PwaNotifInstallerComponent
+],
   providers: [
   ],
 })
