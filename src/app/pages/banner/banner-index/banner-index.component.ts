@@ -75,6 +75,14 @@ export class BannerIndexComponent implements OnInit {
     });
   }
 
+  toggleStatus(banner: any) {
+  if (banner.status === 'Activo') {
+    this.desactivar(banner._id);
+  } else {
+    this.activar(banner._id);
+  }
+}
+
   desactivar(id){
     this.bannerService.desactivar(id).subscribe(
       response=>{

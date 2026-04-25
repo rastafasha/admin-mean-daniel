@@ -61,12 +61,16 @@
                                             Publicado</span>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-success"
-                                            *ngIf="banner.status == 'Desactivado'" (click)="activar(banner._id)"><span
-                                                class="fa fa-check"></span> Activar</button>
-                                        <button type="button" class="btn btn-primary" *ngIf="banner.status == 'Activo'"
-                                            (click)="desactivar(banner._id)"><span class="fa fa-check"></span>
-                                            Desactivar</button>
+                                        
+                                         <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch"
+                                                [id]="'switch' + banner._id" [checked]="banner.status === 'Activo'"
+                                                (change)="toggleStatus(banner)">
+                                            <label class="form-check-label" [for]="'switch' + banner._id">
+                                                {{ banner.status }}
+                                            </label>
+                                        </div>
+
 
                                     </td>
                                     <td class="text-nowrap text-center">

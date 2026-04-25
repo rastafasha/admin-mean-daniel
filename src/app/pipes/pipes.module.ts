@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ImagenPipe } from './imagen.pipe';
 import { EscapeHtmlPipe } from './keep-html.pipe';
 import { SafePipe } from './safe.pipe';
+import { AdminRolesPipe } from './admin-roles.pipe';
+import { UserRolePipe } from './user-role.pipe';
 
 
 
@@ -10,12 +12,16 @@ import { SafePipe } from './safe.pipe';
   declarations: [
     ImagenPipe,
     EscapeHtmlPipe,
-    SafePipe
+    SafePipe,
+    AdminRolesPipe,
+    UserRolePipe
   ],
   exports: [
     ImagenPipe,
     EscapeHtmlPipe,
-    SafePipe
+    SafePipe,
+    AdminRolesPipe,
+    UserRolePipe
   ],
   imports: [
     CommonModule,

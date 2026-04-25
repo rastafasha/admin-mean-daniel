@@ -72,7 +72,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let user of usuarios |  paginate: { itemsPerPage: count, currentPage: p }">
+                                        <tr *ngFor="let user of usuarios  |  paginate: { itemsPerPage: count, currentPage: p }">
                                         
                                             <td><a [routerLink]="['/dashboard/user/', user.uid]">{{user.username}}</a> </td>
                                             <td>{{user.email}}</td>

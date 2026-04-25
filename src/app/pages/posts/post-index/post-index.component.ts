@@ -90,6 +90,14 @@ export class PostIndexComponent implements OnInit {
   //   )
   // }
 
+  toggleStatus(blog: any) {
+  if (blog.status === 'Activo') {
+    this.desactivar(blog._id);
+  } else {
+    this.activar(blog._id);
+  }
+}
+  
   desactivar(id) {
     this.postService.desactivar(id).subscribe(
       response => {
@@ -105,13 +113,10 @@ export class PostIndexComponent implements OnInit {
   activar(id) {
     this.postService.activar(id).subscribe(
       response => {
-
         Swal.fire('Actualizado', `activado correctamente`, 'success');
         this.getPosts();
       },
       error => {
-
-
         this.msm_error = 'No se pudo activar el producto, vuelva a intenter.'
       }
     )

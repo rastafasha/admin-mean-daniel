@@ -5,7 +5,7 @@
         <div class="leftside">
             <app-back-button [title]="title"></app-back-button>
         </div>
-        
+
         <div class="clear"></div>
         <section class="section dashboard">
             <app-loading *ngIf="loading"></app-loading>
@@ -19,46 +19,85 @@
                             <input formControlName="titulo" type="title" class="form-control" required>
                         </div>
 
-                        <div class="form-group ">
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label for="select-input">Cómo abre?<span class="required">*</span></label>
-                                    <select class="form-control " formControlName="target">
-                                  <option disabled value="">SELECCIONAR</option>
-                                  <option  value ="_blank">Ventana Nueva</option>
-                                  <option  value ="_self">Misma Ventana</option>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 ">
+                            <div class="form-group">
+                                <label for="select-input">Cómo abre?<span class="required">*</span></label>
+                                <select class="form-control " formControlName="target">
+                                    <option disabled value="">SELECCIONAR</option>
+                                    <option value="_blank">Ventana Nueva</option>
+                                    <option value="_self">Misma Ventana</option>
                                 </select>
-                                </div>
                             </div>
                         </div>
-                        <div class="form-group ">
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label for="select-input">tiene Boton?<span class="required">*</span></label>
-                                    <select class="form-control " formControlName="gotBoton">
-                        <option disabled value="">SELECCIONAR</option>
-                        <option  value="true">Si</option>
-                        <option  value="false">No</option>
-                      </select>
-                                </div>
+                        <div class="col-xs-12 col-sm-6 ">
+                            <div class="form-group">
+                                <label for="select-input">Tono</label>
+                                <select class="form-control " formControlName="color">
+                                    <option disabled value="">SELECCIONAR</option>
+                                    <option value="claro">Ligth</option>
+                                    <option value="oscuro">Dark</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Nombre boton</label>
-                            <input formControlName="botonName" type="text" class="form-control" required>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Url<span class="required">*</span></label>
-                            <input formControlName="url" type="title" class="form-control" required>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-4">
+                            <div class="form-group">
+                                <label for="select-input">tiene Boton?<span class="required">*</span></label>
+                                <select class="form-control " formControlName="gotBoton">
+                                    <option disabled value="">SELECCIONAR</option>
+                                    <option value="true">Si</option>
+                                    <option value="false">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 ">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nombre boton</label>
+                                <input formControlName="botonName" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="form-group">
+                                <label for="select-input">Tono Texto Boton</label>
+                                <select class="form-control " formControlName="colortextboton">
+                                    <option disabled value="">SELECCIONAR</option>
+                                    <option value="claro">Ligth</option>
+                                    <option value="oscuro">Dark</option>
+                                </select>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Url<span class="required">*</span></label>
+                                <input formControlName="url" type="title" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="select-input">Tono Descripción</label>
+                                <select class="form-control " formControlName="colortext">
+                                    <option disabled value="">SELECCIONAR</option>
+                                    <option value="claro">Ligth</option>
+                                    <option value="oscuro">Dark</option>
+                                </select>
+                            </div>
+                        </div>
                         </div>
 
                         <div class="col-md-12">
-                            <label>Descripcion <span class="required">*</span></label>
+                            <label>Descripción <span class="required">*</span></label>
                             <div class="col-md-12">
-                                <!-- <textarea formControlName="description" id="description" cols="30" rows="4" class="form-control"></textarea> -->
-                                <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>" formControlName="description" value="description" cols="30" rows="4" class="form-control" required></ckeditor>
+                                <textarea formControlName="description" id="description" cols="30" rows="4" class="form-control"></textarea>
+                                <!-- <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>"
+                                    formControlName="description" value="description" cols="30" rows="4"
+                                    class="form-control" required></ckeditor> -->
                             </div>
                         </div>
+                        
                         <!-- <input type="hidden" formControlName="id"> -->
                         <button (click)="editCurso()" class="btn btn-primary">Guardar</button>
                     </form>
@@ -81,16 +120,18 @@
                         </div>
                         <div class="col-xs-12">
                             <div class="text-center">
-                                <img *ngIf="!imgTemp " [src]="banner.img | imagenPipe: 'banners'" class="img-responsive img-thumbnail" alt="">
+                                <img *ngIf="!imgTemp " [src]="banner.img | imagenPipe: 'banners'"
+                                    class="img-responsive img-thumbnail" alt="">
                                 <!-- <img *ngIf="!imgTemp" src="./assets/images/no-image.jpg" class="img-responsive img-thumbnail" alt=""> -->
                                 <img *ngIf="imgTemp" [src]="imgTemp" class="img-responsive">
                             </div>
                             <input type="file" (change)="cambiarImagen($event.target.files[0])">
                             <br>
                             <br>
-                            <button type="button" [disabled]="!imagenSubir" (click)="subirImagen()" class="btn btn-success waves-effect waves-light m-r-10 btn-block">
-                  <i class="fa fa-save"></i> Cambiar imagen
-                 </button>
+                            <button type="button" [disabled]="!imagenSubir" (click)="subirImagen()"
+                                class="btn btn-success waves-effect waves-light m-r-10 btn-block">
+                                <i class="fa fa-save"></i> Cambiar imagen
+                            </button>
                         </div>
                     </div>
                 </div>

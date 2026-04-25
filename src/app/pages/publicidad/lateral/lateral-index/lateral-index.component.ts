@@ -71,6 +71,15 @@ export class LateralIndexComponent implements OnInit {
     });
   }
 
+
+  toggleStatus(sideadvice: any) {
+  if (sideadvice.status === 'Activo') {
+    this.desactivar(sideadvice._id);
+  } else {
+    this.activar(sideadvice._id);
+  }
+}
+
   desactivar(id){
     this.sideadviceService.desactivar(id).subscribe(
       response=>{

@@ -18,7 +18,7 @@ export class EditorEditComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   error = null;
-  title: string;
+  title: 'Crear Editor';
   public formSumitted = false;
   errors: any = null;
 

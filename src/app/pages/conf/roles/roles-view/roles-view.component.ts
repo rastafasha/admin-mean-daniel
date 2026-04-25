@@ -16,16 +16,16 @@ export class RolesViewComponent implements OnInit {
   users: User;
   user: User;
   role?: User;
-
   p: number = 1;
   count: number = 8;
-
   error: string;
   msm_error: string;
-
   rolesSelected:number;
-
   rolesForm: FormGroup;
+  option_selectedd: number = 1;
+    solicitud_selectedd: any = 1;
+
+    isLoading= false;
 
   constructor(
     private fb:FormBuilder,
@@ -38,21 +38,34 @@ export class RolesViewComponent implements OnInit {
   }
 
   getUsers(): void {
+    this.isLoading= true;
     this.userService.getUsuarios().subscribe(
       res =>{
         this.users = res;
         error => this.error = error;
+        this.isLoading= false;
       }
     );
   }
 
   cambiarRole(user: User){
+    this.isLoading= true;
     this.userService.editarRole(user).subscribe(
-      resp =>{ console.log(resp);
+      resp =>{ 
+        this.isLoading= false;
         Swal.fire('Actualizado', `actualizado rol correctamente`, 'success');
         this.getUsers();
       }
     )
+  }
+
+   optionSelected(value: number) {
+    this.option_selectedd = value;
+    if (this.option_selectedd === 1) {
+    }
+    if (this.option_selectedd === 2) {
+      this.solicitud_selectedd = null;
+    }
   }
 
 }

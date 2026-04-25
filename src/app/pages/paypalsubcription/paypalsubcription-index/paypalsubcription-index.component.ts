@@ -67,7 +67,13 @@ export class PaypalsubcriptionIndexComponent implements OnInit {
     }
   }
 
-
+ toggleStatus(plan: any) {
+  if (plan.status === 'ACTIVE') {
+    this.desactivar(plan.id);
+  } else {
+    this.activar(plan.id);
+  }
+}
 
   desactivar(id) {
     this.planpaypalService.desactivar(id).subscribe(

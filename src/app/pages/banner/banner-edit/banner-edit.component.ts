@@ -84,6 +84,9 @@ export class BannerEditComponent implements OnInit {
             gotBoton: res.gotBoton,
             botonName: res.botonName,
             url: res.url,
+            color: res.color,
+            colortext: res.colortext,
+            colortextboton: res.colortextboton,
             img: res.img,
             description: res.description,
           });
@@ -105,6 +108,9 @@ export class BannerEditComponent implements OnInit {
       gotBoton: ['', Validators.required],
       botonName: [''],
       url: [''],
+      color: [''],
+      colortext: [''],
+      colortextboton: [''],
     })
   }
   get titulo() {
@@ -123,6 +129,15 @@ export class BannerEditComponent implements OnInit {
 
   get botonName() {
     return this.bannerForm.get('botonName');
+  }
+  get color() {
+    return this.bannerForm.get('color');
+  }
+  get colortext() {
+    return this.bannerForm.get('colortext');
+  }
+  get colortextboton() {
+    return this.bannerForm.get('colortextboton');
   }
   get url() {
     return this.bannerForm.get('url');
@@ -176,6 +191,9 @@ export class BannerEditComponent implements OnInit {
     formData.append('botonName', this.bannerForm.get('botonName').value);
     formData.append('description', this.bannerForm.get('description').value);
     formData.append('url', this.bannerForm.get('url').value);
+    formData.append('color', this.bannerForm.get('color').value);
+    formData.append('colortext', this.bannerForm.get('colortext').value);
+    formData.append('colortextboton', this.bannerForm.get('colortextboton').value);
 
 
     if (this.banner) {
