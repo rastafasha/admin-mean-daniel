@@ -1,25 +1,23 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-
 import { Plan } from 'src/app/models/plan';
 import { PlanesService } from 'src/app/services/planes.service';
 import { environment } from 'src/environments/environment';
 import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
-interface HtmlInputEvent extends Event{
-  target : HTMLInputElement & EventTarget;
+interface HtmlInputEvent extends Event {
+  target: HTMLInputElement & EventTarget;
 }
 
-declare var jQuery:any;
-declare var $:any;
+declare var jQuery: any;
+declare var $: any;
 
 @Component({
-    selector: 'app-planes-edit',
-    templateUrl: './planes-edit.component.html',
-    styleUrls: ['./planes-edit.component.css'],
-    standalone: false
+  selector: 'app-planes-edit',
+  templateUrl: './planes-edit.component.html',
+  styleUrls: ['./planes-edit.component.css'],
+  standalone: false
 })
 export class PlanesEditComponent implements OnInit {
 
@@ -34,7 +32,7 @@ export class PlanesEditComponent implements OnInit {
 
   public plan: Plan;
 
-  public imgSelect : String | ArrayBuffer;
+  public imgSelect: String | ArrayBuffer;
 
   title: string;
 
@@ -51,23 +49,22 @@ export class PlanesEditComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private planService: PlanesService,
-    private location: Location,
     private activatedRoute: ActivatedRoute,
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.validarFormulario();
-    this.activatedRoute.params.subscribe( ({id}) => this.getplan(id));
+    this.activatedRoute.params.subscribe(({ id }) => this.getplan(id));
   }
-  public onReady( editor ) {
+  public onReady(editor) {
     editor.ui.getEditableElement().parentElement.insertBefore(
-        editor.ui.view.toolbar.element,
-        editor.ui.getEditableElement()
+      editor.ui.view.toolbar.element,
+      editor.ui.getEditableElement()
     );
   }
 
 
-  getplan(_id){
+  getplan(_id) {
     if (_id !== null && _id !== undefined) {
       this.title = 'Editando plan';
       this.planService.getPlan(_id).subscribe(
@@ -90,15 +87,15 @@ export class PlanesEditComponent implements OnInit {
     }
   }
 
-  validarFormulario(){
+  validarFormulario() {
     this.planForm = this.fb.group({
       // id: [''],
-      name: ['',Validators.required],
-      price: ['',Validators.required],
+      name: ['', Validators.required],
+      price: ['', Validators.required],
       color: [''],
       tiempo: [''],
-      description: ['',Validators.required],
-      adicional: ['',Validators.required],
+      description: ['', Validators.required],
+      adicional: ['', Validators.required],
     })
   }
   get name() {
@@ -125,7 +122,7 @@ export class PlanesEditComponent implements OnInit {
 
 
 
-  editPlan(){
+  editPlan() {
 
     const formData = new FormData();
     formData.append('name', this.planForm.get('name').value);
@@ -135,7 +132,7 @@ export class PlanesEditComponent implements OnInit {
     formData.append('color', this.planForm.get('color').value);
     formData.append('tiempo', this.planForm.get('tiempo').value);
     // const id = this.planForm.get('id').value;
-    if(this.planSeleccionado){
+    if (this.planSeleccionado) {
       //actualizar
       const data = {
         ...this.planForm.value,
@@ -143,37 +140,25 @@ export class PlanesEditComponent implements OnInit {
       }
 
       this.planService.updatePlan(data).subscribe(
-        resp =>{
+        resp => {
           Swal.fire('Actualizado', `actualizado correctamente`, 'success');
           this.router.navigateByUrl(`/dashboard/planes`);
         });
 
-    }else{
+    } else {
       //crear
       const data = {
         ...this.planForm.value,
         // user_id: this.user.uid
       }
       this.planService.createPlan(data)
-      .subscribe( (resp: any) =>{
-        Swal.fire('Creado', ` creado correctamente`, 'success');
-        this.router.navigateByUrl(`/dashboard/planes`);
-      })
+        .subscribe((resp: any) => {
+          Swal.fire('Creado', ` creado correctamente`, 'success');
+          this.router.navigateByUrl(`/dashboard/planes`);
+        })
     }
     return false;
   }
-
-
-
-
-
-  goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
-  }
-
-
-
-
 
 
 }

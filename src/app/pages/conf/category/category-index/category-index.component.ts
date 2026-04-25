@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-//Services
 import { HttpBackend, HttpClient, HttpHandler } from '@angular/common/http';
-
-import { Location } from '@angular/common';
 import { User } from 'src/app/models/user';
 import { Category } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category.service';
@@ -32,7 +28,6 @@ export class CategoryIndexComponent implements OnInit {
   query:string ='';
 
   constructor(
-    private location: Location,
     private http: HttpClient,
     private categoryService: CategoryService,
     handler: HttpBackend,
@@ -43,7 +38,7 @@ export class CategoryIndexComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.getCurrencies();
+    this.getCategories();
     this.getUser();
     window.scrollTo(0,0);
   }
@@ -53,11 +48,17 @@ export class CategoryIndexComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'));
   }
 
-  getCurrencies(): void {
+  PageSize() {
+    this.getCategories();
+  }
+
+  getCategories(): void {
+    this.loading = true;
     this.categoryService.getCategories().subscribe(
       res =>{
         this.categorias = res;
-        error => this.error = error
+        error => this.error = error;
+        this.loading = false;
       }
     );
   }
@@ -75,7 +76,7 @@ export class CategoryIndexComponent implements OnInit {
       if (result.isConfirmed) {
         this.categoryService.deleteCategory(_id).subscribe(
           response =>{
-            this.getCurrencies();
+            this.getCategories();
           }
           );
         Swal.fire(
@@ -89,19 +90,13 @@ export class CategoryIndexComponent implements OnInit {
 
   }
 
-
-  goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
-  }
-
-  search() {
+  search(): void {
     if(!this.query){
       this.ngOnInit();
     }else{
-      return this.busquedasService.searchGlobal(this.query).subscribe(
+     this.busquedasService.searchGlobal(this.query).subscribe(
         (resp:any) => {
           this.categorias = resp.categorias;
-          
         }
       )
     }

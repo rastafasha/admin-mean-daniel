@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { User } from 'src/app/models/user';
@@ -31,7 +30,6 @@ export class RolesViewComponent implements OnInit {
   constructor(
     private fb:FormBuilder,
     private userService: UserService,
-    private location: Location,
   ) { }
 
   ngOnInit(): void {
@@ -55,11 +53,6 @@ export class RolesViewComponent implements OnInit {
         this.getUsers();
       }
     )
-  }
-
-
-  goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
   }
 
 }

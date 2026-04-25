@@ -15,3 +15,4 @@ export class imageInterceptor implements HttpInterceptor {
     return next.handle(requestToHandle);
   }
 }
+

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
 import { Payment } from 'src/app/models/payment';
 import { User } from 'src/app/models/user';
@@ -14,10 +13,10 @@ import { planPaypalSubcription } from 'src/app/models/planPaypalSubcription';
 import { PlanPaypalSubcriptionService } from 'src/app/services/paypalSubcription.service';
 
 @Component({
-    selector: 'app-user-profile',
-    templateUrl: './user-profile.component.html',
-    styleUrls: ['./user-profile.component.css'],
-    standalone: false
+  selector: 'app-user-profile',
+  templateUrl: './user-profile.component.html',
+  styleUrls: ['./user-profile.component.css'],
+  standalone: false
 })
 export class UserProfileComponent implements OnInit {
 
@@ -29,11 +28,11 @@ export class UserProfileComponent implements OnInit {
   error: string;
   subcriptions: planPaypalSubcription;
 
-  public pagos: Payment[] =[];
+  public pagos: Payment[] = [];
   userPagos: Payment;
-  uid:string;
+  uid: string;
 
-  rolesSelected:number;
+  rolesSelected: number;
 
   p: number = 1;
   count: number = 8;
@@ -44,7 +43,6 @@ export class UserProfileComponent implements OnInit {
     private paymentService: PaymentService,
     private postService: PostService,
     private activatedRoute: ActivatedRoute,
-    private location: Location,
     private subcriptionPaypalService: PlanPaypalSubcriptionService,
 
   ) {
@@ -52,29 +50,29 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     this.closeMenu();
-    this.activatedRoute.params.subscribe( ({id}) => this.getUserRemoto(id));
-    this.activatedRoute.params.subscribe( ({id}) => this.getProfile(id));
-    this.activatedRoute.params.subscribe( ({id}) => this.getPagos(id));
-    this.activatedRoute.params.subscribe( ({id}) => this.getBlogs(id));
-    this.activatedRoute.params.subscribe( ({id}) => this.getUserSubcription(id));
-    
+    this.activatedRoute.params.subscribe(({ id }) => this.getUserRemoto(id));
+    this.activatedRoute.params.subscribe(({ id }) => this.getProfile(id));
+    this.activatedRoute.params.subscribe(({ id }) => this.getPagos(id));
+    this.activatedRoute.params.subscribe(({ id }) => this.getBlogs(id));
+    this.activatedRoute.params.subscribe(({ id }) => this.getUserSubcription(id));
+
   }
 
-  closeMenu(){
+  closeMenu() {
     var menuLateral = document.getElementsByClassName("sidebar");
-      for (var i = 0; i<menuLateral.length; i++) {
-         menuLateral[i].classList.remove("active");
+    for (var i = 0; i < menuLateral.length; i++) {
+      menuLateral[i].classList.remove("active");
 
-      }
+    }
   }
 
 
 
-  getUserRemoto(id){
+  getUserRemoto(id) {
     this.userService.getUserById(id).subscribe(
-      res =>{
+      res => {
         this.usuario = res;
         error => this.error = error;
         // console.log(this.usuario);
@@ -83,27 +81,27 @@ export class UserProfileComponent implements OnInit {
 
   }
 
-  getProfile(id:string){
-    
+  getProfile(id: string) {
+
     this.profileService.getByUser(id).subscribe(
-      res =>{
+      res => {
         this.profile = res[0];
         error => this.error = error;
       }
     );
 
-    
+
   }
 
-  getPagos(id){
+  getPagos(id) {
     this.paymentService.getPagosbyUser(id).subscribe(
-      res =>{
+      res => {
         this.pagos = res;
         error => this.error = error;
       }
     );
   }
-  getUserSubcription(id:string){
+  getUserSubcription(id: string) {
 
     this.subcriptionPaypalService.getByUser(id).subscribe((data: any) => {
       this.subcriptions = data;
@@ -111,22 +109,19 @@ export class UserProfileComponent implements OnInit {
   }
 
 
-  goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
-  }
-
-  updateUser(userprofile: Profile){
-    this.profileService.updateProfile(userprofile ).subscribe(
-      resp =>{ console.log(resp);
+  updateUser(userprofile: Profile) {
+    this.profileService.updateProfile(userprofile).subscribe(
+      resp => {
+        console.log(resp);
         Swal.fire('Actualizado', `actualizado correctamente`, 'success');
 
       }
     )
   }
 
-  getBlogs(_id:string){
+  getBlogs(_id: string) {
     this.postService.getByUser(_id).subscribe(
-      res =>{
+      res => {
         this.blogs = res;
         error => this.error = error;
         // console.log(this.blogs);

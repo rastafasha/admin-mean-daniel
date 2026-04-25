@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
-
 import { environment } from 'src/environments/environment';
-
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { Category } from 'src/app/models/category';
@@ -38,7 +35,6 @@ export class CategoryEditComponent implements OnInit {
     private usuarioService: UserService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private location: Location,
     private categoryService: CategoryService,
   ) {
     this.usuario = usuarioService.usuario;
@@ -113,14 +109,6 @@ export class CategoryEditComponent implements OnInit {
       })
     }
 
-  }
-
-  // enviarNotificacion(): void {
-  //   this.alertService.success("Mensaje de Monedas","Se ha creado una nueva moneda!");
-  // }
-
-  goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
   }
 
   getCategories(): void {

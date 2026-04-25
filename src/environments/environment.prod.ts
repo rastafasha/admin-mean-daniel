@@ -1,8 +1,7 @@
 export const environment = {
   production: true,
   apiUrl: "https://backend-daniel-node-mongo.onrender.com/api",
-  apiUrlMedia: "https://backend-daniel-node-mongo.onrender.com/api/uploads",
-  mediaUrlRemoto: 'https://res.cloudinary.com/dmv6aukai/image/upload/v1741218430/articlesApp',
+  apiUrlMedia: 'https://res.cloudinary.com/dmv6aukai/image/upload/v1741218430/articlesApp/uploads',
   //paypal
   clientSandboxId: 'AXlazeNsZ0CmjfJIronSzcqzw4hLHkcoVEM5fO5BY7AbD-_GhKoKezRcavq6-T4kQuRqaTXFB_VXmheG',
   paypalKey:'Aebb_SJ2-L8OrgRAvAERINfyMb7eKrqZ7xPt5JreBd9eYfDjzfDildStuo5Gjcx6GNvWbTZaiwBiMeAf',

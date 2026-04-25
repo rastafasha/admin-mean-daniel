@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 
 import { CartItemModel } from 'src/app/models/cart-item-model';
@@ -68,7 +67,6 @@ export class ReportarPagoComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private location: Location,
     private paymentService: PaymentService,
     private usuarioService: UserService,
     private router: Router,
@@ -119,10 +117,6 @@ export class ReportarPagoComponent implements OnInit {
         console.log(this.planes);
       }
     );
-  }
-
-  goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
   }
 
   validarFormulario(){

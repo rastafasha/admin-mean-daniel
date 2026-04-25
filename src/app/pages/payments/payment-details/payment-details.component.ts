@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Payment } from 'src/app/models/payment';
@@ -23,7 +22,7 @@ export class PaymentDetailsComponent implements OnInit {
   public pago: Payment;
   public blogs: any = {};
   error: string;
-
+  loading = false;
 
   public paymentForm: FormGroup;
   public usuario: User;
@@ -37,7 +36,6 @@ export class PaymentDetailsComponent implements OnInit {
 
 
   constructor(
-    private location: Location,
     private activatedRoute: ActivatedRoute,
     private paymentService: PaymentService,
     private http: HttpClient,
@@ -58,11 +56,12 @@ export class PaymentDetailsComponent implements OnInit {
     this.getUser();
   }
   getUserPayment(_id:string){
+    
     this.paymentService.getPagosbyUser(_id).subscribe(
       res =>{
         this.payment = res;
         error => this.error = error
-        // console.log(this.payment);
+        
       }
     );
   }
@@ -72,19 +71,17 @@ export class PaymentDetailsComponent implements OnInit {
   }
 
   getPagoById(_id:string){
+    this.loading = true;
     this.paymentService.getPagoById(_id).subscribe(
       res =>{
         this.pago = res;
         this.blogs = res.blog;
         error => this.error = error;
-        
+        this.loading = false;
       }
     );
   }
 
-  goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
-  }
 
   validarFormulario(){
     this.paymentForm = this.fb.group({

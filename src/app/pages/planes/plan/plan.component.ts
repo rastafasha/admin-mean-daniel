@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import { Plan } from 'src/app/models/plan';
 import { PlanesService } from 'src/app/services/planes.service';
 @Component({
@@ -12,10 +11,12 @@ import { PlanesService } from 'src/app/services/planes.service';
 export class PlanComponent implements OnInit {
 
   plan: Plan;
+  title = "Detalle Plan";
+  error: string;
+
   constructor(
     private planService: PlanesService,
     private activatedRoute: ActivatedRoute,
-    private location: Location,
   ) { }
 
   ngOnInit(): void {
@@ -30,10 +31,6 @@ export class PlanComponent implements OnInit {
         this.plan = res;
       }
     )
-  }
-
-  goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
   }
 
 

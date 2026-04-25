@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Payment } from 'src/app/models/payment';
 import { PaymentService } from 'src/app/services/payment.service';
@@ -8,28 +7,27 @@ import { BusquedasService } from 'src/app/services/busqueda.service';
 
 
 @Component({
-    selector: 'app-payments',
-    templateUrl: './payments.component.html',
-    styleUrls: ['./payments.component.css'],
-    standalone: false
+  selector: 'app-payments',
+  templateUrl: './payments.component.html',
+  styleUrls: ['./payments.component.css'],
+  standalone: false
 })
 export class PaymentsComponent implements OnInit {
 
 
   title = "Compras"
-
+  loading = false;
   pagos: Payment;
-  error:string;
+  error: string;
   p: number = 1;
   count: number = 8;
 
   public user;
 
-  query:string ='';
+  query: string = '';
 
 
   constructor(
-    private location: Location,
     private paymentService: PaymentService,
     private userService: UserService,
     private http: HttpClient,
@@ -41,47 +39,44 @@ export class PaymentsComponent implements OnInit {
   ngOnInit(): void {
     this.closeMenu();
     this.getPagos();
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     // this.getPagos_list();
   }
 
-  closeMenu(){
+  closeMenu() {
     var menuLateral = document.getElementsByClassName("sidebar");
-      for (var i = 0; i<menuLateral.length; i++) {
-         menuLateral[i].classList.remove("active");
+    for (var i = 0; i < menuLateral.length; i++) {
+      menuLateral[i].classList.remove("active");
 
-      }
+    }
   }
 
-
-
   getPagos(): void {
+    this.loading = true;
     this.paymentService.getAll().subscribe(
-      res =>{
+      res => {
         this.pagos = res;
+        this.loading = false;
         error => this.error = error;
-        // console.log(this.pagos);
       }
     );
   }
-  goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
+
+  PageSize() {
+    this.getPagos();
   }
 
-  search() {
-    if(!this.query){
+  search(): void {
+    if (!this.query) {
       this.ngOnInit();
-    }else{
-      return this.busquedasService.searchGlobal(this.query).subscribe(
-        (resp:any) => {
+    } else {
+      this.busquedasService.searchGlobal(this.query).subscribe(
+        (resp: any) => {
           this.pagos = resp.pagos;
-          
+
         }
       )
     }
   }
-
-
-
 
 }

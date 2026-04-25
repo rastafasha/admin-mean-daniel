@@ -1,6 +1,6 @@
 import { environment } from "src/environments/environment";
 import { Category } from './category';
-const base_url = environment.mediaUrlRemoto;
+const base_url = environment.apiUrlMedia;
 export class Post {
   constructor(
 

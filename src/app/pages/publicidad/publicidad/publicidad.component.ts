@@ -1,5 +1,4 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
-import { Location } from '@angular/common';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
@@ -17,7 +16,6 @@ export class PublicidadComponent implements OnInit {
   user: User;
 
   constructor(
-    private location: Location,
     private userService: UserService,
   ) { }
 
@@ -33,12 +31,5 @@ export class PublicidadComponent implements OnInit {
 
       }
   }
-
-
-
-  goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
-  }
-
 
 }

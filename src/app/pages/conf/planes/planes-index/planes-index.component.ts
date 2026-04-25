@@ -1,18 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-
 import { HttpBackend, HttpClient, HttpHandler } from '@angular/common/http';
-
 import { Plan } from 'src/app/models/plan';
 import { User } from 'src/app/models/user';
 import { PlanesService } from 'src/app/services/planes.service';
-import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
 
 @Component({
-    selector: 'app-planes-index',
-    templateUrl: './planes-index.component.html',
-    styleUrls: ['./planes-index.component.css'],
-    standalone: false
+  selector: 'app-planes-index',
+  templateUrl: './planes-index.component.html',
+  styleUrls: ['./planes-index.component.css'],
+  standalone: false
 })
 export class PlanesIndexComponent implements OnInit {
   title = "Planes y productos"
@@ -25,21 +22,20 @@ export class PlanesIndexComponent implements OnInit {
   loading = false;
 
   constructor(
-    private location: Location,
     private planesService: PlanesService,
     handler: HttpBackend
   ) {
-   }
+  }
 
   ngOnInit(): void {
     this.getPlanes();
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
   }
 
   getPlanes(): void {
     // return this.planesService.carga_info();
     this.planesService.getPlanes().subscribe(
-      res =>{
+      res => {
         this.planes = res;
         error => this.error = error
         console.log(this.planes);
@@ -47,7 +43,7 @@ export class PlanesIndexComponent implements OnInit {
     );
   }
 
-  eliminarPlan(_id:string){
+  eliminarPlan(_id: string) {
 
     Swal.fire({
       title: 'Estas Seguro?',
@@ -60,10 +56,10 @@ export class PlanesIndexComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.planesService.deletePlan(_id).subscribe(
-          response =>{
+          response => {
             this.getPlanes();
           }
-          );
+        );
         Swal.fire(
           'Borrado!',
           'El Archivo fue borrado.',
@@ -74,36 +70,30 @@ export class PlanesIndexComponent implements OnInit {
     })
   }
 
-  desactivar(id){
+  desactivar(id) {
     this.planesService.desactivar(id).subscribe(
-      response=>{
+      response => {
         Swal.fire('Actualizado', `desactivado correctamente`, 'success');
         this.getPlanes();
       },
-      error=>{
+      error => {
         this.msm_error = 'No se pudo desactivar el curso, vuelva a intenter.'
       }
     )
   }
 
-  activar(id){
+  activar(id) {
     this.planesService.activar(id).subscribe(
-      response=>{
+      response => {
 
         Swal.fire('Actualizado', `actualizado correctamente`, 'success');
         this.getPlanes();
       },
-      error=>{
+      error => {
         this.msm_error = 'No se pudo activar el curso, vuelva a intenter.'
       }
     )
   }
-
-
-  goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
-  }
-
 
 
 }

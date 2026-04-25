@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
@@ -17,15 +16,15 @@ import * as Decoupled from '@ckeditor/ckeditor5-build-decoupled-document';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 const baseUrl = environment.apiUrl;
 
-interface HtmlInputEvent extends Event{
-  target : HTMLInputElement & EventTarget;
+interface HtmlInputEvent extends Event {
+  target: HTMLInputElement & EventTarget;
 }
 
 @Component({
-    selector: 'app-post-edit',
-    templateUrl: './post-edit.component.html',
-    styleUrls: ['./post-edit.component.css'],
-    standalone: false
+  selector: 'app-post-edit',
+  templateUrl: './post-edit.component.html',
+  styleUrls: ['./post-edit.component.css'],
+  standalone: false
 })
 export class PostEditComponent implements OnInit {
 
@@ -38,11 +37,12 @@ export class PostEditComponent implements OnInit {
   public editorData = `<p>This is a CKEditor 5 WYSIWYG editor instance created with Angular.</p>`;
 
   isLoading: boolean = false;
+  isLoadingImage: boolean = false;
   public postForm: FormGroup;
 
   public post: Post;
 
-  public imgSelect : String | ArrayBuffer;
+  public imgSelect: String | ArrayBuffer;
   public imagenSubir: File;
   public imgTemp: any = null;
   imagePath: string;
@@ -55,33 +55,32 @@ export class PostEditComponent implements OnInit {
   public msm_error = '';
   public categoryForm: FormGroup;
 
-  titlePage: string;
+  title: string;
 
   public postSeleccionado: Post;
   public user: User;
-  uid:string;
+  uid: string;
 
 
   error: string;
   uploadError: string;
   public storage = environment.apiUrlMedia;
 
-  
-  
+
+
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private postService: PostService,
-    private location: Location,
     private activatedRoute: ActivatedRoute,
     private categoryService: CategoryService,
     private userService: UserService,
     private fileUploadService: FileUploadService,
-    
-    ) {
-      this.user = userService.usuario;
-     }
+
+  ) {
+    this.user = userService.usuario;
+  }
 
   ngOnInit(): void {
     this.getCategories();
@@ -89,21 +88,21 @@ export class PostEditComponent implements OnInit {
     this.validarFormulario();
     this.validarFormularioCategoria();
     this.getUser();
-    this.activatedRoute.params.subscribe( ({id}) => this.getPost(id));
-    window.scrollTo(0,0);
+    this.activatedRoute.params.subscribe(({ id }) => this.getPost(id));
+    window.scrollTo(0, 0);
   }
 
-  
+
 
   getUser(): void {
 
     this.user = JSON.parse(localStorage.getItem('user'));
-      this.uid = this.user.uid;
+    this.uid = this.user.uid;
   }
 
   getCategories(): void {
     this.categoryService.getCategories().subscribe(
-      res =>{
+      res => {
         this.categorias = res;
         // console.log(this.categorias)
       }
@@ -112,40 +111,40 @@ export class PostEditComponent implements OnInit {
 
   getCategoriesList(): void {
     this.categoryService.getCategoriesLista().subscribe(
-      res =>{
+      res => {
         this.categoriaslista = res;
         // console.log(this.categoriaslista)
       }
     );
   }
 
-  updateCategory(){
+  updateCategory() {
 
-    const {nombre } = this.categoryForm.value;
+    const { nombre } = this.categoryForm.value;
 
-    if(this.categorySeleccionado){
+    if (this.categorySeleccionado) {
       //actualizar
       const data = {
         ...this.categoryForm.value,
         _id: this.categorySeleccionado._id
       }
       this.categoryService.updateCategory(data).subscribe(
-        resp =>{
+        resp => {
           this.getCategories();
         });
 
-    }else{
+    } else {
       //crear
       this.categoryService.createCategory(this.categoryForm.value)
-      .subscribe( (resp: any) =>{
-        this.getCategories();
-        // this.enviarNotificacion();
-      })
+        .subscribe((resp: any) => {
+          this.getCategories();
+          // this.enviarNotificacion();
+        })
     }
 
   }
 
-  cargarCategory(_id: string){
+  cargarCategory(_id: string) {
     if (_id !== null && _id !== undefined) {
       this.categoryService.getCategory(_id).subscribe(
         res => {
@@ -157,20 +156,21 @@ export class PostEditComponent implements OnInit {
           // console.log(this.categorySeleccionado);
         }
       );
-    } 
+    }
 
   }
 
 
-  validarFormularioCategoria(){
+  validarFormularioCategoria() {
     this.categoryForm = this.fb.group({
-      nombre: ['',Validators.required],
+      nombre: ['', Validators.required],
     })
   }
 
-  getPost(_id: string){
+  getPost(_id: string) {
+    this.isLoading = true;
     if (_id !== null && _id !== undefined) {
-      this.titlePage = 'Editando Post';
+      this.title = 'Editando Post';
       this.postService.getPost(_id).subscribe(
         res => {
           this.postForm.patchValue({
@@ -184,19 +184,19 @@ export class PostEditComponent implements OnInit {
             categoria: res.categoria,
             status: res.status,
             isFeatured: res.isFeatured,
-            img : res.img,
+            img: res.img,
             usuario: this.user.uid,
           });
           this.postSeleccionado = res;
-          // console.log(this.post);
+          this.isLoading = false;
         }
       );
     } else {
-      this.titlePage = 'Creando Post';
+      this.title = 'Creando Post';
     }
   }
 
-  validarFormulario(){
+  validarFormulario() {
     this.postForm = this.fb.group({
       name: ['', Validators.required],
       price: [''],
@@ -239,42 +239,42 @@ export class PostEditComponent implements OnInit {
     return this.postForm.get('usuario');
   }
 
-  cambiarImagen(file: File){
-     this.imagenSubir = file;
+  cambiarImagen(file: File) {
+    this.imagenSubir = file;
 
-    if(!file){
+    if (!file) {
       return this.imgTemp = null;
     }
 
     const reader = new FileReader();
     const url64 = reader.readAsDataURL(file);
 
-    reader.onloadend = () =>{
+    reader.onloadend = () => {
       this.imgTemp = reader.result;
     }
   }
 
-  subirImagen(){
-    this.isLoading = true;
+  subirImagen() {
+    this.isLoadingImage = true;
     this.fileUploadService
       .actualizarFoto(this.imagenSubir, 'blogs', this.postSeleccionado._id || '')
       .then(img => {
         this.postSeleccionado.img = img;
         Swal.fire('Guardado', 'La imagen fue actualizada', 'success');
-        this.isLoading = false;
+        this.isLoadingImage = false;
         this.ngOnInit()
       }).catch(err => {
         Swal.fire('Error', 'No se pudo subir la imagen', 'error');
-        this.isLoading = false;
+        this.isLoadingImage = false;
         this.ngOnInit()
       })
-    
+
   }
 
 
 
 
-  editPost(){
+  editPost() {
 
     const formData = new FormData();
     formData.append('name', this.postForm.get('name').value);
@@ -288,7 +288,7 @@ export class PostEditComponent implements OnInit {
     // formData.append('usuario', this.postForm.get('usuario').value);
 
 
-    if(this.post){
+    if (this.post) {
       //actualizar
       const data = {
         ...this.postForm.value,
@@ -297,54 +297,46 @@ export class PostEditComponent implements OnInit {
       }
 
       this.postService.updatePost(data).subscribe(
-        resp =>{
+        resp => {
           Swal.fire('Actualizado', `Actualizado correctamente`, 'success');
           this.router.navigateByUrl(`/dashboard/posts`);
         });
 
-    }else{
+    } else {
       //crear
-    const data = {
-      ...this.postForm.value,
-      // user_id: this.user.uid
-    }
+      const data = {
+        ...this.postForm.value,
+        // user_id: this.user.uid
+      }
       this.postService.createPost(data).subscribe(
-        (resp: any) =>{
+        (resp: any) => {
           console.log(resp);
-        Swal.fire('Creado', ` creado correctamente`, 'success');
-        this.router.navigateByUrl(`/dashboard/posts`);
-      })
+          Swal.fire('Creado', ` creado correctamente`, 'success');
+          this.router.navigateByUrl(`/dashboard/posts`);
+        })
     }
     return false;
   }
 
-  public mostrarEditorCategorias(){
+  public mostrarEditorCategorias() {
     var listacategoria = document.getElementsByClassName("crearcategoria");
-    for (var i = 0; i<listacategoria.length; i++) {
+    for (var i = 0; i < listacategoria.length; i++) {
       listacategoria[i].classList.toggle("mostrar");
       //console.log('pulsado', menuLateral);
 
     }
-}
-
-
-
-  goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
   }
-
-
 
   //ckeditor
 
-  public onReady( editor ) {
+  public onReady(editor) {
     editor.ui.getEditableElement().parentElement.insertBefore(
-        editor.ui.view.toolbar.element,
-        editor.ui.getEditableElement()
+      editor.ui.view.toolbar.element,
+      editor.ui.getEditableElement()
     );
   }
 
-  
+
 
 
 }

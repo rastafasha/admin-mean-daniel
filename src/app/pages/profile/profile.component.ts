@@ -1,5 +1,4 @@
 import { Component, OnInit, Output, ChangeDetectorRef } from '@angular/core';
-import { Location } from '@angular/common';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -23,7 +22,7 @@ import { PlanPaypalSubcriptionService } from 'src/app/services/paypalSubcription
 })
 export class ProfileComponent implements OnInit {
 
-
+  title = 'Perfil';
   imagePath: string;
   error: string;
   uploadError: boolean;
@@ -74,7 +73,6 @@ export class ProfileComponent implements OnInit {
   public comfirm_password = '';
 
   constructor(
-    private location: Location,
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
     private _router : Router,
@@ -105,9 +103,6 @@ export class ProfileComponent implements OnInit {
          menuLateral[i].classList.remove("active");
 
       }
-  }
-  goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
   }
 
   getUser(): void {

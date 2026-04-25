@@ -1,5 +1,4 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
-import { Location } from '@angular/common';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
@@ -18,7 +17,6 @@ export class ConfiguracionesComponent implements OnInit, DoCheck {
   user: User;
 
   constructor(
-    private location: Location,
     private userService: UserService,
   ) { }
 
@@ -35,14 +33,8 @@ export class ConfiguracionesComponent implements OnInit, DoCheck {
       }
   }
 
-
   ngDoCheck(): void {
     this.user = this.userService.usuario;
-  }
-
-
-  goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
   }
 
 

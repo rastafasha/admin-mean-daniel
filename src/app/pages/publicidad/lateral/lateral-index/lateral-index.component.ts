@@ -1,6 +1,5 @@
 import { HttpBackend } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { User } from 'src/app/models/user';
 import Swal from 'sweetalert2';
 import { Sideadvice } from 'src/app/models/sideadvice';
@@ -24,7 +23,6 @@ export class LateralIndexComponent implements OnInit {
   loading = false;
 
   constructor(
-    private location: Location,
     private sideadviceService: SideadviceService,
     handler: HttpBackend
   ) {
@@ -36,12 +34,12 @@ export class LateralIndexComponent implements OnInit {
   }
 
   getCursos(): void {
-    // return this.planesService.carga_info();
+    this.loading = true;
     this.sideadviceService.getBanners().subscribe(
       res =>{
         this.sideadvices = res;
+        this.loading = false;
         error => this.error = error
-        // console.log(this.cursos);
       }
     );
   }
@@ -98,11 +96,5 @@ export class LateralIndexComponent implements OnInit {
     )
   }
 
-
-
-
-  goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
-  }
 
 }

@@ -54,25 +54,20 @@ export class BusquedaComponent implements OnInit {
     )
   }
 
-  search() {
-
-    if(!this.query|| this.query === null){
+ search(): void {
+    if(!this.query){
       this.ngOnInit();
     }else{
-      return this.busquedasService.searchGlobal(this.query).subscribe(
+      this.busquedasService.searchGlobal(this.query).subscribe(
         (resp:any) => {
           this.usuarios = resp.usuarios;
         this.categorias = resp.categorias;
         this.blogs = resp.blogs;
         this.pagos = resp.pagos;
         this.subcriptions = resp.subcriptions;
-      
-          
         }
       )
-    }
-    
-        
+    }    
   }
 
   goBack() {

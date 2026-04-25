@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import Swal from 'sweetalert2';
 import { HttpBackend } from '@angular/common/http';
-import { Plan } from 'src/app/models/plan';
 import { User } from 'src/app/models/user';
 import { PlanPaypalSubcriptionService } from 'src/app/services/paypalSubcription.service';
 import { planPaypalSubcription } from 'src/app/models/planPaypalSubcription';
@@ -29,7 +26,6 @@ export class SubcriptionsComponent implements OnInit {
   query:string ='';
 
   constructor(
-    private location: Location,
     private planPaypalSubcriptionService: PlanPaypalSubcriptionService,
     private busquedasService: BusquedasService,
     handler: HttpBackend
@@ -37,41 +33,35 @@ export class SubcriptionsComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.getPlanes();
+    this.getSubcriptions();
     window.scrollTo(0,0);
   }
 
-  getPlanes(): void {
-    // return this.planesService.carga_info();
+  getSubcriptions(): void {
+    this.loading = true;
     this.planPaypalSubcriptionService.getSubcriptions().subscribe(
       res =>{
         this.subcriptions = res;
-        error => this.error = error
-        // console.log(this.subcriptionPaypals);
+        error => this.error = error;
+        this.loading = false;
       }
     );
   }
-
-
-
-  goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
+  PageSize() {
+    this.getSubcriptions();
   }
 
-  search() {// funciona, devuelve la busqueda
-
+  search(): void {
     if(!this.query){
       this.ngOnInit();
     }else{
-      return this.busquedasService.searchGlobal(this.query).subscribe(
+      this.busquedasService.searchGlobal(this.query).subscribe(
         (resp:any) => {
           this.subcriptions = resp.subcriptions;
           
         }
       )
-    }
-    
-        
+    }    
   }
 
 }

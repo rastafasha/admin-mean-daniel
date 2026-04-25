@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
 
 import { environment } from 'src/environments/environment';
@@ -12,14 +11,14 @@ import { PaymentService } from 'src/app/services/payment.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-    selector: 'app-payment-edit',
-    templateUrl: './payment-edit.component.html',
-    styleUrls: ['./payment-edit.component.css'],
-    standalone: false
+  selector: 'app-payment-edit',
+  templateUrl: './payment-edit.component.html',
+  styleUrls: ['./payment-edit.component.css'],
+  standalone: false
 })
 export class PaymentEditComponent implements OnInit {
 
-  title : string;
+  title: string;
   public paymentForm: FormGroup;
 
   public pago: Payment;
@@ -35,25 +34,24 @@ export class PaymentEditComponent implements OnInit {
     private usuarioService: UserService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private location: Location,
     private paymentsService: PaymentService,
   ) { }
 
   ngOnInit(): void {
-    window.scrollTo(0,0);
-    this.activatedRoute.params.subscribe( ({id}) => this.cargarPayment(id));
+    window.scrollTo(0, 0);
+    this.activatedRoute.params.subscribe(({ id }) => this.cargarPayment(id));
     this.validarFormulario();
   }
 
-  validarFormulario(){
+  validarFormulario() {
     this.paymentForm = this.fb.group({
-      status: ['',Validators.required],
-      validacion: ['',Validators.required],
+      status: ['', Validators.required],
+      validacion: ['', Validators.required],
       user_id: [''],
     })
   }
 
-  cargarPayment(_id: string){
+  cargarPayment(_id: string) {
     if (_id !== null && _id !== undefined) {
       this.title = 'Verificando Pago';
       this.paymentsService.getPagoById(_id).subscribe(
@@ -80,34 +78,30 @@ export class PaymentEditComponent implements OnInit {
     return this.paymentForm.get('validacion');
   }
 
-  updatePago(){
+  updatePago() {
 
     const formData = new FormData();
     formData.append('status', this.paymentForm.get('status').value);
     formData.append('validacion', this.paymentForm.get('validacion').value);
 
-    if(this.pago){
+    if (this.pago) {
       //actualizar
       const data = {
         ...this.paymentForm.value,
         _id: this.pago._id
       }
       this.paymentsService.updateStatus(data).subscribe(
-        resp =>{
+        resp => {
           Swal.fire('Actualizado', ` actualizado correctamente`, 'success');
 
           this.router.navigateByUrl(`/dashboard/payments`);
         });
 
-    }else{
+    } else {
       return;
     }
 
   }
 
-
-  goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
-  }
 
 }

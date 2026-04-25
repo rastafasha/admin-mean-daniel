@@ -18,9 +18,7 @@ import { PipesModule } from '../pipes/pipes.module';
 //paypal
 import { SearchComponent } from './search/search.component';
 import { LoadingComponent } from './loading/loading.component';
-
-
-
+import { BackButtonComponent } from './back-button/back-button.component';
 
 @NgModule({
   imports: [
@@ -37,7 +35,8 @@ declarations: [
     MenuiconosComponent,
     BannerplanesComponent,
     SearchComponent,
-    LoadingComponent
+    LoadingComponent,
+    BackButtonComponent
 ],
 exports: [
     HeaderComponent,
@@ -46,7 +45,8 @@ exports: [
     MenuiconosComponent,
     BannerplanesComponent,
     SearchComponent,
-    LoadingComponent
+    LoadingComponent,
+    BackButtonComponent
 ]
 })
 export class SharedModule { }

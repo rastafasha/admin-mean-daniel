@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
 import { HttpBackend, HttpClient, HttpHandler } from '@angular/common/http';
-
-import { Location } from '@angular/common';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
@@ -10,10 +7,10 @@ import Swal from 'sweetalert2';
 import { BusquedasService } from 'src/app/services/busqueda.service';
 
 @Component({
-    selector: 'app-users',
-    templateUrl: './users.component.html',
-    styleUrls: ['./users.component.css'],
-    standalone: false
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.css'],
+  standalone: false
 })
 export class UsersComponent implements OnInit {
   title = "Usuarios"
@@ -29,24 +26,24 @@ export class UsersComponent implements OnInit {
 
   error: string;
   msm_error: string;
-
-
   ServerUrl = environment.apiUrl;
-  query:string ='';
+  query: string = '';
+
+  option_selectedd: number = 1;
+    solicitud_selectedd: any = 1;
 
   constructor(
     private userService: UserService,
     private busquedasService: BusquedasService,
-    private location: Location,
     private http: HttpClient,
     handler: HttpBackend,
-    
-    ) {
-      this.http = new HttpClient(handler);
-    }
+
+  ) {
+    this.http = new HttpClient(handler);
+  }
 
   ngOnInit(): void {
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     this.closeMenu();
     this.getUsers();
     this.getUser();
@@ -57,16 +54,22 @@ export class UsersComponent implements OnInit {
   }
 
   getUsers(): void {
+    this.loading = true;
     this.userService.getUsuarios().subscribe(
-      res =>{
+      res => {
         this.usuarios = res;
         error => this.error = error;
+        this.loading = false;
       }
     );
   }
 
+  PageSize() {
+    this.getUsers();
+  }
 
-  eliminarUser(user:User){
+
+  eliminarUser(user: User) {
     Swal.fire({
       title: 'Estas Seguro?',
       text: "No podras recuperarlo!",
@@ -78,10 +81,10 @@ export class UsersComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.userService.deleteById(user).subscribe(
-          response =>{
+          response => {
             this.getUsers();
           }
-          );
+        );
         Swal.fire(
           'Borrado!',
           'El Archivo fue borrado.',
@@ -92,35 +95,41 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
-  }
 
-  closeMenu(){
+  closeMenu() {
     var menuLateral = document.getElementsByClassName("sidebar");
-      for (var i = 0; i<menuLateral.length; i++) {
-         menuLateral[i].classList.remove("active");
+    for (var i = 0; i < menuLateral.length; i++) {
+      menuLateral[i].classList.remove("active");
 
-      }
+    }
   }
 
-  search() {// funciona, devuelve la busqueda
+  search(): void {
 
-    if(!this.query){
+    if (!this.query) {
       this.ngOnInit();
-    }else{
-      return this.busquedasService.searchGlobal(this.query).subscribe(
-        (resp:any) => {
+    } else {
+      this.busquedasService.searchGlobal(this.query).subscribe(
+        (resp: any) => {
           this.usuarios = resp.usuarios;
-          
+
         }
       )
     }
-    
-        
   }
 
- 
+
+  optionSelected(value: number) {
+      this.option_selectedd = value;
+      if (this.option_selectedd === 1) {
+  
+        // this.ngOnInit();
+      }
+      if (this.option_selectedd === 2) {
+        this.solicitud_selectedd = null;
+      }
+    }
+
 
 
 

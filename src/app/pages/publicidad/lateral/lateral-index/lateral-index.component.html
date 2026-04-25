@@ -4,22 +4,9 @@
     <div class="col-xs-12">
         <div class="leftside">
             <!-- Page Title -->
-            <div class="pagetitle">
-                <h1><i class="bx bxs-user-account"></i> {{title}}</h1>
-                <nav>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a routerLink="/"><i class="fa fa-home"></i> Inicio</a></li>
-                        <li class="breadcrumb-item"><a routerLink="/dashboard/publicidad">Publicidad</a></li>
-                        <li class="breadcrumb-item active">{{title}}</li>
-                    </ol>
-                </nav>
-            </div>
-            <!-- End Page Title -->
-            <div class="buton">
-                <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
-            </div>
+            <app-back-button [title]="title"></app-back-button>
         </div>
-        
+
 
         <div class="clear"></div>
 
@@ -39,9 +26,9 @@
                     <div class="col-xs-1 col-sm-1">
                         <div class="text-right">
                             <button class="btn btn-primary" [routerLink]="['/dashboard/publicidad-lateral/create/']">
-              <i class="fa fa-pencil"></i>
-              Crear
-            </button>
+                                <i class="fa fa-pencil"></i>
+                                Crear
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -50,8 +37,8 @@
                 <div class="card recent-sales overflow-auto">
 
 
-                    <div class="card-body">
-
+                    <app-loading *ngIf="loading"></app-loading>
+                    <div class="card-body" *ngIf="!loading">
 
                         <table [ngClass]="loading? 'table table-borderless datatable':'table table-borderless'">
                             <thead>
@@ -65,15 +52,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let sideadvice of sideadvices |  paginate: { itemsPerPage: count, currentPage: p }">
-                                
+                                <tr
+                                    *ngFor="let sideadvice of sideadvices |  paginate: { itemsPerPage: count, currentPage: p }">
+
                                     <td>
                                         <div class="image">
                                             <div *ngIf="!sideadvice.img ">
-                                                <img src="./assets/images/no-image.jpg" style="width:50px; height:50px" class="rounded-circle">
+                                                <img src="./assets/images/no-image.jpg" style="width:50px; height:50px"
+                                                    class="rounded-circle">
                                             </div>
                                             <div *ngIf="sideadvice.img">
-                                                <img [src]="sideadvice.img | imagenPipe: 'sideadvertisings'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                                <img [src]="sideadvice.img | imagenPipe: 'sideadvertisings'"
+                                                    style="height: 50px; width: 50px;" class="img-circle avatar">
 
                                             </div>
                                         </div>
@@ -82,19 +72,29 @@
                                     <td>{{sideadvice.target}}</td>
                                     <td>
                                         <!-- {{plan.status }} -->
-                                        <span class="badge bg-success" *ngIf="sideadvice.status === 'Activo'">Publicado</span>
-                                        <span class="badge bg-danger" *ngIf="sideadvice.status === 'Desactivado'">No Publicado</span>
+                                        <span class="badge bg-success"
+                                            *ngIf="sideadvice.status === 'Activo'">Publicado</span>
+                                        <span class="badge bg-danger" *ngIf="sideadvice.status === 'Desactivado'">No
+                                            Publicado</span>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-success" *ngIf="sideadvice.status == 'Desactivado'" (click)="activar(sideadvice._id)"><span class="fa fa-check"></span> Activar</button>
-                                        <button type="button" class="btn btn-primary" *ngIf="sideadvice.status == 'Activo'" (click)="desactivar(sideadvice._id)"><span class="fa fa-check"></span> Desactivar</button>
+                                        <button type="button" class="btn btn-success"
+                                            *ngIf="sideadvice.status == 'Desactivado'"
+                                            (click)="activar(sideadvice._id)"><span class="fa fa-check"></span>
+                                            Activar</button>
+                                        <button type="button" class="btn btn-primary"
+                                            *ngIf="sideadvice.status == 'Activo'"
+                                            (click)="desactivar(sideadvice._id)"><span class="fa fa-check"></span>
+                                            Desactivar</button>
 
                                     </td>
                                     <td class="text-nowrap text-center">
-                                        <a [routerLink]="['/dashboard/publicidad-lateral/edit', sideadvice._id]" class="cursor" data-toggle="tooltip" data-original-title="Edit">
+                                        <a [routerLink]="['/dashboard/publicidad-lateral/edit', sideadvice._id]"
+                                            class="cursor" data-toggle="tooltip" data-original-title="Edit">
                                             <div class="btn btn-success"><i class="fa fa-edit"></i></div>
                                         </a>
-                                        <a (click)="eliminarCurso(sideadvice._id)" class="cursor" data-toggle="tooltip" data-original-title="Borrar">
+                                        <a (click)="eliminarCurso(sideadvice._id)" class="cursor" data-toggle="tooltip"
+                                            data-original-title="Borrar">
                                             <div class="btn btn-danger"><i class="fa fa-trash"></i></div>
                                         </a>
                                     </td>

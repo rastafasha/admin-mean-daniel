@@ -11,7 +11,7 @@ import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
 
-declare const gapi: any;
+// declare const gapi: any;
 
 const base_url = environment.apiUrl;
 const userGoogle = environment.clientGoogle
@@ -29,7 +29,7 @@ export class UserService {
     private router: Router,
     private ngZone: NgZone
     ) {
-      this.googleInit();
+      // this.googleInit();
   }
 
   get token():string{
@@ -61,22 +61,21 @@ export class UserService {
   }
 
 
-  googleInit(){
+  // googleInit(){
 
-    return new Promise<void>((resolve) =>{
+  //   return new Promise<void>((resolve) =>{
 
-      gapi.load('auth2', () =>{
-        this.auth2 = gapi.auth2.init({
-          // client_id: userGoogle,
-          client_id: '291137676127-svvuuca518djs47q2v78se9q6iggi4nq.apps.googleusercontent.com',
-          cookiepolicy: 'single_host_origin',
-        });
-        resolve();
-      });
-    });
+  //     gapi.load('auth2', () =>{
+  //       this.auth2 = gapi.auth2.init({
+  //         client_id: userGoogle,
+  //         cookiepolicy: 'single_host_origin',
+  //       });
+  //       resolve();
+  //     });
+  //   });
 
 
-  }
+  // }
 
 
   logout(){
@@ -151,14 +150,14 @@ export class UserService {
     )
   }
 
-  loginGoogle(token){debugger
-    return this.http.post(`${base_url}/auth/google`, {token})
-    .pipe(
-      tap((resp: any) => {
-        this.guardarLocalStorage(resp.token, resp.user);
-      })
-    )
-  }
+  // loginGoogle(token){debugger
+  //   return this.http.post(`${base_url}/auth/google`, {token})
+  //   .pipe(
+  //     tap((resp: any) => {
+  //       this.guardarLocalStorage(resp.token, resp.user);
+  //     })
+  //   )
+  // }
 
   cargarUsuarios(desde: number = 0){
 

@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
 ngOnInit(){
-  this.renderButton();
+  // this.renderButton();
 
 }
 login(){
@@ -80,49 +80,49 @@ login(){
 
 }
 
-renderButton() {
-  gapi.signin2.render('my-signin2', {
-    'scope': 'profile email',
-    'width': 240,
-    'height': 50,
-    'longtitle': true,
-    'theme': 'dark',
-  });
-  this.startApp();
+// renderButton() {
+//   gapi.signin2.render('my-signin2', {
+//     'scope': 'profile email',
+//     'width': 240,
+//     'height': 50,
+//     'longtitle': true,
+//     'theme': 'dark',
+//   });
+//   this.startApp();
 
   
-}
+// }
 
-async startApp(){
-  this.usuarioService.googleInit();
-  this.auth2 = this.usuarioService.auth2;
+// async startApp(){
+//   this.usuarioService.googleInit();
+//   this.auth2 = this.usuarioService.auth2;
 
-  this.attachSignin(document.getElementById('my-signin2'));
+//   this.attachSignin(document.getElementById('my-signin2'));
   
-}
+// }
 
-attachSignin(element) {
-  this.auth2.attachClickHandler(element, {},
-      (googleUser) =>{
-        const id_token = googleUser.getAuthResponse().id_token;
+// attachSignin(element) {
+//   this.auth2.attachClickHandler(element, {},
+//       (googleUser) =>{
+//         const id_token = googleUser.getAuthResponse().id_token;
 
-        this.usuarioService.loginGoogle(id_token).subscribe(
-          resp=>{
+//         this.usuarioService.loginGoogle(id_token).subscribe(
+//           resp=>{
 
-            this.ngZone.run(()=>{
-              this.router.navigateByUrl('/dashboard');
-            })
-          }
-        );
+//             this.ngZone.run(()=>{
+//               this.router.navigateByUrl('/dashboard');
+//             })
+//           }
+//         );
 
-        console.log(gapi.auth2.getAuthInstance())
+//         console.log(gapi.auth2.getAuthInstance())
 
-      }, (error) =>{
-        alert(JSON.stringify(error, undefined, 2));
-      });
+//       }, (error) =>{
+//         alert(JSON.stringify(error, undefined, 2));
+//       });
 
       
-}
+// }
 
 
 

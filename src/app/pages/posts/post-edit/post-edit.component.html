@@ -17,21 +17,7 @@
     <div class="col-xs-12">
         <div class="leftside">
             <!-- Page Title -->
-            <div class="pagetitle">
-                <h1><i class="bx bxs-user-account"></i> {{titlePage}}</h1>
-                <nav>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a routerLink="/"><i class="bi bi-house"></i> Inicio</a></li>
-                        <li class="breadcrumb-item"><a routerLink="/dashboard/blog">Blog</a></li>
-                        <li class="breadcrumb-item active">{{titlePage}}</li>
-                    </ol>
-                </nav>
-            </div>
-            <!-- End Page Title -->
-            <div class="buton">
-                <button class="btn btn-outline-danger pull-right" href="javascript:void(0)"
-                    (click)="goBack()">Volver</button>
-            </div>
+            <app-back-button [title]="title"></app-back-button>
         </div>
 
         <div class="clear"></div>
@@ -39,8 +25,8 @@
 
 
         <section class="section dashboard">
-
-            <div class="row">
+            <app-loading *ngIf="isLoading"></app-loading>
+            <div class="row" *ngIf="!isLoading">
                 <div class="col-12 col-md-6">
                     <!-- editarcategoria -->
                     <label for="exampleInputEmail1">Desea una nueva categoria? <span class="required">*</span></label>
@@ -211,7 +197,8 @@
                         <button (click)="editPost()" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
-                <div class="col-12 col-md-6">
+                <app-loading *ngIf="isLoadingImage"></app-loading>
+                <div class="col-12 col-md-6" *ngIf="!isLoadingImage">
                     <label> Anexe su foto</label>
                     <br>
                     <div class="row">
@@ -230,8 +217,8 @@
                                 </ul>
                             </div>
                         </div>
-                        <app-loading *ngIf="isLoading"></app-loading>
-                        <div class="col-xs-12" *ngIf="postSeleccionado && !isLoading">
+                        
+                        <div class="col-xs-12" *ngIf="postSeleccionado ">
                             <div class="text-center">
                                 <img *ngIf="!imgTemp " [src]="postSeleccionado.img | imagenPipe: 'blogs'"
                                     class="img-responsive img-thumbnail" alt="">

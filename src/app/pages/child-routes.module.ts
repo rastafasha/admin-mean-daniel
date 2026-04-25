@@ -85,10 +85,11 @@ const childRoutes: Routes = [
     { path: 'post/:id', component: PostIndexComponent, data:{title:'Metodo de Pago'} },
     { path: 'blog/create', component: PostEditComponent, data:{title:'Crear Metodo de Pago'} },
     { path: 'post/edit/:id', component: PostEditComponent, data:{title:'Editar Metodo de Pago'} },
+
     //banner
-    { path: 'banners', component: BannerIndexComponent, data:{title:'Cursos'} },
-    { path: 'banner/create', component: BannerEditComponent, data:{title:'Crear Curso'} },
-    { path: 'banner/edit/:id', component: BannerEditComponent, data:{title:'Editar Curso'} },
+    { path: 'banners', component: BannerIndexComponent, data:{title:'Banners'} },
+    { path: 'banner/create', component: BannerEditComponent, data:{title:'Crear Banner'} },
+    { path: 'banner/edit/:id', component: BannerEditComponent, data:{title:'Editar Banner'} },
 
     //admin
     { path: 'compras',   component: PaymentsComponent, data:{title:'Pagos'} },

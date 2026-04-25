@@ -1,6 +1,5 @@
 import { HttpBackend } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { User } from 'src/app/models/user';
 import Swal from 'sweetalert2';
 import { Banner } from 'src/app/models/banner';
@@ -24,26 +23,29 @@ export class BannerIndexComponent implements OnInit {
   loading = false;
 
   constructor(
-    private location: Location,
     private bannerService: BannerService,
     handler: HttpBackend
   ) {
    }
 
   ngOnInit(): void {
-    this.getCursos();
+    this.getBanners();
     window.scrollTo(0,0);
   }
 
-  getCursos(): void {
-    // return this.planesService.carga_info();
+  getBanners(): void {
+    this.loading = true;
     this.bannerService.getBanners().subscribe(
       res =>{
         this.banners = res;
         error => this.error = error
-        // console.log(this.cursos);
+        this.loading = false;
       }
     );
+  }
+
+  PageSize() {
+    this.getBanners();
   }
 
   eliminarCurso(banner:Banner){
@@ -60,7 +62,7 @@ export class BannerIndexComponent implements OnInit {
       if (result.isConfirmed) {
         this.bannerService.deleteBanner(banner).subscribe(
           response =>{
-            this.getCursos();
+            this.getBanners();
           }
           );
         Swal.fire(
@@ -77,7 +79,7 @@ export class BannerIndexComponent implements OnInit {
     this.bannerService.desactivar(id).subscribe(
       response=>{
         Swal.fire('Actualizado', `desactivado correctamente`, 'success');
-        this.getCursos();
+        this.getBanners();
       },
       error=>{
         this.msm_error = 'No se pudo desactivar el curso, vuelva a intenter.'
@@ -90,7 +92,7 @@ export class BannerIndexComponent implements OnInit {
       response=>{
 
         Swal.fire('Actualizado', `actualizado correctamente`, 'success');
-        this.getCursos();
+        this.getBanners();
       },
       error=>{
         this.msm_error = 'No se pudo activar el curso, vuelva a intenter.'
@@ -98,10 +100,4 @@ export class BannerIndexComponent implements OnInit {
     )
   }
 
-
-
-
-  goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
-  }
 }
