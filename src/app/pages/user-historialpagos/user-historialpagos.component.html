@@ -19,10 +19,11 @@
 
 
                     <div class="card-body">
-                        <h5 class="card-title"> <i class="bi bi-currency-exchange"> </i> Transacciones <span>|
-                                Todas</span>
+                        <h5 class="card-title"> 
+                            <i class="bi bi-currency-exchange"> </i> Transacciones 
+                            <span>| Todas</span>
                         </h5>
-
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
                         <table class="table table-borderless datatable">
                             <thead>
                                 <tr>

@@ -39,7 +39,7 @@
 
                     <app-loading *ngIf="loading"></app-loading>
                     <div class="card-body" *ngIf="!loading">
-
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
                         <table [ngClass]="loading? 'table table-borderless datatable':'table table-borderless'">
                             <thead>
                                 <tr>
@@ -78,11 +78,10 @@
                                             Publicado</span>
                                     </td>
                                     <td>
-                                        
-
-                                            <div class="form-check form-switch">
+                                        <div class="form-check form-switch">
                                             <input class="form-check-input" type="checkbox" role="switch"
-                                                [id]="'switch' + sideadvice._id" [checked]="sideadvice.status === 'Activo'"
+                                                [id]="'switch' + sideadvice._id"
+                                                [checked]="sideadvice.status === 'Activo'"
                                                 (change)="toggleStatus(sideadvice)">
                                             <label class="form-check-label" [for]="'switch' + sideadvice._id">
                                                 {{ sideadvice.status }}

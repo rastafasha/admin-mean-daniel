@@ -119,7 +119,7 @@ import { PwaNotifInstallerComponent } from "src/app/shared/pwa-notif-installer/p
     // CursosModule,
     NgxPaginationModule,
     CKEditorModule,
-    PwaNotifInstallerComponent
+    SharedModule
 ],
   providers: [
   ],

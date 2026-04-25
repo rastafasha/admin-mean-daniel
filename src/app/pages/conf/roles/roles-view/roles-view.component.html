@@ -33,6 +33,7 @@
             <div class="container">
                 <div class="card recent-sales overflow-auto">
                     <div class="card-body">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
                         <table class="table table-borderless datatable':'table table-borderless">
                             <thead>
                                 <tr>
@@ -87,6 +88,7 @@
             <div class="container">
                 <div class="card recent-sales overflow-auto">
                     <div class="card-body">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
                         <table class="table table-borderless datatable':'table table-borderless">
                             <thead>
                                 <tr>
