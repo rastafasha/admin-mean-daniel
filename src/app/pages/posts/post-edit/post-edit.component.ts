@@ -41,13 +41,13 @@ export class PostEditComponent implements OnInit {
   public postForm: FormGroup;
 
   public post: Post;
+  public categorias: Category;
 
   public imgSelect: String | ArrayBuffer;
   public imagenSubir: File;
   public imgTemp: any = null;
   imagePath: string;
 
-  public categorias: Category;
 
   public categorySeleccionado: Category;
   categories: Category;
@@ -84,9 +84,7 @@ export class PostEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCategories();
-    this.getCategoriesList();
     this.validarFormulario();
-    this.validarFormularioCategoria();
     this.getUser();
     this.activatedRoute.params.subscribe(({ id }) => this.getPost(id));
     window.scrollTo(0, 0);
@@ -95,7 +93,6 @@ export class PostEditComponent implements OnInit {
 
 
   getUser(): void {
-
     this.user = JSON.parse(localStorage.getItem('user'));
     this.uid = this.user.uid;
   }
@@ -109,63 +106,9 @@ export class PostEditComponent implements OnInit {
     );
   }
 
-  getCategoriesList(): void {
-    this.categoryService.getCategoriesLista().subscribe(
-      res => {
-        this.categoriaslista = res;
-        // console.log(this.categoriaslista)
-      }
-    );
-  }
-
-  updateCategory() {
-
-    const { nombre } = this.categoryForm.value;
-
-    if (this.categorySeleccionado) {
-      //actualizar
-      const data = {
-        ...this.categoryForm.value,
-        _id: this.categorySeleccionado._id
-      }
-      this.categoryService.updateCategory(data).subscribe(
-        resp => {
-          this.getCategories();
-        });
-
-    } else {
-      //crear
-      this.categoryService.createCategory(this.categoryForm.value)
-        .subscribe((resp: any) => {
-          this.getCategories();
-          // this.enviarNotificacion();
-        })
-    }
-
-  }
-
-  cargarCategory(_id: string) {
-    if (_id !== null && _id !== undefined) {
-      this.categoryService.getCategory(_id).subscribe(
-        res => {
-          this.categoryForm.patchValue({
-            id: res._id,
-            nombre: res.nombre,
-          });
-          this.categorySeleccionado = res;
-          // console.log(this.categorySeleccionado);
-        }
-      );
-    }
-
-  }
 
 
-  validarFormularioCategoria() {
-    this.categoryForm = this.fb.group({
-      nombre: ['', Validators.required],
-    })
-  }
+
 
   getPost(_id: string) {
     this.isLoading = true;
@@ -181,7 +124,7 @@ export class PostEditComponent implements OnInit {
             adicional: res.adicional,
             introhome: res.introhome,
             slug: res.slug,
-            categoria: res.categoria,
+            categoria: res.categoria._id,
             status: res.status,
             isFeatured: res.isFeatured,
             img: res.img,
@@ -260,12 +203,12 @@ export class PostEditComponent implements OnInit {
       .actualizarFoto(this.imagenSubir, 'blogs', this.postSeleccionado._id || '')
       .then(img => {
         this.postSeleccionado.img = img;
-        Swal.fire('Guardado', 'La imagen fue actualizada', 'success');
         this.isLoadingImage = false;
+        Swal.fire('Guardado', 'La imagen fue actualizada', 'success');
         this.ngOnInit()
       }).catch(err => {
-        Swal.fire('Error', 'No se pudo subir la imagen', 'error');
         this.isLoadingImage = false;
+        Swal.fire('Error', 'No se pudo subir la imagen', 'error');
         this.ngOnInit()
       })
 
@@ -276,11 +219,17 @@ export class PostEditComponent implements OnInit {
 
   editPost() {
 
+    if (!this.postForm.valid) {
+      //mostramos las alertas de los campos requeridos
+      this.postForm.markAllAsTouched(); // Esto activa las validaciones visuales
+      return
+    }
+
+
     const formData = new FormData();
     formData.append('name', this.postForm.get('name').value);
     formData.append('price', this.postForm.get('price').value);
     formData.append('description', this.postForm.get('description').value);
-    formData.append('slug', this.postForm.get('slug').value);
     formData.append('categoria', this.postForm.get('categoria').value);
     formData.append('isFeatured', this.postForm.get('isFeatured').value);
     formData.append('adicional', this.postForm.get('adicional').value);
@@ -315,7 +264,6 @@ export class PostEditComponent implements OnInit {
           this.router.navigateByUrl(`/dashboard/posts`);
         })
     }
-    return false;
   }
 
   public mostrarEditorCategorias() {

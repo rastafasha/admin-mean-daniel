@@ -4,7 +4,9 @@ import Swal from 'sweetalert2';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { planPaypalSubcription, productPaypalSubcription } from 'src/app/models/planPaypalSubcription';
 import { PlanPaypalSubcriptionService } from 'src/app/services/paypalSubcription.service';
-
+import { environment } from 'src/environments/environment';
+const urlFront = environment.urlFrontPage;
+const urlImage = environment.imageURLProductsub;
 @Component({
   selector: 'app-paypalsubcription-edit',
   templateUrl: './paypalsubcription-edit.component.html',
@@ -36,19 +38,17 @@ export class PaypalsubcriptionEditComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.validarFormulario();
+    this.activatedRoute.params.subscribe(({ id }) => this.getplan(id));
     this.validarFormularioProducto();
     this.getProductos();
-    this.getPlanes();
-    this.activatedRoute.params.subscribe(({ id }) => this.getplan(id));
+    // this.getPlanes();
   }
 
   getProductos(): void {
-    this.planpaypalService.getProductPaypalsPage4().subscribe(
+    this.planpaypalService.getProductPaypalsPage().subscribe(
       res => {
-        this.productPaypal = res.products;
-        error => this.error = error
-        // console.log(this.productPaypal.products);
+        this.productPaypal = res.productPaypal.products;
+        error => this.error = error;
       }
     );
   }
@@ -66,47 +66,15 @@ export class PaypalsubcriptionEditComponent implements OnInit {
     return this.productopaypalForm.get('name');
   }
 
-  updateProduct() {
 
-    const { name, description, type, image_url,
-      category } = this.productopaypalForm.value;
-
-    if (this.productpaypalSeleccionado) {
-      //actualizar
-      const data = {
-        ...this.productopaypalForm.value,
-        id: this.productpaypalSeleccionado.id
-      }
-      this.planpaypalService.updateProduct(data).subscribe(
-        resp => {
-          Swal.fire('Actualizado', `actualizado correctamente`, 'success');
-          this.ngOnInit();
-          console.log('actualizado', resp);
-        });
-
-    } else {
-      //crear
-      this.planpaypalService.createProducSubcription(this.productopaypalForm.value)
-        .subscribe((resp: any) => {
-          Swal.fire('Creado', `creado correctamente`, 'success');
-          this.ngOnInit();
-          console.log('creado', resp);
-          // this.enviarNotificacion();
-        })
-
-
-    }
-
-  }
 
   validarFormularioProducto() {
     this.productopaypalForm = this.fb.group({
-      // id: [''],
       name: ['', Validators.required],
       description: ['', Validators.required],
-      type: [''],
-      image_url: [''],
-      category: [''],
+      type: ['', Validators.required],
+      image_url: ['', Validators.required],
+      category: ['', Validators.required],
     })
   }
 
@@ -116,43 +84,42 @@ export class PaypalsubcriptionEditComponent implements OnInit {
     if (id !== null && id !== undefined) {
       this.title = 'Editando plan';
       this.planpaypalService.getPlanPaypal(id).subscribe(
-        res => {
+        (res: any) => {
+          this.planpaypalSeleccionado = res;
+          // Extraemos los valores de la estructura de PayPal
+          const ciclyData = res.billing_cycles ? res.billing_cycles[0] : null;
+
           this.planpaypalForm.patchValue({
             id: res.id,
             name: res.name,
             product_id: res.product_id,
             status: res.status,
+            // Accedemos a la profundidad del objeto de PayPal
             frequency: res.frequency,
-            setup_fee: res.setup_fee,
             percentage: res.percentage,
-            total_cycles: res.total_cycles,
-            fixed_price: res.fixed_price,
-            // total_cycles: res.billing_cycles[0].total_cycles,
-            // fixed_price: res.billing_cycles[0].fixed_price,
+            total_cycles: ciclyData ? ciclyData.total_cycles : 0,
+            fixed_price: ciclyData ? ciclyData.pricing_scheme.fixed_price.value : 0,
+            setup_fee: res.payment_preferences?.setup_fee?.value || 0,
+            interval_unit: ciclyData ? ciclyData.frequency.interval_unit : 'MONTH'
           });
-          this.planpaypalSeleccionado = res;
-          console.log('planpaypalSeleccionado', this.planpaypalSeleccionado);
-          console.log('frequency', this.planpaypalSeleccionado.billing_cycles[0].frequency.interval_unit);
         }
       );
     } else {
       this.title = 'Creando plan';
     }
+    this.validarFormulario();
   }
 
   validarFormulario() {
     this.planpaypalForm = this.fb.group({
-      // id: [''],
       name: ['', Validators.required],
       product_id: ['', Validators.required],
-      // product_id: ['PROD-7SR251647K824974D',Validators.required],
-      status: [''],
-      total_cycles: [12],
-      fixed_price: [3],
-      setup_fee: [10],
-      percentage: [10],
+      status: ['ACTIVE'],
+      total_cycles: [0], // 0 = Cobros recurrentes sin fin
+      fixed_price: [10.00, [Validators.required, Validators.min(1)]],
+      setup_fee: [0],
       interval_unit: ['MONTH'],
-    })
+    });
   }
 
   get name() {
@@ -180,8 +147,61 @@ export class PaypalsubcriptionEditComponent implements OnInit {
     return this.planpaypalForm.get('fixed_price');
   }
 
+  updateProduct() {
+
+    if(!this.productopaypalForm.valid){
+      //mostramos las alertas de los campos requeridos
+      this.productopaypalForm.markAllAsTouched(); // Esto activa las validaciones visuales
+      return
+    }
+
+    const { name, description, type, image_url,
+      category } = this.productopaypalForm.value;
+
+    if (this.productpaypalSeleccionado) {
+      //actualizar
+      const data = {
+        ...this.productopaypalForm.value,
+        id: this.productpaypalSeleccionado.id
+      }
+      this.planpaypalService.updateProduct(data).subscribe(
+        resp => {
+          Swal.fire('Actualizado', `actualizado correctamente`, 'success');
+          this.ngOnInit();
+          console.log('actualizado', resp);
+        });
+
+    } else {
+      //crear
+      const productData = {
+        name: this.productopaypalForm.value.name,
+        description: this.productopaypalForm.value.description,
+        type: this.productopaypalForm.value.type, // O SERVICE/PHYSICAL según tu caso
+        category: this.productopaypalForm.value.category, // PayPal tiene categorías específicas, SOFTWARE es común
+        image_url: urlImage,
+        home_url: urlFront // Opcional pero recomendado
+      };
+
+      this.planpaypalService.createProducSubcription(productData).subscribe((resp: any) => {
+        const newProductId = resp.id; // Este es el ID que usarás en el formulario del PLAN
+        Swal.fire('Producto Creado', `ID: ${newProductId}`, 'success');
+
+        // Opcional: setear automáticamente el product_id en el otro formulario
+        this.planpaypalForm.patchValue({ product_id: newProductId });
+      });
+
+
+    }
+
+  }
+
   editPlan() {
-    debugger
+
+    if(!this.planpaypalForm.valid){
+      //mostramos las alertas de los campos requeridos
+      this.planpaypalForm.markAllAsTouched(); // Esto activa las validaciones visuales
+      return
+    }
 
 
     const { name, product_id, status, interval_unit,
@@ -202,27 +222,57 @@ export class PaypalsubcriptionEditComponent implements OnInit {
 
     } else {
       //crear
-      const data = {
-        ...this.planpaypalForm.value,
+
+      // 1. CREAMOS EL CUERPO CON LA ESTRUCTURA QUE PAYPAL EXIGE
+      const bodyPayPal = {
+        product_id: product_id,
+        name: name,
+        billing_cycles: [
+          {
+            frequency: {
+              interval_unit: interval_unit,
+              interval_count: 1
+            },
+            tenure_type: "REGULAR",
+            sequence: 1,
+            // Si el usuario pone 0, PayPal lo entiende como cobros infinitos
+            total_cycles: total_cycles,
+            pricing_scheme: {
+              fixed_price: {
+                // .toFixed(2) asegura que 10 se convierta en "10.00"
+                value: parseFloat(fixed_price).toFixed(2).toString(),
+                currency_code: "USD"
+              }
+            }
+          }
+        ],
+        payment_preferences: {
+          auto_bill_outstanding: true,
+          setup_fee: {
+            value: parseFloat(setup_fee).toFixed(2).toString(),
+            currency_code: "USD"
+          },
+          payment_failure_threshold: 3
+        }
       }
-      this.planpaypalService.createPlanSubcription(data)
+
+      this.planpaypalService.createPlanSubcription(bodyPayPal)
         .subscribe((resp: any) => {
           // Swal.fire('Creado', `creado correctamente`, 'success');
           // this.router.navigateByUrl(`/dashboard/paypal-subcription`);
           console.log('creadoPaypal', resp);
         })
 
-      this.planpaypalService.createPlan(data)
+      this.planpaypalService.createPlan(this.planpaypalForm.value)
         .subscribe((resp: any) => {
           Swal.fire('Creado', `creado correctamente`, 'success');
-          this.router.navigateByUrl(`/dashboard/paypal-subcription`);
+          this.router.navigateByUrl(`/dashboard/paypal-plans`);
           // this.ngOnInit();
           console.log('creadoApp', resp);
           // this.enviarNotificacion();
         })
     }
 
-    return false;
   }
 
 }

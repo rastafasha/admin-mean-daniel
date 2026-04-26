@@ -8,7 +8,7 @@ export class Post {
     public adicional: string,
     public description: string,
     public introhome: string,
-    public categoria: string,
+    public categoria: Category,
     public price: number,
     public slug: string,
     public status: boolean,

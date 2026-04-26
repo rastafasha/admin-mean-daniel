@@ -62,16 +62,20 @@ const childRoutes: Routes = [
 
 
     { path: 'categories', component: CategoryIndexComponent, data:{title:'Categoria'} },
-    { path: 'category/:id', component: CategoryIndexComponent, data:{title:'Categoria'} },
     { path: 'categoria/crear', component: CategoryEditComponent, data:{title:'Crear Categoria'} },
+    { path: 'category/:id', component: CategoryIndexComponent, data:{title:'Categoria'} },
     { path: 'category/edit/:id', component: CategoryEditComponent, data:{title:'Editar Categoria'} },
     
 
     { path: 'paypal-subcription-home', component: PaypalhomeComponent, data:{title:'paypal-subcription'} },
     { path: 'paypal-plans', component: PaypalsubcriptionIndexComponent, data:{title:'paypal-subcription'} },
-    { path: 'paypal-plan/:id', component: PaypalsubcriptionIndexComponent, data:{title:'paypal-subcription'} },
+
+    // 1. Primero las rutas estáticas específicas
     { path: 'paypal-plan/crear', component: PaypalsubcriptionEditComponent, data:{title:'Crear paypal-subcription'} },
     { path: 'paypal-plan/edit/:id', component: PaypalsubcriptionEditComponent, data:{title:'Editar paypal-subcription'} },
+
+    // 2. Al final las rutas con parámetros genéricos (:id)
+    { path: 'paypal-plan/:id', component: PaypalsubcriptionIndexComponent, data:{title:'paypal-subcription'} },
     
     { path: 'paypal-subcriptions', component: SubcriptionsComponent, data:{title:'Editar paypal-subcription'} },
     { path: 'paypal-subcription/:id', component: SubcriptionComponent, data:{title:'paypal-subcription'} },
@@ -82,8 +86,8 @@ const childRoutes: Routes = [
     { path: 'editor/edit/:id', component: EditorEditComponent, data:{title:'Editar Editor'} },
     // posts
     { path: 'posts', component: PostIndexComponent, data:{title:'Metodo de Pago'} },
-    { path: 'post/:id', component: PostIndexComponent, data:{title:'Metodo de Pago'} },
     { path: 'blog/create', component: PostEditComponent, data:{title:'Crear Metodo de Pago'} },
+    { path: 'post/:id', component: PostIndexComponent, data:{title:'Metodo de Pago'} },
     { path: 'post/edit/:id', component: PostEditComponent, data:{title:'Editar Metodo de Pago'} },
 
     //banner

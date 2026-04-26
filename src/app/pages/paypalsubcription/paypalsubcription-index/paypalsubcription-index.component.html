@@ -34,7 +34,11 @@
                     </div>
                     <div class="col-xs-1 col-sm-1">
                         <div class="text-right">
-                            <button class="btn btn-primary" [routerLink]="['/dashboard/paypal-plan/crear']" >
+                            <!-- <button class="btn btn-primary" [routerLink]="['/dashboard/paypal-plan/crear/']" >
+                                <i class="fa fa-pencil"></i>
+                                Crear
+                            </button> -->
+                            <button class="btn btn-primary" (click)="iraCrear()" >
                                 <i class="fa fa-pencil"></i>
                                 Crear
                             </button>
@@ -57,7 +61,7 @@
                             </thead>
                             <tbody>
                                 <tr
-                                    *ngFor="let plan of plans.plans |  paginate: { itemsPerPage: count, currentPage: p }">
+                                    *ngFor="let plan of plans |  paginate: { itemsPerPage: count, currentPage: p }">
 
                                     <td>{{plan.name}}</td>
                                     <td>{{plan.product_id}}</td>

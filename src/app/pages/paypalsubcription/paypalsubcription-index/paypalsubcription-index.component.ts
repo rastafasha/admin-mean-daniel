@@ -42,9 +42,9 @@ export class PaypalsubcriptionIndexComponent implements OnInit {
 
   getPlanes(): void {
     this.loading = true;
-    this.planpaypalService.getplanPaypalsPage2().subscribe(
-      res => {
-        this.plans = res;
+    this.planpaypalService.getPlanPaypalsPage().subscribe(
+      (res:any) => {
+        this.plans = res.planPaypal.plans;
         error => this.error = error;
         this.loading = false;
       }
@@ -100,6 +100,9 @@ export class PaypalsubcriptionIndexComponent implements OnInit {
     )
   }
 
+  iraCrear(){
+    this.router.navigateByUrl('/dashboard/paypal-plan/crear/')
+  }
 
  
 

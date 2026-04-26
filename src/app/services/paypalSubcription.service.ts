@@ -84,34 +84,26 @@ export class PlanPaypalSubcriptionService {
 
 
 
-  getplanPaypalsPage(pull: boolean= false){
+  // getplanPaypalsPage(pull: boolean= false){
+  //   if(pull) {
+  //     this.paginaPost = 0;
+  //   }
+  //   this.paginaPost ++;
+  //   return this.http.get<planPaypalSubcription>(`${baseUrl}paypal/plans/planes-paypal/${this.paginaPost}`);
+    
+  // }
 
-    if(pull) {
-      this.paginaPost = 0;
-    }
+  getPlanPaypalsPage(pagina: number = 1): Observable<any> {
+  return this.http.get<planPaypalSubcription>(`${baseUrl}/paypal/planes-paypal?page=${pagina}`);
+}
 
-    this.paginaPost ++;
-
-    return this.http.get<planPaypalSubcription>(`${baseUrl}paypal/plans/page/${this.paginaPost}`);
-    // return this.http.get<RespuestaPosts>(`${URL}posts/?pagina=${this.paginaPost}`);
-  }
-
-
-
-  getplanPaypalsPage2()  {
-    const url = `${baseUrl}/paypal/plans/page2`;
-    return this.http.get<any>(url, this.headers)
-      .pipe(
-        map((resp:{ok: boolean, planPaypal: planPaypalSubcription}) => resp.planPaypal)
-        );
-  }
 
 
   
 
   //products
 
-  createProducSubcription(productPaypal:productPaypalSubcription) {
+  createProducSubcription(productPaypal:any) {
     const url = `${baseUrl}/paypal/create-product`;
     return this.http.post(url, productPaypal, this.headers);
 
@@ -138,27 +130,17 @@ export class PlanPaypalSubcriptionService {
       )
   }
 
-  getProductPaypalsPage2()  {
-    const url = `${baseUrl}/paypal/products/page2`;
+  getProducts()  {
+    const url = `${baseUrl}/paypal/products/`;
     return this.http.get<any>(url, this.headers)
       .pipe(
         map((resp:{ok: boolean, productPaypal: productPaypalSubcription}) => resp.productPaypal)
       )
   }
-  getProductPaypalsPage3()  {
-    const url = `${baseUrl}/paypal/products/page3`;
-    return this.http.get<any>(url, this.headers)
-      .pipe(
-        map((resp:{ok: boolean, productPaypal: productPaypalSubcription}) => resp.productPaypal)
-      )
-  }
-  getProductPaypalsPage4()  {
-    const url = `${baseUrl}/paypal/products/page4`;
-    return this.http.get<any>(url, this.headers)
-      .pipe(
-        map((resp:{ok: boolean, productPaypal: productPaypalSubcription}) => resp.productPaypal)
-      )
-  }
+
+  getProductPaypalsPage(page: number = 1): Observable<any> {
+  return this.http.get(`${baseUrl}/paypal/products-paypal?page=${page}`);
+}
   
 
   activar(id: planPaypalSubcription):Observable<any> {

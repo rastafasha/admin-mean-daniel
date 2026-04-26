@@ -8,5 +8,6 @@ export const environment = {
   clientId: '',
   //google
   clientGoogle: '291137676127-svvuuca518djs47q2v78se9q6iggi4nq.apps.googleusercontent.com',
-
+  urlFrontPage: 'https://articlesapp-jade.vercel.app',
+  imageURLProductsub: 'https://articlesapp-jade.vercel.app/assets/img/icon-150x150.png'
 };
