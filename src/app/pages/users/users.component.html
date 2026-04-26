@@ -10,6 +10,11 @@
         <div class="clear"></div>
 
         <section class="section dashboard">
+            <button class="btn btn-outline-primary btn-sm rounded-circle shadow-sm" (click)="instruccionesModalUsers.open()"
+                title="Ayuda de la sección">
+                <i class="fa fa-question"></i>
+            </button>
+            <br>
             <div class="tab-content-set">
                 <ul class="nav">
                     <li>
@@ -126,3 +131,4 @@
 
 </div>
 <!--/main-->
+<app-modal-instrucciones [info]="info" sectionId="Lista_Usuarios" #instruccionesModalUsers></app-modal-instrucciones>

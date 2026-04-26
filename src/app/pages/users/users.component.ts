@@ -32,6 +32,16 @@ export class UsersComponent implements OnInit {
   option_selectedd: number = 1;
     solicitud_selectedd: any = 1;
 
+    info = `
+  <p>En esta sección podrás:</p>
+          <ul>
+            <li>Ver la Información de Cada Usuario</li>
+            <li>Pulsa sobre el nombre o sobre el boton editar (lapiz)</li>
+            <li>La Lista esta filtrada por Usuarios generales y Editores</li>
+            <li>Dentro del perfil del usuario podras ver: Historial de compras Subscripciones</li>
+            <li>Si el perfil es Editor o Admin, dentro del perfil del usuario podras ver: Blogs Creados e informacion descrita en el punta anterior</li>
+          </ul>`;
+
   constructor(
     private userService: UserService,
     private busquedasService: BusquedasService,

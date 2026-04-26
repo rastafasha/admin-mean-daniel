@@ -7,6 +7,11 @@
         </div>
         <div class="clear"></div>
         <section class="section dashboard">
+            <button class="btn btn-outline-primary btn-sm rounded-circle shadow-sm" (click)="instruccionesModalBanner.open()"
+                title="Ayuda de la sección">
+                <i class="fa fa-question"></i>
+            </button>
+            <br>
             <div class="container">
                 <div class="row">
                     <div class="col-xs-11 col-sm-11">
@@ -102,3 +107,4 @@
 
 </div>
 <!--/main-->
+<app-modal-instrucciones [info]="info" sectionId="Banner" #instruccionesModalBanner></app-modal-instrucciones>

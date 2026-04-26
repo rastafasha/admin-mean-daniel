@@ -19,6 +19,8 @@ import {PipesModule} from '../pipes/pipes.module';
 import { EditoresComponent } from './editores/editores.component';
 import { ModalCondicionesComponent } from './modal-condiciones/modal-condiciones.component';
 import { SubscripcionesRecientesComponent } from './subscripciones-recientes/subscripciones-recientes.component';
+import { ModalInicialComponent } from './modal-inicial/modal-inicial.component';
+import { ModalInstruccionesComponent } from './modal-instrucciones/modal-instrucciones.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { SubscripcionesRecientesComponent } from './subscripciones-recientes/sub
     EditoresComponent,
     ModalCondicionesComponent,
     SubscripcionesRecientesComponent,
+    ModalInicialComponent,
+    ModalInstruccionesComponent
   ],
   exports: [
     PagosRecientesComponent,
@@ -40,6 +44,8 @@ import { SubscripcionesRecientesComponent } from './subscripciones-recientes/sub
     EditoresComponent,
     ModalCondicionesComponent,
     SubscripcionesRecientesComponent,
+    ModalInicialComponent,
+    ModalInstruccionesComponent
   ],
   imports: [
     CommonModule,

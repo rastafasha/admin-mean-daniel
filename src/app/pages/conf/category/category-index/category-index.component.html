@@ -9,6 +9,11 @@
 
         <div class="clear"></div>
         <section class="section dashboard">
+             <button class="btn btn-outline-primary btn-sm rounded-circle shadow-sm" (click)="instruccionesModalCat.open()"
+                title="Ayuda de la sección">
+                <i class="fa fa-question"></i>
+            </button>
+            <br>
             <!-- Recent Categorias -->
             <div class="container">
                 <div class="row">
@@ -94,3 +99,4 @@
 
 </div>
 <!--/main-->
+<app-modal-instrucciones [info]="info" sectionId="Categorias" #instruccionesModalCat></app-modal-instrucciones>

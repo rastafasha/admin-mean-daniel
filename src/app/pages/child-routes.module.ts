@@ -100,21 +100,19 @@ const childRoutes: Routes = [
     { path: 'users', component: UsersComponent, data:{title:'Usuarios'} },
     { path: 'user/:id', component: UserProfileComponent, data:{title:'Detalle Usuario'} },
     { path: 'user/edit/:id', component: UserProfileComponent, data:{title:'Editar Usuario'} },
-    // { path: 'condiciones/:id', component: CondicionesComponent, data:{title:'Editar Usuario'} },
-    // { path: 'user/edit/:id', component: UserDetailsComponent, data:{title:'Editar Usuario'} },
     { path: 'historial-pagos', component: UserHistorialpagosComponent, data:{title:'Historial Pagos'} },
     { path: 'profile/:id',  component: ProfileComponent, data:{title:'Perfil'} },
 
     { path: 'search/:searchItem', component: UsersComponent, data:{title:'Buscar'} },
-    { path: 'help', component: HelpComponent, data:{title:'Ayuda'} },
-    { path: 'contact', component: ContactComponent, data:{title:'Contacto'} },
-    
     //publicidad
     { path: 'publicidad', component: PublicidadComponent, data:{title:'publicidad'} },
     { path: 'publicidad-lateral', component: LateralIndexComponent, data:{title:'publicidad'} },
     { path: 'publicidad-lateral/create', component: LateralEditComponent, data:{title:'Editar publicidad'} },
     { path: 'publicidad-lateral/edit/:id', component: LateralEditComponent, data:{title:'Editar publicidad'} },
-
+    
+    { path: 'help', component: HelpComponent, data:{title:'Ayuda'} },
+    { path: 'contact', component: ContactComponent, data:{title:'Contacto'} },
+    
 
     { path: '', redirectTo: 'admin', pathMatch: 'full' },
     { path: '**', component:  DashboardComponent },

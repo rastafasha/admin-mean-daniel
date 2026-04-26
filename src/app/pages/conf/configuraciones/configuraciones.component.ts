@@ -16,6 +16,13 @@ export class ConfiguracionesComponent implements OnInit, DoCheck {
 
   user: User;
 
+  info = `
+  <p>En esta sección podrás:</p>
+          <ul>
+            <li>Crear Categorías para los Posts</li>
+            <li>Gestionar los Roles de cada Usuario</li>
+          </ul>`;
+
   constructor(
     private userService: UserService,
   ) { }

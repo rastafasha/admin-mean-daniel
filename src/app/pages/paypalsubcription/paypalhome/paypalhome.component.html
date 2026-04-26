@@ -5,10 +5,14 @@
         <div class="leftside">
             <app-back-button [title]="title"></app-back-button>
         </div>
-        
+
         <div class="clear"></div>
         <section class="section configuraciones">
-
+            <button class="btn btn-outline-primary btn-sm rounded-circle shadow-sm" (click)="instruccionesModal.open()"
+                title="Ayuda de la sección">
+                <i class="fa fa-question"></i>
+            </button>
+            <br>
 
             <!-- Recent Pagos -->
             <div class="container">
@@ -36,7 +40,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
 
                     <div class="col-xs-12 col-sm-6  col-md-4">
                         <div class="card">
@@ -48,7 +52,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
             <!-- End Recent Pagos -->
@@ -57,4 +61,4 @@
     </div>
 
 </div>
-<!--/main-->
+<app-modal-instrucciones [info]="info" sectionId="planes_paypal" #instruccionesModal></app-modal-instrucciones>

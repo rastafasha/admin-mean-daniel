@@ -18,6 +18,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { CategoryEditComponent } from './category/category-edit/category-edit.component';
 import { CategoryIndexComponent } from './category/category-index/category-index.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     BrowserAnimationsModule,
     NgxPaginationModule,
     CKEditorModule,
+    ComponentsModule
     // AngularFileUploaderModule
   ]
 })

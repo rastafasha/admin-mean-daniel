@@ -9,7 +9,11 @@
         
         <div class="clear"></div>
         <section class="section configuraciones">
-
+            <button class="btn btn-outline-primary btn-sm rounded-circle shadow-sm" (click)="instruccionesModalAds.open()"
+                title="Ayuda de la sección">
+                <i class="fa fa-question"></i>
+            </button>
+            <br>
 
             <!-- Recent Pagos -->
             <div class="container">
@@ -37,3 +41,4 @@
 
 </div>
 <!--/main-->
+<app-modal-instrucciones [info]="info" sectionId="Publicidad_lateral" #instruccionesModalAds></app-modal-instrucciones>

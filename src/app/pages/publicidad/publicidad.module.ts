@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 
 
@@ -34,6 +35,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     PipesModule,
     BrowserAnimationsModule,
     NgxPaginationModule,
+    ComponentsModule
     // CKEditorModule,
     // AngularFileUploaderModule
   ]

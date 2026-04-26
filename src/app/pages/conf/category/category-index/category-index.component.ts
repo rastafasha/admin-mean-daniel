@@ -26,6 +26,12 @@ export class CategoryIndexComponent implements OnInit {
   loading = false;
 
   query:string ='';
+  info = `
+  <p>En esta sección podrás:</p>
+          <ul>
+            <li>Crear Categorias para los Posts</li>
+            <li>En esta sección podrás gestionar cada Categoria </li>
+          </ul>`;
 
   constructor(
     private http: HttpClient,

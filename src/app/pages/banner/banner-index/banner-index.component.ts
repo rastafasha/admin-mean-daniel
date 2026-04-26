@@ -22,6 +22,15 @@ export class BannerIndexComponent implements OnInit {
   msm_error: string;
   loading = false;
 
+  info = `
+  <p>En esta sección podrás:</p>
+          <ul>
+            <li>Crear Banners principales</li>
+            <li>En esta sección Banners podrás gestionar cada Banners </li>
+            <li>Primero Crea un Banner: con el boton Crear, luego de Creado, Edita el Banner y Agrega una imagen</li>
+            
+          </ul>`;
+
   constructor(
     private bannerService: BannerService,
     handler: HttpBackend

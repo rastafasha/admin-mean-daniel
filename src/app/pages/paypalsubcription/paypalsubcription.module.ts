@@ -13,6 +13,7 @@ import { PaypalhomeComponent } from './paypalhome/paypalhome.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { ProductEditComponent } from './products/product-edit/product-edit.component';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 
 
@@ -44,6 +45,7 @@ import { ProductEditComponent } from './products/product-edit/product-edit.compo
     HttpClientModule,
     PipesModule,
     NgxPaginationModule,
+    ComponentsModule
   ]
 })
 export class PaypalsubcriptionModule { }

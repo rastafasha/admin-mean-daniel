@@ -8,8 +8,6 @@ import { UserService } from 'src/app/services/user.service';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { Sideadvice } from 'src/app/models/sideadvice';
 import { SideadviceService } from 'src/app/services/sideadvice.service';
-const baseUrl = environment.apiUrl;
-
 @Component({
   selector: 'app-lateral-edit',
   templateUrl: './lateral-edit.component.html',
@@ -51,18 +49,14 @@ export class LateralEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.validarFormulario();
-    this.getUser();
-    this.activatedRoute.params.subscribe(({ id }) => this.getBanner(id));
     window.scrollTo(0, 0);
-  }
-
-  getUser(): void {
-
+    this.validarFormulario();
     this.user = JSON.parse(localStorage.getItem('user'));
     this.uid = this.user.uid;
+    this.activatedRoute.params.subscribe(({ id }) => this.getBanner(id));
   }
 
+  
   getBanner(_id: string) {
     this.loading = true;
     if (_id !== null && _id !== undefined) {

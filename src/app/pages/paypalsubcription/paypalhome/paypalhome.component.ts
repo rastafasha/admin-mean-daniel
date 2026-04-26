@@ -15,6 +15,16 @@ export class PaypalhomeComponent implements OnInit {
 
   user: User;
 
+  info = `
+  <p>En esta sección podrás:</p>
+          <ul>
+            <li>Crear planes de subcripción directamente a Paypal </li>
+            <li>En la sección Producto podrás gestionar cada Producto </li>
+            <li>Primero Crea un Producto: en la sección producto, para relacionar el producto con el plan</li>
+            <li>Luego el Plan, llenando todos los campos necesarios</li>
+            <li>En la sección Planes podrás gestionar cada Plan </li>
+          </ul>`;
+
   constructor(
     private userService: UserService,
   ) { }

@@ -59,6 +59,11 @@ a{
     color: var(--vinotinto);
 }
 
+b{
+   color: var(--vinotinto);
+   font-weight: var(--bold); 
+}
+
 img.avatar {
     display: block;
     width: 130px;
