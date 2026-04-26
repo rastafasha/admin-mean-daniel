@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PlanesIndexComponent } from './planes-index.component';
+import { ProductEditComponent } from './product-edit.component';
 
-describe('PlanesIndexComponent', () => {
-  let component: PlanesIndexComponent;
-  let fixture: ComponentFixture<PlanesIndexComponent>;
+describe('ProductEditComponent', () => {
+  let component: ProductEditComponent;
+  let fixture: ComponentFixture<ProductEditComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PlanesIndexComponent ]
+      imports: [ProductEditComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PlanesIndexComponent);
+    fixture = TestBed.createComponent(ProductEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

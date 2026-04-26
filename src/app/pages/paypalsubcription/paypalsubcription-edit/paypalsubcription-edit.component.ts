@@ -25,7 +25,6 @@ export class PaypalsubcriptionEditComponent implements OnInit {
   error: string;
 
   titlePage: string;
-
   plans: planPaypalSubcription;
   productPaypal: productPaypalSubcription;
 
@@ -39,9 +38,7 @@ export class PaypalsubcriptionEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(({ id }) => this.getplan(id));
-    this.validarFormularioProducto();
     this.getProductos();
-    // this.getPlanes();
   }
 
   getProductos(): void {
@@ -62,24 +59,7 @@ export class PaypalsubcriptionEditComponent implements OnInit {
     );
   }
 
-  get nameproduct() {
-    return this.productopaypalForm.get('name');
-  }
-
-
-
-  validarFormularioProducto() {
-    this.productopaypalForm = this.fb.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      type: ['', Validators.required],
-      image_url: ['', Validators.required],
-      category: ['', Validators.required],
-    })
-  }
-
-
-
+ 
   getplan(id) {
     if (id !== null && id !== undefined) {
       this.title = 'Editando plan';

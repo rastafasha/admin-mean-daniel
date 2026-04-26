@@ -32,7 +32,7 @@
                                     <th>target</th>
                                     <th>Nombre Boton</th>
                                     <th>Status</th>
-                                    <th>Accion</th>
+                                    <th>Activar</th>
                                     <th class="text-nowrap">Acciones</th>
                                 </tr>
                             </thead>
@@ -75,14 +75,15 @@
 
                                     </td>
                                     <td class="text-nowrap text-center">
-                                        <a [routerLink]="['/dashboard/banner/edit', banner._id]" class="cursor"
+                                        <button [routerLink]="['/dashboard/banner/edit', banner._id]" class="btn btn-outline-success"
                                             data-toggle="tooltip" data-original-title="Edit">
-                                            <div class="btn btn-success"><i class="fa fa-edit"></i></div>
-                                        </a>
-                                        <a (click)="eliminarCurso(banner._id)" class="cursor" data-toggle="tooltip"
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                         &nbsp;
+                                        <button (click)="eliminarCurso(banner._id)" class="btn btn-outline-danger" data-toggle="tooltip"
                                             data-original-title="Borrar">
-                                            <div class="btn btn-danger"><i class="fa fa-trash"></i></div>
-                                        </a>
+                                            <i class="fa fa-trash"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             </tbody>

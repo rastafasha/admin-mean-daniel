@@ -9,244 +9,38 @@
 
         <section class="section dashboard">
             <div class="container">
-                <div class="accordion" id="accordionExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                Desea un producto?
-                            </button>
-                        </h2>
-                        <!-- producto -->
-                        <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-6">
-                                        <form class="form p-t-20 form-horizontal form-material"
-                                            [formGroup]="productopaypalForm" (submit)="updateProduct()">
-                                            <div class="row">
-                                                <div class="form-group col-xs-12">
-                                                    <label for="exampleInputuname">Nombre<span
-                                                            class="required">*</span></label>
-                                                            
-                                                    <div class="input-group">
-                                                        <input type="text" formControlName="name" class="form-control"
-                                                            id="exampleInputuname" placeholder="Nombre" required />
-                                                            <div class="clear"></div>
-                                                        <div *ngIf="productopaypalForm.get('name')?.touched && productopaypalForm.get('name')?.invalid"
-                                                            class="text-danger">
-                                                            <div
-                                                                *ngIf="productopaypalForm.get('name')?.errors?.['required']">
-                                                                Campo Requerido
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- <div class="form-group col-xs-12 col-sm-6 col-md-6">
-                                                    <label for="exampleInputuname">image_url<span
-                                                            class="required">*</span></label>
-                                                    <div class="input-group">
-                                                        <input type="text" formControlName="image_url"
-                                                            class="form-control" id="exampleInputuname"
-                                                            placeholder="Nombre" required />
-                                                        <div *ngIf="productopaypalForm.get('image_url')?.touched && productopaypalForm.get('image_url')?.invalid"
-                                                            class="text-danger">
-                                                            <div
-                                                                *ngIf="productopaypalForm.get('image_url')?.errors?.['required']">
-                                                                Campo Requerido
-                                                            </div>
-                                                            <div
-                                                                *ngIf="productopaypalForm.get('image_url')?.errors?.['minlength']">
-                                                                Seleccione una opción
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-xs-12 col-sm-6 col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="select-input">type<span
-                                                                class="required">*</span></label>
-                                                        <select class="form-control" formControlName="type">
-                                                            <option disabled value="">SELECCIONAR</option>
-                                                            <option value="PHYSICAL">Fisico</option>
-                                                            <!-- Si es digital, PayPal espera que lo catalogues como SERVICE -->
-                                                            <option value="SERVICE">Digital / Servicio</option>
-                                                        </select>
-
-                                                        <div *ngIf="productopaypalForm.get('type')?.touched && productopaypalForm.get('type')?.invalid"
-                                                            class="text-danger">
-                                                            <div
-                                                                *ngIf="productopaypalForm.get('type')?.errors?.['required']">
-                                                                Campo Requerido
-                                                            </div>
-                                                            <div
-                                                                *ngIf="productopaypalForm.get('type')?.errors?.['minlength']">
-                                                                Seleccione una opción
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group col-xs-12 col-sm-6 col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="select-input">category<span
-                                                                class="required">*</span></label>
-                                                        <select class="form-control" formControlName="category">
-                                                            <option disabled value="">SELECCIONAR</option>
-                                                            <option value="SOFTWARE">Software</option>
-                                                            <option value="SERVICES_-O_OTHER">Otros Servicios</option>
-                                                        </select>
-                                                        <div *ngIf="productopaypalForm.get('category')?.touched && productopaypalForm.get('category')?.invalid"
-                                                            class="text-danger">
-                                                            <div
-                                                                *ngIf="productopaypalForm.get('category')?.errors?.['required']">
-                                                                Campo Requerido
-                                                            </div>
-                                                            <div
-                                                                *ngIf="productopaypalForm.get('category')?.errors?.['minlength']">
-                                                                Seleccione una opción
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <label>Descripción <span class="required">*</span></label>
-                                                <div class="col-md-12">
-                                                    <textarea formControlName="description" id="description" cols="10"
-                                                        rows="4" class="form-control"></textarea>
-                                                    <!-- <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>" formControlName="description" value="description" rows="5" class="form-control" required></ckeditor> -->
-                                                    <div *ngIf="productopaypalForm.get('description')?.touched && productopaypalForm.get('description')?.invalid"
-                                                        class="text-danger">
-                                                        <div
-                                                            *ngIf="productopaypalForm.get('description')?.errors?.['required']">
-                                                            Campo Requerido
-                                                        </div>
-                                                        <div
-                                                            *ngIf="productopaypalForm.get('description')?.errors?.['minlength']">
-                                                            Seleccione una opción
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-                                            <button type="submit" (click)="updateProduct()"
-                                                class="btn btn-success waves-effect waves-light m-r-10 btn-block">
-                                                <i class="fa fa-save"></i> Guardar cambios
-                                            </button>
-                                        </form>
-                                    </div>
-                                    <!-- lista productos -->
-                                    <div class="col-xs-12 col-sm-6">
-                                        <div class="col-lg-12 card listacategorias">
-                                            <div class="table-responsive table-sm">
-                                                <table class="table table-sm">
-                                                    <thead class="thead-dark">
-                                                        <tr>
-
-                                                            <th>Nombre</th>
-                                                            <th>Editar</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody *ngFor="let item of productPaypal">
-                                                        <tr>
-                                                            <td style="font-size: 13px;">{{item.name}}</td>
-                                                            <td class="text-center">
-                                                                <a class="nav-link-style text-danger"
-                                                                    data-toggle="modal"
-                                                                    [attr.data-target]="'#delete-'+item._id"
-                                                                    style="cursor:pointer">
-                                                                    <div class="fa fa-trash"></div>
-                                                                </a>
-                                                                <div class="modal fade" [attr.id]="'delete-'+item._id"
-                                                                    tabindex="-1" role="dialog" style="display: none;"
-                                                                    aria-hidden="true">
-                                                                    <div class="modal-dialog modal-dialog-centered"
-                                                                        role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h4 class="modal-title">Confirmación
-                                                                                </h4>
-                                                                                <button class="close" type="button"
-                                                                                    data-dismiss="modal"
-                                                                                    aria-label="Close"><span
-                                                                                        aria-hidden="true">×</span></button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <p class="font-size-sm">¿Desea eliminar
-                                                                                    definitivamente el regsitro?</p>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button class="btn btn-secondary btn-sm"
-                                                                                    type="button"
-                                                                                    data-dismiss="modal">Cancelar</button>
-                                                                                <button
-                                                                                    class="btn btn-primary btn-shadow btn-sm"
-                                                                                    type="button"
-                                                                                    (click)="eliminar(item._id)">Suprimir</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
+                <form enctype="multipart/form-data" [formGroup]="planpaypalForm" (ngSubmit)="editPlan()">
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-4">
+                            <label for="select-input" >product_id <span
+                                    class="required">*</span></label>
+                            <select class="form-control " formControlName="product_id">
+                                <option disabled value=" ">SELECCIONAR</option>
+                                <option *ngFor="let item of productPaypal" [value]="item.id">
+                                    {{item.name}} | {{item.id}} </option>
+                            </select>
+                            <div *ngIf="planpaypalForm.get('product_id')?.touched && planpaypalForm.get('product_id')?.invalid"
+                                class="text-danger">
+                                <div *ngIf="planpaypalForm.get('product_id')?.errors?.['required']">
+                                    Campo Requerido
+                                </div>
+                                <div *ngIf="planpaypalForm.get('product_id')?.errors?.['minlength']">
+                                    Seleccione una opción
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- plan -->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                {{title}}
-                            </button>
-                        </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <form enctype="multipart/form-data" [formGroup]="planpaypalForm"
-                                    (ngSubmit)="editPlan()">
-                                    <div class="row">
-                                        <div class="form-group col-xs-12 col-sm-4">
-                                            <label for="select-input" style="line-height: 2.2;">product_id <span
-                                                    class="required">*</span></label>
-                                            <select class="form-control " formControlName="product_id">
-                                                <option disabled value=" ">SELECCIONAR</option>
-                                                <option *ngFor="let item of productPaypal" [value]="item.id">
-                                                    {{item.name}} | {{item.id}} </option>
-                                            </select>
-                                            <div *ngIf="planpaypalForm.get('product_id')?.touched && planpaypalForm.get('product_id')?.invalid"
-                                                class="text-danger">
-                                                <div *ngIf="planpaypalForm.get('product_id')?.errors?.['required']">
-                                                    Campo Requerido
-                                                </div>
-                                                <div *ngIf="planpaypalForm.get('product_id')?.errors?.['minlength']">
-                                                    Seleccione una opción
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-xs-12 col-sm-4">
-                                            <label for="exampleInputEmail1">name <span class="required">*</span></label>
-                                            <input formControlName="name" type="text" class="form-control" required />
-                                            <div *ngIf="planpaypalForm.get('name')?.touched && planpaypalForm.get('name')?.invalid"
-                                                class="text-danger">
-                                                <div *ngIf="planpaypalForm.get('name')?.errors?.['required']">
-                                                    Campo Requerido
-                                                </div>
-                                            </div>
-                                        </div>
+                        <div class="form-group col-xs-12 col-sm-4">
+                            <label for="exampleInputEmail1">name <span class="required">*</span></label>
+                            <input formControlName="name" type="text" class="form-control" required />
+                            <div *ngIf="planpaypalForm.get('name')?.touched && planpaypalForm.get('name')?.invalid"
+                                class="text-danger">
+                                <div *ngIf="planpaypalForm.get('name')?.errors?.['required']">
+                                    Campo Requerido
+                                </div>
+                            </div>
+                        </div>
 
-                                        <!-- <div class="form-group col-xs-12 col-sm-4">
+                        <!-- <div class="form-group col-xs-12 col-sm-4">
                                             <div class="col-lg-12">
                                                 <div class="form-group">
                                                     <label for="select-input">status<span
@@ -270,87 +64,77 @@
                                                 </div>
                                             </div>
                                         </div> -->
-                                        <div class="form-group col-xs-12 col-sm-4">
-                                            <div class="col-lg-12">
-                                                <div class="form-group">
-                                                    <label for="select-input">frequency (tiempo)<span
-                                                            class="required">*</span></label>
-                                                    <select class="form-control" formControlName="interval_unit"
-                                                        value="planpaypalSeleccionado.billing_cycles[0].frequency.interval_unit">
-                                                        <option disabled value="">SELECCIONAR</option>
-                                                        <!-- <option *ngFor="let item of planpaypalSeleccionado" [value]="item.interval_unit" >{{item.interval_unit}} </option> -->
-                                                        <option value="MONTH">Mensual</option>
-                                                        <option value="YEAR">Anual</option>
-                                                        <option value="WEEK">Semanal</option>
-                                                        <option value="DAY">diario</option>
-                                                    </select>
-                                                    <div *ngIf="planpaypalForm.get('interval_unit')?.touched && planpaypalForm.get('interval_unit')?.invalid"
-                                                        class="text-danger">
-                                                        <div
-                                                            *ngIf="planpaypalForm.get('interval_unit')?.errors?.['required']">
-                                                            Campo Requerido
-                                                        </div>
-                                                        <div
-                                                            *ngIf="planpaypalForm.get('interval_unit')?.errors?.['minlength']">
-                                                            Seleccione una opción
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                        <div class="form-group col-xs-12 col-sm-4">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="select-input">frequency (tiempo)<span class="required">*</span></label>
+                                    <select class="form-control" formControlName="interval_unit"
+                                        value="planpaypalSeleccionado.billing_cycles[0].frequency.interval_unit">
+                                        <option disabled value="">SELECCIONAR</option>
+                                        <!-- <option *ngFor="let item of planpaypalSeleccionado" [value]="item.interval_unit" >{{item.interval_unit}} </option> -->
+                                        <option value="MONTH">Mensual</option>
+                                        <option value="YEAR">Anual</option>
+                                        <option value="WEEK">Semanal</option>
+                                        <option value="DAY">diario</option>
+                                    </select>
+                                    <div *ngIf="planpaypalForm.get('interval_unit')?.touched && planpaypalForm.get('interval_unit')?.invalid"
+                                        class="text-danger">
+                                        <div *ngIf="planpaypalForm.get('interval_unit')?.errors?.['required']">
+                                            Campo Requerido
                                         </div>
-                                        <div class="form-group col-xs-12 col-sm-4">
-                                            <label>total_cycles (0 = infinito) <span class="required">*</span></label>
-                                            <input formControlName="total_cycles" type="number" min="0"
-                                                class="form-control" />
-                                            <div *ngIf="planpaypalForm.get('total_cycles')?.touched && planpaypalForm.get('total_cycles')?.invalid"
-                                                class="text-danger">
-                                                <div *ngIf="planpaypalForm.get('total_cycles')?.errors?.['required']">
-                                                    Campo Requerido
-                                                </div>
-                                                <div *ngIf="planpaypalForm.get('total_cycles')?.errors?.['minlength']">
-                                                    Coloque una frecuenca entre 1 y 12
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group col-xs-12 col-sm-4">
-                                            <label>fixed_price (precio mensual) <span class="required">*</span></label>
-                                            <input formControlName="fixed_price" type="number" min="0"
-                                                class="form-control" />
-                                            <div *ngIf="planpaypalForm.get('fixed_price')?.touched && planpaypalForm.get('fixed_price')?.invalid"
-                                                class="text-danger">
-                                                <div *ngIf="planpaypalForm.get('fixed_price')?.errors?.['required']">
-                                                    Campo Requerido
-                                                </div>
-                                                <div *ngIf="planpaypalForm.get('fixed_price')?.errors?.['minlength']">
-                                                    Coloque una precio ejem 10.00
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group col-xs-12 col-sm-4">
-                                            <label>setup_fee (cuota inicial) <span class="required">*</span></label>
-                                            <input formControlName="setup_fee" type="number" min="0"
-                                                class="form-control" />
-
-                                            <div *ngIf="planpaypalForm.get('setup_fee')?.touched && planpaypalForm.get('setup_fee')?.invalid"
-                                                class="text-danger">
-                                                <div *ngIf="planpaypalForm.get('setup_fee')?.errors?.['required']">
-                                                    Campo Requerido
-                                                </div>
-                                                <div *ngIf="planpaypalForm.get('setup_fee')?.errors?.['minlength']">
-                                                    Coloque una cuota inicial
-                                                </div>
-                                            </div>
+                                        <div *ngIf="planpaypalForm.get('interval_unit')?.errors?.['minlength']">
+                                            Seleccione una opción
                                         </div>
                                     </div>
-                                    <!-- <input type="hidden" formControlName="id"> -->
-                                    <button (click)="editPlan()" class="btn btn-primary">Submit</button>
-                                </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-4">
+                            <label>total_cycles (0 = infinito) <span class="required">*</span></label>
+                            <input formControlName="total_cycles" type="number" min="0" class="form-control" />
+                            <div *ngIf="planpaypalForm.get('total_cycles')?.touched && planpaypalForm.get('total_cycles')?.invalid"
+                                class="text-danger">
+                                <div *ngIf="planpaypalForm.get('total_cycles')?.errors?.['required']">
+                                    Campo Requerido
+                                </div>
+                                <div *ngIf="planpaypalForm.get('total_cycles')?.errors?.['minlength']">
+                                    Coloque una frecuenca entre 1 y 12
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-xs-12 col-sm-4">
+                            <label>fixed_price (precio mensual) <span class="required">*</span></label>
+                            <input formControlName="fixed_price" type="number" min="0" class="form-control" />
+                            <div *ngIf="planpaypalForm.get('fixed_price')?.touched && planpaypalForm.get('fixed_price')?.invalid"
+                                class="text-danger">
+                                <div *ngIf="planpaypalForm.get('fixed_price')?.errors?.['required']">
+                                    Campo Requerido
+                                </div>
+                                <div *ngIf="planpaypalForm.get('fixed_price')?.errors?.['minlength']">
+                                    Coloque una precio ejem 10.00
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-xs-12 col-sm-4">
+                            <label>setup_fee (cuota inicial) <span class="required">*</span></label>
+                            <input formControlName="setup_fee" type="number" min="0" class="form-control" />
+
+                            <div *ngIf="planpaypalForm.get('setup_fee')?.touched && planpaypalForm.get('setup_fee')?.invalid"
+                                class="text-danger">
+                                <div *ngIf="planpaypalForm.get('setup_fee')?.errors?.['required']">
+                                    Campo Requerido
+                                </div>
+                                <div *ngIf="planpaypalForm.get('setup_fee')?.errors?.['minlength']">
+                                    Coloque una cuota inicial
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <!-- <input type="hidden" formControlName="id"> -->
+                    <button (click)="editPlan()" class="btn btn-primary">Submit</button>
+                </form>
             </div>
         </section>
     </div>

@@ -134,7 +134,7 @@ export class PlanPaypalSubcriptionService {
     const url = `${baseUrl}/paypal/products/`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, productPaypal: productPaypalSubcription}) => resp.productPaypal)
+        map((resp:{ok: boolean, productPaypals: productPaypalSubcription}) => resp.productPaypals)
       )
   }
 
@@ -204,6 +204,11 @@ export class PlanPaypalSubcriptionService {
     const url = `${baseUrl}/planpaypal/crear`;
     return this.http.post(url, planPaypal, this.headers);
 
+  }
+
+  deleteProduct(product: any) {
+    const url = `${baseUrl}/paypal/productborrar/${product}`;
+    return this.http.delete(url, this.headers);
   }
 
 

@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ConfiguracionesComponent } from './configuraciones/configuraciones.component';
-import { PlanesEditComponent } from './planes/planes-edit/planes-edit.component';
-import { PlanesIndexComponent } from './planes/planes-index/planes-index.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -24,8 +22,6 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 @NgModule({
   declarations: [
     ConfiguracionesComponent,
-    PlanesEditComponent,
-    PlanesIndexComponent,
     RolesViewComponent,
     CategoryEditComponent,
     CategoryIndexComponent,
@@ -33,8 +29,6 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
   ],
   exports: [
     ConfiguracionesComponent,
-    PlanesEditComponent,
-    PlanesIndexComponent,
     RolesViewComponent,
     CategoryEditComponent,
     CategoryIndexComponent,

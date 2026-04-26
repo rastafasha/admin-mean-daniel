@@ -90,14 +90,16 @@
 
                                     </td>
                                     <td class="text-nowrap text-center">
-                                        <a [routerLink]="['/dashboard/publicidad-lateral/edit', sideadvice._id]"
-                                            class="cursor" data-toggle="tooltip" data-original-title="Edit">
-                                            <div class="btn btn-success"><i class="fa fa-edit"></i></div>
-                                        </a>
-                                        <a (click)="eliminarCurso(sideadvice._id)" class="cursor" data-toggle="tooltip"
+                                        
+                                        <button [routerLink]="['/dashboard/publicidad-lateral/edit', sideadvice._id]" class="btn btn-outline-success"
+                                            data-toggle="tooltip" data-original-title="Edit">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                         &nbsp;
+                                        <button (click)="eliminarCurso(sideadvice._id)" class="btn btn-outline-danger" data-toggle="tooltip"
                                             data-original-title="Borrar">
-                                            <div class="btn btn-danger"><i class="fa fa-trash"></i></div>
-                                        </a>
+                                            <i class="fa fa-trash"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             </tbody>

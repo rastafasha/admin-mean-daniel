@@ -11,6 +11,8 @@ import { SubcriptionsComponent } from './subcriptions/subcriptions.component';
 import { SubcriptionComponent } from './subcription/subcription.component';
 import { PaypalhomeComponent } from './paypalhome/paypalhome.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ProductListComponent } from './products/product-list/product-list.component';
+import { ProductEditComponent } from './products/product-edit/product-edit.component';
 
 
 
@@ -20,14 +22,18 @@ import { NgxPaginationModule } from 'ngx-pagination';
     PaypalsubcriptionIndexComponent,
     SubcriptionsComponent,
     SubcriptionComponent,
-    PaypalhomeComponent
+    PaypalhomeComponent,
+    ProductListComponent,
+    ProductEditComponent
   ],
   exports: [
     PaypalsubcriptionEditComponent,
     PaypalsubcriptionIndexComponent,
     SubcriptionsComponent,
     SubcriptionComponent,
-    PaypalhomeComponent
+    PaypalhomeComponent,
+    ProductListComponent,
+    ProductEditComponent
   ],
   imports: [
     CommonModule,

@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ReciboFacturaComponent } from '../components/recibo-factura/recibo-factura.component';
 import { ConfiguracionesComponent } from './conf/configuraciones/configuraciones.component';
-import { PlanesEditComponent } from './conf/planes/planes-edit/planes-edit.component';
-import { PlanesIndexComponent } from './conf/planes/planes-index/planes-index.component';
 import { RolesViewComponent } from './conf/roles/roles-view/roles-view.component';
 import { ContactComponent } from './contact/contact.component';
 
@@ -15,8 +13,6 @@ import { PaymentDetailsComponent } from './payments/payment-details/payment-deta
 import { PaymentEditComponent } from './payments/payment-edit/payment-edit.component';
 import { PaymentsComponent } from './payments/payments.component';
 import { ReportarPagoComponent } from './payments/reportar-pago/reportar-pago.component';
-import { PlanComponent } from './planes/plan/plan.component';
-import { PlanesPageComponent } from './planes/planes-page/planes-page.component';
 import { UserHistorialpagosComponent } from './user-historialpagos/user-historialpagos.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UsersComponent } from './users/users.component';
@@ -37,6 +33,8 @@ import { SubcriptionComponent } from './paypalsubcription/subcription/subcriptio
 import { PublicidadComponent } from './publicidad/publicidad/publicidad.component';
 import { LateralIndexComponent } from './publicidad/lateral/lateral-index/lateral-index.component';
 import { LateralEditComponent } from './publicidad/lateral/lateral-edit/lateral-edit.component';
+import { ProductEditComponent } from './paypalsubcription/products/product-edit/product-edit.component';
+import { ProductListComponent } from './paypalsubcription/products/product-list/product-list.component';
 // import { CondicionesComponent } from './condiciones/condiciones.component';
 
 
@@ -53,19 +51,15 @@ const childRoutes: Routes = [
     { path: 'buscar/:termino', component: BusquedaComponent, data:{tituloPage:'Busquedas'} },
     { path: 'rolesconf', component: RolesViewComponent, data:{title:'Planes'} },
 
-    { path: 'planes', component: PlanesIndexComponent, data:{title:'Planes'} },
-    { path: 'plan/:id', component: PlanComponent, data:{title:'Plan'} },
-    { path: 'planes/create', component: PlanesEditComponent, data:{title:'Crear Plan'} },
-    { path: 'plan/edit/:id', component: PlanesEditComponent, data:{title:'Editar Plan'} },
-    { path: 'planes/all', component: PlanesPageComponent, data:{title:'Planes'} },
-    { path: 'planes/plan', component: PlanComponent, data:{title:'Planes'} },
-
-
     { path: 'categories', component: CategoryIndexComponent, data:{title:'Categoria'} },
     { path: 'categoria/crear', component: CategoryEditComponent, data:{title:'Crear Categoria'} },
     { path: 'category/:id', component: CategoryIndexComponent, data:{title:'Categoria'} },
     { path: 'category/edit/:id', component: CategoryEditComponent, data:{title:'Editar Categoria'} },
     
+
+    { path: 'products', component: ProductListComponent, data:{title:'paypal-subcription'} },
+    { path: 'product/crear', component: ProductEditComponent, data:{title:'Crear paypal-subcription'} },
+    { path: 'product/edit/:id', component: ProductEditComponent, data:{title:'Editar paypal-subcription'} },
 
     { path: 'paypal-subcription-home', component: PaypalhomeComponent, data:{title:'paypal-subcription'} },
     { path: 'paypal-plans', component: PaypalsubcriptionIndexComponent, data:{title:'paypal-subcription'} },

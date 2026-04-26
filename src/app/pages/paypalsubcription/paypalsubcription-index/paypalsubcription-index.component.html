@@ -34,14 +34,14 @@
                     </div>
                     <div class="col-xs-1 col-sm-1">
                         <div class="text-right">
-                            <!-- <button class="btn btn-primary" [routerLink]="['/dashboard/paypal-plan/crear/']" >
-                                <i class="fa fa-pencil"></i>
-                                Crear
-                            </button> -->
-                            <button class="btn btn-primary" (click)="iraCrear()" >
+                            <button class="btn btn-primary" [routerLink]="['/dashboard/paypal-plan/crear/']" >
                                 <i class="fa fa-pencil"></i>
                                 Crear
                             </button>
+                            <!-- <button class="btn btn-primary" (click)="iraCrear()" >
+                                <i class="fa fa-pencil"></i>
+                                Crear
+                            </button> -->
                         </div>
                     </div>
                 </div>
@@ -56,6 +56,7 @@
                                     <th>product_id</th>
                                     <th>Creado</th>
                                     <th>Status</th>
+                                    <th>Activar</th>
                                     <th class="text-nowrap">Acciones</th>
                                 </tr>
                             </thead>
@@ -65,7 +66,7 @@
 
                                     <td>{{plan.name}}</td>
                                     <td>{{plan.product_id}}</td>
-                                    <td>{{plan.create_time}} </td>
+                                    <td>{{plan.create_time |date}} </td>
 
                                     <td>
                                         <!-- {{plan.status }} -->
@@ -91,15 +92,15 @@
 
                                     </td>
                                     <td class="text-nowrap text-center">
-                                        <a [routerLink]="['/dashboard/paypal-plan/edit', plan.id]" class="cursor"
+                                        <button [routerLink]="['/dashboard/paypal-plan/edit', plan.id]" class="btn btn-outline-success"
                                             data-toggle="tooltip" data-original-title="Edit">
-                                            <i class="fa fa-edit text-success" style="font-size: 18px;"></i>
-                                        </a>
-                                        <a (click)="eliminarPlan(plan.id)" class="cursor" data-toggle="tooltip"
+                                            <i class="fa fa-edit text-success" ></i>
+                                        </button>
+                                        &nbsp;
+                                        <button (click)="eliminarPlan(plan.id)" class="btn btn-outline-danger" data-toggle="tooltip"
                                             data-original-title="Borrar">
-                                            <i class="fa fa-trash text-danger"
-                                                style="font-size: 18px; margin-left: 10px; margin-right: 10px;"></i>
-                                        </a>
+                                            <i class="fa fa-trash text-danger"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             </tbody>
