@@ -3,7 +3,7 @@
     <table class="table table-borderless table-responsive">
         <thead>
             <tr>
-                <th scope="col">Referencia</th>
+                <!-- <th scope="col">Referencia</th> -->
                 <th scope="col">Usuario </th>
                 <th scope="col">Monto</th>
                 <th scope="col">Status</th>
@@ -12,7 +12,7 @@
         </thead>
         <tbody *ngFor="let payment of payments| slice: 0:5">
             <tr>
-                <th scope="row"><a [routerLink]="['./payment-detail', payment._id]">{{payment.referencia | slice: 0:8}}...</a></th>
+                <!-- <th scope="row"><a [routerLink]="['./payment-detail', payment._id]">{{payment.referencia | slice: 0:8}}...</a></th> -->
                 <th scope="row"><a [routerLink]="['/dashboard/user/', payment.usuario.uid]">{{payment.usuario.username | slice: 0:8}}...</a></th>
                 
                 <td>{{payment.monto|currency}}</td>

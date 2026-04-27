@@ -53,18 +53,12 @@ const childRoutes: Routes = [
 
     { path: 'categories', component: CategoryIndexComponent, data:{title:'Categoria'} },
     
-
     { path: 'products', component: ProductListComponent, data:{title:'paypal-subcription'} },
-    { path: 'product/crear', component: ProductEditComponent, data:{title:'Crear paypal-subcription'} },
-    { path: 'product/edit/:id', component: ProductEditComponent, data:{title:'Editar paypal-subcription'} },
-
+    
     { path: 'paypal-subcription-home', component: PaypalhomeComponent, data:{title:'paypal-subcription'} },
     { path: 'paypal-plans', component: PaypalsubcriptionIndexComponent, data:{title:'paypal-subcription'} },
 
-    // 1. Primero las rutas estáticas específicas
-    { path: 'paypal-plan/crear', component: PaypalsubcriptionEditComponent, data:{title:'Crear paypal-subcription'} },
-    { path: 'paypal-plan/edit/:id', component: PaypalsubcriptionEditComponent, data:{title:'Editar paypal-subcription'} },
-
+  
     // 2. Al final las rutas con parámetros genéricos (:id)
     { path: 'paypal-plan/:id', component: PaypalsubcriptionIndexComponent, data:{title:'paypal-subcription'} },
     
@@ -72,9 +66,6 @@ const childRoutes: Routes = [
     { path: 'paypal-subcription/:id', component: SubcriptionComponent, data:{title:'paypal-subcription'} },
 
 
-    //editores
-    { path: 'editor/create', component: EditorEditComponent, data:{title:'Crear Editor'} },
-    { path: 'editor/edit/:id', component: EditorEditComponent, data:{title:'Editar Editor'} },
     // posts
     { path: 'posts', component: PostIndexComponent, data:{title:'Blog'} },
     { path: 'post/:id', component: PostIndexComponent, data:{title:'Blog'} },
@@ -84,9 +75,6 @@ const childRoutes: Routes = [
 
     //admin
     { path: 'compras',   component: PaymentsComponent, data:{title:'Pagos'} },
-    { path: 'payment-detail/:id', component: PaymentDetailsComponent, data:{title:'Detalle Pago'} },
-    { path: 'payment/edit/:id', component: PaymentEditComponent, data:{title:'Editar Pago'} },
-    { path: 'factura/:id', component: ReciboFacturaComponent, data:{title:'Buscar'} },
     { path: 'realizar-pago', component: ReportarPagoComponent, data:{title:'Relizar Pago'} },
 
     //user
