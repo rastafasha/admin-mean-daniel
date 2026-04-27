@@ -24,6 +24,8 @@ export class PostIndexComponent implements OnInit {
   msm_error: string;
   loading = false;
   publicaciones: any;
+  selectedProject:Post;
+  postSeleccionado:Post;
 
   query: string = '';
 
@@ -143,5 +145,19 @@ export class PostIndexComponent implements OnInit {
       )
     }
   }
+  onEditProject(post: Post) {
+    this.postSeleccionado = post;
+  }
+
+  openEditModal(): void {
+    this.postSeleccionado = null;
+  }
+
+  onCloseModal(): void {
+    this.postSeleccionado = null;
+  }
+
+  onClose(){}
+  
 
 }
