@@ -161,7 +161,9 @@
                                             type="button" (click)="nextStep()">Siguiente</button>
                                     </div>
                                     <div class="col-6">
-                                        <button (click)="editPost()" class="btn btn-outline-success">Guardar</button>
+                                        <button (click)="editPost()" class="btn btn-outline-success">
+                                            {{ postSeleccionado ? 'Actualizar y Continuar' : 'Crear y Continuar' }}
+                                        </button>
                                     </div>
                                 </div>
                             </form>

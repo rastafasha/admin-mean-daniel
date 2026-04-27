@@ -29,14 +29,14 @@ export class PostEditComponent implements OnInit, OnChanges {
 
   @Input() postSeleccionado;
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
-  @Output() refreshProjectList: EventEmitter<void> = new EventEmitter<void>();
+  @Output() refreshPostList: EventEmitter<void> = new EventEmitter<void>();
   // public Editor = ClassicEditor;
   public Editor = Decoupled;
   public Editor1 = Decoupled;
   public editorData = `<p>This is a CKEditor 5 WYSIWYG editor instance created with Angular.</p>`;
 
-  isLoading: boolean = false;
-  isLoadingImage: boolean = false;
+  public isLoading: boolean = false;
+  public isLoadingImage: boolean = false;
   public postForm: FormGroup;
 
   public post: Post;
@@ -45,32 +45,23 @@ export class PostEditComponent implements OnInit, OnChanges {
   public imgSelect: String | ArrayBuffer;
   public imagenSubir: File;
   public imgTemp: any = null;
-  imagePath: string;
+  public imagePath: string;
 
-
-  public categorySeleccionado: Category;
-  categories: Category;
-  categoriaslista: Category;
   public msm_error = '';
-  public categoryForm: FormGroup;
-
-  title: string;
-
   public user: User;
-  uid: string;
+  public categories: Category;
+  public title: string;
+  public uid: string;
 
-
-  error: string;
-  uploadError: string;
+  publicerror: string;
+  public uploadError: string;
 
   currentStep = 1;
 
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
     private postService: PostService,
-    private activatedRoute: ActivatedRoute,
     private categoryService: CategoryService,
     private userService: UserService,
     private fileUploadService: FileUploadService,
@@ -85,7 +76,22 @@ export class PostEditComponent implements OnInit, OnChanges {
     this.getUser();
   }
 
+  getUser(): void {
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.uid = this.user.uid;
+  }
+
+  getCategories(): void {
+    this.categoryService.getCategories().subscribe(
+      res => {
+        this.categorias = res;
+      }
+    );
+  }
+
+
   ngOnChanges(changes: SimpleChanges): void {
+
     if (
       changes['postSeleccionado'] &&
       changes['postSeleccionado'].currentValue
@@ -107,26 +113,10 @@ export class PostEditComponent implements OnInit, OnChanges {
         usuario: this.user.uid,
       });
       this.postSeleccionado = post;
-      this.isLoading = false;
       this.title = 'Editando Proyecto';
     } else {
       this.title = 'Creando Post';
     }
-  }
-
-
-  getUser(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
-    this.uid = this.user.uid;
-  }
-
-  getCategories(): void {
-    this.categoryService.getCategories().subscribe(
-      res => {
-        this.categorias = res;
-        // console.log(this.categorias)
-      }
-    );
   }
 
 
@@ -138,20 +128,20 @@ export class PostEditComponent implements OnInit, OnChanges {
     // Also reset default values if needed
     this.postForm.patchValue({
       id: null,
-        name: null,
-        price: null,
-        description: null,
-        adicional: null,
-        introhome: null,
-        slug: null,
-        categoria: null,
-        status: null,
-        isFeatured: null,
-        img: null,
-        usuario: null,
+      name: null,
+      price: null,
+      description: null,
+      adicional: null,
+      introhome: null,
+      slug: null,
+      categoria: null,
+      status: null,
+      isFeatured: null,
+      img: null,
+      usuario: null,
     });
     // Emit event to parent to reset the projectSeleccionado variable
-    
+
     this.closeModal.emit();
   }
 
@@ -208,9 +198,9 @@ export class PostEditComponent implements OnInit, OnChanges {
     const introhome = this.postForm.get('introhome');
 
     if (name?.invalid || description?.invalid ||
-        categoria?.invalid || price?.invalid ||
-        isFeatured?.invalid || adicional?.invalid ||
-        introhome?.invalid 
+      categoria?.invalid || price?.invalid ||
+      isFeatured?.invalid || adicional?.invalid ||
+      introhome?.invalid
 
     ) {
       name?.markAsTouched();
@@ -229,6 +219,71 @@ export class PostEditComponent implements OnInit, OnChanges {
     this.currentStep = 1;
   }
 
+
+  editPost() {
+
+    if (!this.postForm.valid) {
+      //mostramos las alertas de los campos requeridos
+      this.postForm.markAllAsTouched(); // Esto activa las validaciones visuales
+      return
+    }
+
+    const formData = new FormData();
+    formData.append('name', this.postForm.get('name').value);
+    formData.append('price', this.postForm.get('price').value);
+    formData.append('description', this.postForm.get('description').value);
+    formData.append('categoria', this.postForm.get('categoria').value);
+    formData.append('isFeatured', this.postForm.get('isFeatured').value);
+    formData.append('adicional', this.postForm.get('adicional').value);
+    formData.append('introhome', this.postForm.get('introhome').value);
+
+    if (this.postSeleccionado) {
+      //actualizar
+      const data = {
+        ...this.postForm.value,
+        _id: this.postSeleccionado._id,
+        // usuario: this.user.uid
+      }
+
+      this.postService.updatePost(data).subscribe(
+        resp => {
+          Swal.fire('Actualizado', `Actualizado correctamente`, 'success');
+
+          // Close modal programmatically
+          const modalElement = document.getElementById('editPost');
+          const modal = bootstrap.Modal.getInstance(modalElement);
+          if (modal) {
+            modal.hide();
+
+          }
+          // Emit event to refresh project list
+          this.refreshPostList.emit();
+          this.ngOnInit()
+        });
+
+    } else {
+      //crear
+      const data = {
+        ...this.postForm.value,
+        // user_id: this.user.uid
+      }
+      this.postService.createPost(data).subscribe(
+        (resp: any) => {
+          console.log('Respuesta completa del servidor:', resp);
+          // Si la respuesta es directamente el post:
+          this.postSeleccionado = resp.blog;
+
+          Swal.fire('¡Paso 1 completado!', 'Post creado. Ahora sube la imagen.', 'success');
+          // Como estmos creando, al finalizar debe ir al paso 2 para subir la imagen
+          this.currentStep = 2;
+        },
+        err => {
+          Swal.fire('Error', 'No se pudo crear el post', 'error');
+        })
+    }
+  }
+
+
   cambiarImagen(file: File) {
     this.imagenSubir = file;
 
@@ -244,99 +299,32 @@ export class PostEditComponent implements OnInit, OnChanges {
     }
   }
 
-  subirImagen() {
+  subirImagen(): void {
+    if (!this.imagenSubir) {
+      Swal.fire('Atención', 'Selecciona una imagen primero', 'warning');
+    }
+
     this.isLoadingImage = true;
+
+    // Usamos el ID que se guardó al crear el post
+    const id = this.postSeleccionado._id;
+
     this.fileUploadService
-      .actualizarFoto(this.imagenSubir, 'blogs', this.postSeleccionado._id || '')
+      .actualizarFoto(this.imagenSubir, 'blogs', id)
       .then(img => {
         this.postSeleccionado.img = img;
         this.isLoadingImage = false;
-        Swal.fire('Guardado', 'La imagen fue actualizada', 'success');
+        Swal.fire('Listo', 'Imagen subida correctamente', 'success');
 
-      }).catch(err => {
+        // Aquí ya puedes cerrar el modal o refrescar la lista
+        this.refreshPostList.emit();
+        this.onClose();
+      })
+      .catch(err => {
         this.isLoadingImage = false;
         Swal.fire('Error', 'No se pudo subir la imagen', 'error');
+      });
 
-      })
-
-  }
-
-
-
-
-  editPost() {
-
-    if (!this.postForm.valid) {
-      //mostramos las alertas de los campos requeridos
-      this.postForm.markAllAsTouched(); // Esto activa las validaciones visuales
-      return
-    }
-
-
-    const formData = new FormData();
-    formData.append('name', this.postForm.get('name').value);
-    formData.append('price', this.postForm.get('price').value);
-    formData.append('description', this.postForm.get('description').value);
-    formData.append('categoria', this.postForm.get('categoria').value);
-    formData.append('isFeatured', this.postForm.get('isFeatured').value);
-    formData.append('adicional', this.postForm.get('adicional').value);
-    formData.append('introhome', this.postForm.get('introhome').value);
-    // formData.append('usuario', this.postForm.get('usuario').value);
-
-
-    if (this.post) {
-      //actualizar
-      const data = {
-        ...this.postForm.value,
-        _id: this.post._id,
-        // usuario: this.user.uid
-      }
-
-      this.postService.updatePost(data).subscribe(
-        resp => {
-          Swal.fire('Actualizado', `Actualizado correctamente`, 'success');
-
-          // Close modal programmatically
-          const modalElement = document.getElementById('editProject');
-          const modal = bootstrap.Modal.getInstance(modalElement);
-          if (modal) {
-            modal.hide();
-
-          }
-          // Emit event to refresh project list
-          this.refreshProjectList.emit();
-          this.ngOnInit()
-        });
-
-    } else {
-      //crear
-      const data = {
-        ...this.postForm.value,
-        // user_id: this.user.uid
-      }
-      this.postService.createPost(data).subscribe(
-        (resp: any) => {
-          console.log(resp);
-          Swal.fire('Creado', ` creado correctamente`, 'success');
-          // Close modal programmatically
-          const modalElement = document.getElementById('editProject');
-          const modal = bootstrap.Modal.getInstance(modalElement);
-          if (modal) {
-            modal.hide();
-          }
-          // Emit event to refresh project list
-          this.refreshProjectList.emit();
-        })
-    }
-  }
-
-  public mostrarEditorCategorias() {
-    var listacategoria = document.getElementsByClassName("crearcategoria");
-    for (var i = 0; i < listacategoria.length; i++) {
-      listacategoria[i].classList.toggle("mostrar");
-      //console.log('pulsado', menuLateral);
-
-    }
   }
 
   //ckeditor
