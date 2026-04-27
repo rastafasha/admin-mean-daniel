@@ -16,6 +16,15 @@
 
                                     <input type="text" formControlName="nombre" class="form-control"
                                         id="exampleInputuname" placeholder="Nombre" required>
+                                        <div *ngIf="categoryForm.get('nombre')?.touched && categoryForm.get('nombre')?.invalid"
+                                            class="text-danger">
+                                            <div *ngIf="categoryForm.get('nombre')?.errors?.['required']">
+                                                Campo Requerido
+                                            </div>
+                                            <div *ngIf="categoryForm.get('nombre')?.errors?.['minlength']">
+                                                Coloque un Email Valido
+                                            </div>
+                                        </div>
                                 </div>
                             </div>
 
@@ -23,7 +32,7 @@
 
                                 <div class="col-6">
                                     <button (click)="updateCategory()" class="btn btn-outline-success">
-                                        {{ categorySeleccionado ? 'Actualizar y Continuar' : 'Crear y Continuar' }}
+                                        {{ categorySeleccionado ? 'Actualizar ' : 'Crear' }}
                                     </button>
                                 </div>
                             </div>

@@ -84,6 +84,11 @@ export class CategoryEditComponent implements OnInit, OnChanges {
   }
 
   updateCategory() {
+    if (!this.categoryForm.valid) {
+      //mostramos las alertas de los campos requeridos
+      this.categoryForm.markAllAsTouched(); // Esto activa las validaciones visuales
+      return
+    }
 
     const { nombre } = this.categoryForm.value;
 

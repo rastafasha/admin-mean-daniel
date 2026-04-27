@@ -15,12 +15,30 @@
                                     <div class="form-group ">
                                         <input class="form-control" type="text" formControlName="username"
                                             placeholder="username">
+                                        <div *ngIf="editorForm.get('username')?.touched && editorForm.get('username')?.invalid"
+                                            class="text-danger">
+                                            <div *ngIf="editorForm.get('username')?.errors?.['required']">
+                                                Campo Requerido
+                                            </div>
+                                            <div *ngIf="editorForm.get('username')?.errors?.['minlength']">
+                                                 Coloque un Nombre de Usuario
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <div class="form-group ">
                                         <input class="form-control" type="text" formControlName="email"
                                             placeholder="Email">
+                                        <div *ngIf="editorForm.get('email')?.touched && editorForm.get('email')?.invalid"
+                                            class="text-danger">
+                                            <div *ngIf="editorForm.get('email')?.errors?.['required']">
+                                                Campo Requerido
+                                            </div>
+                                            <div *ngIf="editorForm.get('email')?.errors?.['minlength']">
+                                                Coloque un Email Valido
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -29,12 +47,30 @@
                                     <div class="form-group ">
                                         <input class="form-control" type="password" autocomplete="false"
                                             formControlName="password" placeholder="Contraseña">
+                                            <div *ngIf="editorForm.get('password')?.touched && editorForm.get('password')?.invalid"
+                                            class="text-danger">
+                                            <div *ngIf="editorForm.get('password')?.errors?.['required']">
+                                                Campo Requerido
+                                            </div>
+                                            <div *ngIf="editorForm.get('password')?.errors?.['minlength']">
+                                                Coloque un Email Valido
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <div class="form-group">
                                         <input class="form-control" type="password" autocomplete="false"
                                             formControlName="password2" placeholder="Confirmar Contraseña">
+                                            <div *ngIf="editorForm.get('password2')?.touched && editorForm.get('password2')?.invalid"
+                                            class="text-danger">
+                                            <div *ngIf="editorForm.get('password2')?.errors?.['required']">
+                                                Campo Requerido
+                                            </div>
+                                            <div *ngIf="editorForm.get('password2')?.errors?.['minlength']">
+                                                Coloque un Email Valido
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

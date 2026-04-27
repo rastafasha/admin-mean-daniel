@@ -90,8 +90,10 @@ export class EditorEditComponent implements OnInit, OnChanges {
 
   crearEditor() {
     this.formSumitted = true;
-    if (this.editorForm.invalid) {
-      return;
+    if (!this.editorForm.valid) {
+      //mostramos las alertas de los campos requeridos
+      this.editorForm.markAllAsTouched(); // Esto activa las validaciones visuales
+      return
     }
 
     this.usuarioService.crearEditor(this.editorForm.value).subscribe(

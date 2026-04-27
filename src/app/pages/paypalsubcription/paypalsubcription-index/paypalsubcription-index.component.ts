@@ -25,6 +25,7 @@ export class PaypalsubcriptionIndexComponent implements OnInit {
   loading = false;
   data: any
   query: string = '';
+  planSeleccionado:planPaypalSubcription;
 
   constructor(
     private planpaypalService: PlanPaypalSubcriptionService,
@@ -100,9 +101,20 @@ export class PaypalsubcriptionIndexComponent implements OnInit {
     )
   }
 
-  iraCrear(){
-    this.router.navigateByUrl('/dashboard/paypal-plan/crear/')
-  }
+  onEditProject(plan: planPaypalSubcription) {
+      this.planSeleccionado = plan;
+      console.log(this.planSeleccionado)
+    }
+  
+    openEditModal(): void {
+      this.planSeleccionado = null;
+    }
+  
+    onCloseModal(): void {
+      this.planSeleccionado = null;
+    }
+  
+    onClose() { }
 
  
 

@@ -1,25 +1,25 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { planPaypalSubcription, productPaypalSubcription } from 'src/app/models/planPaypalSubcription';
 import { PlanPaypalSubcriptionService } from 'src/app/services/paypalSubcription.service';
-import { environment } from 'src/environments/environment';
-const urlFront = environment.urlFrontPage;
-const urlImage = environment.imageURLProductsub;
+
+declare var bootstrap: any;
 @Component({
   selector: 'app-paypalsubcription-edit',
   templateUrl: './paypalsubcription-edit.component.html',
   styleUrls: ['./paypalsubcription-edit.component.css'],
   standalone: false
 })
-export class PaypalsubcriptionEditComponent implements OnInit {
+export class PaypalsubcriptionEditComponent implements OnInit, OnChanges {
+  @Input() planSeleccionado: planPaypalSubcription;
+  @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
+  @Output() refreshPlanesList: EventEmitter<void> = new EventEmitter<void>();
 
   public planpaypalForm: FormGroup;
-  public productopaypalForm: FormGroup;
 
   public planpaypalSeleccionado: planPaypalSubcription;
-  public productpaypalSeleccionado: planPaypalSubcription;
 
   title: string;
   error: string;
@@ -37,9 +37,75 @@ export class PaypalsubcriptionEditComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(({ id }) => this.getplan(id));
+    this.validarFormulario();
     this.getProductos();
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if (
+      changes['planSeleccionado'] &&
+      changes['planSeleccionado'].currentValue
+    ) {
+      this.title = 'Editando Plan';
+      const plan = changes['planSeleccionado'].currentValue;
+
+      this.planpaypalService.getPlanPaypal(this.planSeleccionado.id).subscribe(
+        (res: any) => {
+          // Extraemos los valores de la estructura de PayPal
+          const ciclyData = res.billing_cycles ? res.billing_cycles[0] : null;
+
+          if (this.planpaypalForm) {
+            this.planpaypalForm.patchValue({
+              id: res.id,
+              name: res.name,
+              product_id: res.product_id,
+              status: res.status,
+              // Accedemos a la profundidad del objeto de PayPal
+              frequency: res.frequency,
+              percentage: res.percentage,
+              total_cycles: ciclyData ? ciclyData.total_cycles : 0,
+              fixed_price: ciclyData ? ciclyData.pricing_scheme.fixed_price.value : 0,
+              setup_fee: res.payment_preferences?.setup_fee?.value || 0,
+              interval_unit: ciclyData ? ciclyData.frequency.interval_unit : 'MONTH'
+            });
+          }
+        }
+      );
+
+      this.planSeleccionado = plan;
+      this.title = 'Editando Plan';
+    } else {
+      this.title = 'Creando Plan';
+    }
+  }
+  
+  onClose() {
+    this.planSeleccionado = null;
+    this.title = 'Creando Proyecto';
+    if (this.planpaypalForm) {
+      this.planpaypalForm.reset();
+      // Also reset default values if needed
+      this.planpaypalForm.patchValue({
+        id: null,
+        name: null,
+        product_id: null,
+        status: null,
+        // Accedemos a la profundidad del objeto de PayPal
+        frequency: null,
+        percentage: null,
+        total_cycles: 0,
+        fixed_price: 0,
+        setup_fee: 0,
+        interval_unit: null
+      });
+    }
+    // Emit event to parent to reset the projectSeleccionado variable
+
+    this.closeModal.emit();
+  }
+
+
 
   getProductos(): void {
     this.planpaypalService.getProductPaypalsPage().subscribe(
@@ -50,45 +116,7 @@ export class PaypalsubcriptionEditComponent implements OnInit {
     );
   }
 
-  getPlanes(): void {
-    this.planpaypalService.getPlanPaypals().subscribe(
-      res => {
-        this.plans = res.plans;
-        error => this.error = error
-      }
-    );
-  }
 
- 
-  getplan(id) {
-    if (id !== null && id !== undefined) {
-      this.title = 'Editando plan';
-      this.planpaypalService.getPlanPaypal(id).subscribe(
-        (res: any) => {
-          this.planpaypalSeleccionado = res;
-          // Extraemos los valores de la estructura de PayPal
-          const ciclyData = res.billing_cycles ? res.billing_cycles[0] : null;
-
-          this.planpaypalForm.patchValue({
-            id: res.id,
-            name: res.name,
-            product_id: res.product_id,
-            status: res.status,
-            // Accedemos a la profundidad del objeto de PayPal
-            frequency: res.frequency,
-            percentage: res.percentage,
-            total_cycles: ciclyData ? ciclyData.total_cycles : 0,
-            fixed_price: ciclyData ? ciclyData.pricing_scheme.fixed_price.value : 0,
-            setup_fee: res.payment_preferences?.setup_fee?.value || 0,
-            interval_unit: ciclyData ? ciclyData.frequency.interval_unit : 'MONTH'
-          });
-        }
-      );
-    } else {
-      this.title = 'Creando plan';
-    }
-    this.validarFormulario();
-  }
 
   validarFormulario() {
     this.planpaypalForm = this.fb.group({
@@ -127,57 +155,11 @@ export class PaypalsubcriptionEditComponent implements OnInit {
     return this.planpaypalForm.get('fixed_price');
   }
 
-  updateProduct() {
 
-    if(!this.productopaypalForm.valid){
-      //mostramos las alertas de los campos requeridos
-      this.productopaypalForm.markAllAsTouched(); // Esto activa las validaciones visuales
-      return
-    }
-
-    const { name, description, type, image_url,
-      category } = this.productopaypalForm.value;
-
-    if (this.productpaypalSeleccionado) {
-      //actualizar
-      const data = {
-        ...this.productopaypalForm.value,
-        id: this.productpaypalSeleccionado.id
-      }
-      this.planpaypalService.updateProduct(data).subscribe(
-        resp => {
-          Swal.fire('Actualizado', `actualizado correctamente`, 'success');
-          this.ngOnInit();
-          console.log('actualizado', resp);
-        });
-
-    } else {
-      //crear
-      const productData = {
-        name: this.productopaypalForm.value.name,
-        description: this.productopaypalForm.value.description,
-        type: this.productopaypalForm.value.type, // O SERVICE/PHYSICAL según tu caso
-        category: this.productopaypalForm.value.category, // PayPal tiene categorías específicas, SOFTWARE es común
-        image_url: urlImage,
-        home_url: urlFront // Opcional pero recomendado
-      };
-
-      this.planpaypalService.createProducSubcription(productData).subscribe((resp: any) => {
-        const newProductId = resp.id; // Este es el ID que usarás en el formulario del PLAN
-        Swal.fire('Producto Creado', `ID: ${newProductId}`, 'success');
-
-        // Opcional: setear automáticamente el product_id en el otro formulario
-        this.planpaypalForm.patchValue({ product_id: newProductId });
-      });
-
-
-    }
-
-  }
 
   editPlan() {
 
-    if(!this.planpaypalForm.valid){
+    if (!this.planpaypalForm.valid) {
       //mostramos las alertas de los campos requeridos
       this.planpaypalForm.markAllAsTouched(); // Esto activa las validaciones visuales
       return
@@ -187,17 +169,24 @@ export class PaypalsubcriptionEditComponent implements OnInit {
     const { name, product_id, status, interval_unit,
       total_cycles, setup_fee, percentage, fixed_price } = this.planpaypalForm.value;
 
-    if (this.planpaypalSeleccionado) {
+    if (this.planSeleccionado) {
       //actualizar
       const data = {
         ...this.planpaypalForm.value,
-        id: this.planpaypalSeleccionado.id
+        id: this.planSeleccionado.id
       }
       this.planpaypalService.updatePlan(data).subscribe(
         resp => {
           Swal.fire('Actualizado', `actualizado correctamente`, 'success');
+          // Close modal programmatically
+          const modalElement = document.getElementById('editPlan');
+          const modal = bootstrap.Modal.getInstance(modalElement);
+          if (modal) {
+            modal.hide();
+          }
+          // Emit event to refresh project list
+          this.refreshPlanesList.emit();
           this.ngOnInit();
-          // console.log('actualizado',resp);
         });
 
     } else {
@@ -246,13 +235,17 @@ export class PaypalsubcriptionEditComponent implements OnInit {
       this.planpaypalService.createPlan(this.planpaypalForm.value)
         .subscribe((resp: any) => {
           Swal.fire('Creado', `creado correctamente`, 'success');
-          this.router.navigateByUrl(`/dashboard/paypal-plans`);
-          // this.ngOnInit();
-          console.log('creadoApp', resp);
-          // this.enviarNotificacion();
+          // Close modal programmatically
+          const modalElement = document.getElementById('editPlan');
+          const modal = bootstrap.Modal.getInstance(modalElement);
+          if (modal) {
+            modal.hide();
+          }
+          // Emit event to refresh project list
+          this.refreshPlanesList.emit();
+          this.ngOnInit();
         })
     }
-
   }
 
 }

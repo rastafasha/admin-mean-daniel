@@ -30,7 +30,7 @@
                             <form enctype="multipart/form-data" [formGroup]="postForm" (ngSubmit)="editPost()">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Titulo <span class="required">*</span></label>
-                                    <input formControlName="name" type="text" class="form-control">
+                                    <input formControlName="name" type="text" class="form-control" required>
                                     <div *ngIf="postForm.get('name')?.touched && postForm.get('name')?.invalid"
                                         class="text-danger">
                                         <div *ngIf="postForm.get('name')?.errors?.['required']">
@@ -48,7 +48,7 @@
                                 <div class="row">
                                     <div class="form-groupcol-xs-12 col-sm-4">
                                         <label for="select-input">Categoria <span class="required">*</span></label>
-                                        <select class="form-control " formControlName="categoria">
+                                        <select class="form-control " formControlName="categoria" required>
                                             <option disabled value="seleccione">SELECCIONAR</option>
                                             <option *ngFor="let item of categorias" [value]="item._id">
                                                 {{item.nombre}}
@@ -66,7 +66,7 @@
                                     </div>
                                     <div class="form-group col-xs-12 col-sm-4">
                                         <label for="select-input">Destacado?<span class="required">*</span></label>
-                                        <select class="form-control " formControlName="isFeatured">
+                                        <select class="form-control " formControlName="isFeatured" required>
                                             <option disabled value="">SELECCIONAR</option>
                                             <option value="true">Activo</option>
                                             <option value="false">Inactivo</option>
@@ -101,7 +101,7 @@
                                     <div class="form-group col-xs-12 col-sm-6">
                                         <label>Descripción corta para carrito<span class="required">*</span></label>
                                         <textarea formControlName="adicional" id="adicional" cols="30" rows="4"
-                                            class="form-control"></textarea>
+                                            class="form-control" required></textarea>
                                         <!-- <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>" formControlName="adicional" value="description" rows="5" class="form-control" required></ckeditor> -->
                                         <div *ngIf="postForm.get('adicional')?.touched && postForm.get('adicional')?.invalid"
                                             class="text-danger">
@@ -117,7 +117,7 @@
                                     <div class="form-group col-xs-12 col-sm-6">
                                         <label>Intro para el home<span class="required">*</span></label>
                                         <textarea formControlName="introhome" id="introhome" cols="30" rows="4"
-                                            class="form-control"></textarea>
+                                            class="form-control" required></textarea>
 
                                         <!-- <ckeditor [editor]="Editor1" (ready)="onReady($event)" data="<p>Hello, world!</p>"
                             formControlName="introhome" value="introhome" rows="5" class="form-control"
@@ -137,7 +137,7 @@
                                     <label>Descripción <span class="required">*</span></label>
                                     <div class="col-md-12">
                                         <textarea formControlName="description" id="description" cols="30" rows="4"
-                                            class="form-control"></textarea>
+                                            class="form-control" required></textarea>
                                         <!-- <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>"
                                 formControlName="description" value="description" rows="5" class="form-control"
                                 required></ckeditor> -->

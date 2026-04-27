@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-list',
-  standalone:false,
+  standalone: false,
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
@@ -13,14 +13,14 @@ export class ProductListComponent {
 
   public productpaypalSeleccionado: planPaypalSubcription;
 
-  title= 'Productos Paypal';
+  title = 'Productos Paypal';
   error: string;
   loading = false;
-  tipoSeleccionado:any|null
+  tipoSeleccionado: any | null
   productsPaypal: productPaypalSubcription;
   p: number = 1;
   count: number = 8;
-  productSeleccionado:productPaypalSubcription;
+  productSeleccionado: productPaypalSubcription;
 
   constructor(
     private planpaypalService: PlanPaypalSubcriptionService,
@@ -34,7 +34,7 @@ export class ProductListComponent {
   getProductos(): void {
     this.loading = true;
     this.planpaypalService.getProducts().subscribe(
-      (res:any) => {
+      (res: any) => {
         this.productsPaypal = res.products;
         error => this.error = error;
         this.loading = false;
@@ -42,35 +42,35 @@ export class ProductListComponent {
     );
   }
 
- 
 
-   eliminarProduct(product: productPaypalSubcription) {
-      Swal.fire({
-        title: 'Estas Seguro?',
-        text: "No podras recuperarlo!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, Borrar!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.planpaypalService.deleteProduct(product.id).subscribe(
-            response => {
-              this.getProductos();
-            }
-          );
-          Swal.fire(
-            'Borrado!',
-            'El Archivo fue borrado.',
-            'success'
-          )
-          this.ngOnInit();
-        }
-      });
-    }
 
-onEditProject(product: productPaypalSubcription) {
+  eliminarProduct(product: productPaypalSubcription) {
+    Swal.fire({
+      title: 'Estas Seguro?',
+      text: "No podras recuperarlo!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Borrar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.planpaypalService.deleteProduct(product.id).subscribe(
+          response => {
+            this.getProductos();
+          }
+        );
+        Swal.fire(
+          'Borrado!',
+          'El Archivo fue borrado.',
+          'success'
+        )
+        this.ngOnInit();
+      }
+    });
+  }
+
+  onEditProject(product: productPaypalSubcription) {
     this.productSeleccionado = product;
     console.log(this.productSeleccionado)
   }
@@ -83,7 +83,7 @@ onEditProject(product: productPaypalSubcription) {
     this.productSeleccionado = null;
   }
 
-  onClose(){}
+  onClose() { }
 
 
 

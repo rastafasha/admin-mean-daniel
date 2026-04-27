@@ -145,6 +145,12 @@ export class LateralEditComponent implements OnInit, OnChanges {
 
   editCurso() {
 
+     if (!this.sideadviceForm.valid) {
+      //mostramos las alertas de los campos requeridos
+      this.sideadviceForm.markAllAsTouched(); // Esto activa las validaciones visuales
+      return
+    }
+
     const formData = new FormData();
     formData.append('titulo', this.sideadviceForm.get('titulo').value);
     formData.append('target', this.sideadviceForm.get('target').value);
@@ -185,7 +191,6 @@ export class LateralEditComponent implements OnInit, OnChanges {
           this.currentStep = 2;
         });
     }
-    return false;
   }
 
   cambiarImagen(file: File) {
