@@ -8,19 +8,25 @@
         <!-- ============================================================== -->
         <div class="navbar-header">
             <a class="navbar-brand " href="/dashboard">
-                <!-- Logo icon --><b>
-                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                            <!-- Dark Logo icon -->
-                            <img src="assets/svg/logo.svg" style="height:50px" alt="homepage" class="dark-logo" />
-                            <!-- Light Logo icon -->
-                            <img src="assets/svg/logo.svg" style="height:50px" alt="homepage" class="light-logo" />
-                        </b>
+                <!-- Logo icon -->
+                 <b>
+                    <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                    <!-- Dark Logo icon -->
+                    <img src="assets/svg/logo.svg" style="height:50px" alt="homepage" class="dark-logo" />
+                    <!-- Light Logo icon -->
+                    <img src="assets/svg/logo.svg" style="height:50px" alt="homepage" class="light-logo" />
+                </b>
                 <!--End Logo icon -->
-                <!-- Logo text --><span>
-                         <!-- dark Logo text -->
-                         <img src="assets/svg/logo_letrasAdminColor-01.svg" style="height:20px" alt="homepage" class="dark-logo logot-text" />
-                         <!-- Light Logo text -->
-                         <img src="assets/svg/logo_letrasAdminColor-01.svg" style="height:20px" class="light-logo logot-text" alt="homepage" /></span> </a>
+                <!-- Logo text -->
+                 <span>
+                    <!-- dark Logo text -->
+                    <img src="assets/svg/logo_letrasAdminColor-01.svg" style="height:20px" alt="homepage"
+                        class="dark-logo logot-text" />
+                    <!-- Light Logo text -->
+                    <img src="assets/svg/logo_letrasAdminColor-01.svg" style="height:20px" class="light-logo logot-text"
+                        alt="homepage" />
+                    </span> 
+                </a>
         </div>
         <!-- ============================================================== -->
         <!-- End Logo -->
@@ -31,8 +37,17 @@
             <!-- ============================================================== -->
             <ul class="navbar-nav mr-auto">
                 <!-- This is  -->
-                <li class="nav-item"> <a class="nav-link  hidden-md-up waves-effect waves-dark nav-toggler" (click)="openMenu()"><i class="ti-menu"></i></a> </li>
-                <li class="nav-item"> <a class="nav-link  hidden-sm-down waves-effect waves-dark sidebartoggler " (click)="openMenu()"><i class="ti-menu"></i></a> </li>
+                <li class="nav-item"> 
+                    <a class="nav-link  hidden-md-up waves-effect waves-dark nav-toggler" (click)="openMenu()">
+                        <i class="fa fa-bars"></i>
+                    </a> 
+                    </li>
+                <li class="nav-item"> 
+                    <a class="nav-link  hidden-sm-down waves-effect waves-dark sidebartoggler "
+                        (click)="openMenu()">
+                        <i class="fa fa-bars"></i>
+                    </a> 
+                </li>
                 <li class="nav-item hidden-sm-down"></li>
             </ul>
             <!-- ============================================================== -->
@@ -56,13 +71,16 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle waves-effect waves-dark" href="javascript:void(0)" (click)="openModal()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle waves-effect waves-dark" href="javascript:void(0)"
+                        (click)="openModal()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                         <div *ngIf="!profile">
-                            <img src="./assets/images/no-image.jpg" style="width:50px; height:50px" class="rounded-circle">
+                            <img src="./assets/images/no-image.jpg" style="width:50px; height:50px"
+                                class="rounded-circle">
                         </div>
                         <div *ngIf="profile">
-                            <img [src]="profile.img | imagenPipe: 'profiles'" style="width:50px; height:50px" [alt]="user.username | slice:0:10" class="rounded-circle">
+                            <img [src]="profile.img | imagenPipe: 'profiles'" style="width:50px; height:50px"
+                                [alt]="user.username | slice:0:10" class="rounded-circle">
                         </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right animated fadeInDown">
@@ -81,8 +99,10 @@
                                 </div>
                             </li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="http://google.com" target="_blank"><i class="ti-world"></i> Ir al Landing </a></li>
-                            <li><a (click)="logout()" style="cursor:pointer"><i class="fa fa-power-off"></i> Logout</a></li>
+                            <li><a href="http://google.com" target="_blank"><i class="ti-world"></i> Ir al Landing </a>
+                            </li>
+                            <li><a (click)="logout()" style="cursor:pointer"><i class="fa fa-power-off"></i> Logout</a>
+                            </li>
                         </ul>
                     </div>
                 </li>
