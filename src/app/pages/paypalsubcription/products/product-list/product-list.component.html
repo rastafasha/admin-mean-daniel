@@ -31,14 +31,10 @@
                     </div>
                     <div class="col-xs-1 col-sm-1">
                         <div class="text-right">
-                            <button class="btn btn-primary" [routerLink]="['/dashboard/product/crear/']" >
-                                <i class="fa fa-pencil"></i>
-                                Crear
+                            <button (click)="openEditModal()" class="btn btn-outline-success" data-toggle="tooltip"
+                                data-original-title="Edit" data-bs-toggle="modal" data-bs-target="#editProduct">
+                                <i class="fa fa-plus"></i>
                             </button>
-                            <!-- <button class="btn btn-primary" (click)="iraCrear()" >
-                                <i class="fa fa-pencil"></i>
-                                Crear
-                            </button> -->
                         </div>
                     </div>
                 </div>
@@ -63,13 +59,15 @@
                                     <td>{{product.id}}</td>
                                     <td>{{product.create_time | date}} </td>
                                     <td class="text-nowrap text-center">
-                                        <button [routerLink]="['/dashboard/product/edit', product.id]" class="btn btn-outline-success"
-                                            data-toggle="tooltip" data-original-title="Edit">
-                                            <i class="fa fa-edit text-success" ></i>
+
+                                        <button (click)="onEditProject(product)" class="btn btn-outline-success"
+                                            data-toggle="tooltip" data-original-title="Edit" data-bs-toggle="modal"
+                                            data-bs-target="#editProduct">
+                                            <i class="fa fa-edit"></i>
                                         </button>
                                         &nbsp;
-                                        <button (click)="eliminarProduct(product.id)" class="btn btn-outline-danger" data-toggle="tooltip"
-                                            data-original-title="Borrar">
+                                        <button (click)="eliminarProduct(product.id)" class="btn btn-outline-danger"
+                                            data-toggle="tooltip" data-original-title="Borrar">
                                             <i class="fa fa-trash text-danger"></i>
                                         </button>
                                     </td>
@@ -84,3 +82,5 @@
     </div>
 </div>
 <!--/main-->
+<app-product-edit (refreshProductList)="getProductos()" [productSeleccionado]="productSeleccionado"
+    (closeModal)="onClose()" #editProduct></app-product-edit>

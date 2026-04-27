@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
@@ -9,20 +9,19 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Banner } from 'src/app/models/banner';
 import { BannerService } from 'src/app/services/banner.service';
 import { FileUploadService } from 'src/app/services/file-upload.service';
-const baseUrl = environment.apiUrl;
-
 //ckeditor
 import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
-import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
-
+declare var bootstrap: any;
 @Component({
   selector: 'app-banner-edit',
   templateUrl: './banner-edit.component.html',
   styleUrls: ['./banner-edit.component.css'],
   standalone: false
 })
-export class BannerEditComponent implements OnInit {
-
+export class BannerEditComponent implements OnInit, OnChanges {
+  @Input() bannerSeleccionado: Banner;
+  @Output() refreshBannerList: EventEmitter<void> = new EventEmitter<void>();
+  @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
   /**
   * Editor type area wyswyg
@@ -44,7 +43,7 @@ export class BannerEditComponent implements OnInit {
   error: string;
   uploadError: string;
   public storage = environment.apiUrlMedia
-
+  currentStep = 1;
 
   constructor(
     private fb: FormBuilder,
@@ -61,44 +60,67 @@ export class BannerEditComponent implements OnInit {
   ngOnInit(): void {
     this.validarFormulario();
     this.getUser();
-    this.activatedRoute.params.subscribe(({ id }) => this.getBanner(id));
     window.scrollTo(0, 0);
   }
 
-  getUser(): void {
+  ngOnChanges(changes: SimpleChanges): void {
 
-    this.user = JSON.parse(localStorage.getItem('user'));
-    this.uid = this.user.uid;
-  }
-
-  getBanner(_id: string) {
-    this.loading = true;
-    if (_id !== null && _id !== undefined) {
+    if (
+      changes['bannerSeleccionado'] &&
+      changes['bannerSeleccionado'].currentValue
+    ) {
       this.title = 'Editando Banner';
-      this.bannerService.getBanner(_id).subscribe(
-        res => {
-          this.bannerForm.patchValue({
-            id: res._id,
-            titulo: res.titulo,
-            target: res.target,
-            gotBoton: res.gotBoton,
-            botonName: res.botonName,
-            url: res.url,
-            color: res.color,
-            colortext: res.colortext,
-            colortextboton: res.colortextboton,
-            img: res.img,
-            description: res.description,
-          });
-          this.banner = res;
-          //  console.log(this.banner);
-          this.loading = false;
-        }
-      );
+      const banner = changes['bannerSeleccionado'].currentValue;
+      this.bannerForm.patchValue({
+        id: banner._id,
+        titulo: banner.titulo,
+        target: banner.target,
+        gotBoton: banner.gotBoton,
+        botonName: banner.botonName,
+        url: banner.url,
+        color: banner.color,
+        colortext: banner.colortext,
+        colortextboton: banner.colortextboton,
+        img: banner.img,
+        description: banner.description,
+      });
+      this.bannerSeleccionado = banner;
+      this.title = 'Editando Banner';
     } else {
       this.title = 'Creando Banner';
     }
   }
+
+  getUser(): void {
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.uid = this.user.uid;
+  }
+
+  onClose() {
+    this.bannerSeleccionado = null;
+    this.currentStep = 1;
+    this.bannerForm.reset();
+    this.title = 'Creando Proyecto';
+    // Also reset default values if needed
+    this.bannerForm.patchValue({
+      id: null,
+      titulo: null,
+      target: null,
+      gotBoton: null,
+      botonName: null,
+      url: null,
+      color: null,
+      colortext: null,
+      colortextboton: null,
+      img: null,
+      description: null,
+    });
+    // Emit event to parent to reset the projectSeleccionado variable
+
+    this.closeModal.emit();
+  }
+
+
 
   validarFormulario() {
     this.bannerForm = this.fb.group({
@@ -143,9 +165,99 @@ export class BannerEditComponent implements OnInit {
     return this.bannerForm.get('url');
   }
 
-  //  get img() {
-  //    return this.bannerForm.get('img');
-  //  }
+  nextStep() {
+    const titulo = this.bannerForm.get('titulo');
+    const description = this.bannerForm.get('description');
+    const target = this.bannerForm.get('target');
+    const gotBoton = this.bannerForm.get('gotBoton');
+    const botonName = this.bannerForm.get('botonName');
+    const color = this.bannerForm.get('color');
+    const colortext = this.bannerForm.get('colortext');
+    const colortextboton = this.bannerForm.get('colortextboton');
+    const url = this.bannerForm.get('url');
+
+    if (titulo?.invalid || description?.invalid ||
+      target?.invalid || gotBoton?.invalid ||
+      botonName?.invalid || color?.invalid ||
+      colortext?.invalid || colortextboton?.invalid || 
+      url?.invalid
+
+    ) {
+      titulo?.markAsTouched();
+      description?.markAsTouched();
+      target?.markAsTouched();
+      gotBoton?.markAsTouched();
+      botonName?.markAsTouched();
+      color?.markAsTouched();
+      colortext?.markAsTouched();
+      colortextboton?.markAsTouched();
+      url?.markAsTouched();
+      return;
+    }
+    this.currentStep = 2;
+  }
+
+  prevStep() {
+    this.currentStep = 1;
+  }
+
+  editCurso() {
+
+    if (!this.bannerForm.valid) {
+      //mostramos las alertas de los campos requeridos
+      this.bannerForm.markAllAsTouched(); // Esto activa las validaciones visuales
+      return
+    }
+
+    const formData = new FormData();
+    formData.append('titulo', this.bannerForm.get('titulo').value);
+    formData.append('target', this.bannerForm.get('target').value);
+    formData.append('gotBoton', this.bannerForm.get('gotBoton').value);
+    formData.append('botonName', this.bannerForm.get('botonName').value);
+    formData.append('description', this.bannerForm.get('description').value);
+    formData.append('url', this.bannerForm.get('url').value);
+    formData.append('color', this.bannerForm.get('color').value);
+    formData.append('colortext', this.bannerForm.get('colortext').value);
+    formData.append('colortextboton', this.bannerForm.get('colortextboton').value);
+
+
+    if (this.bannerSeleccionado) {
+      //actualizar
+      const data = {
+        ...this.bannerForm.value,
+        _id: this.bannerSeleccionado._id
+      }
+
+      this.bannerService.updateBanner(data).subscribe(
+        resp => {
+          Swal.fire('Actualizado', `Actualizado correctamente`, 'success');
+          // Close modal programmatically
+          const modalElement = document.getElementById('editBanner');
+          const modal = bootstrap.Modal.getInstance(modalElement);
+          if (modal) {
+            modal.hide();
+
+          }
+          // Emit event to refresh project list
+          this.refreshBannerList.emit();
+          this.ngOnInit()
+        });
+
+    } else {
+      //crear
+      const data = {
+        ...this.bannerForm.value
+      }
+      this.bannerService.createBanner(data).subscribe(
+        (resp: any) => {
+          this.bannerSeleccionado = resp.banner;
+
+          Swal.fire('¡Paso 1 completado!', 'Post creado. Ahora sube la imagen.', 'success');
+          // Como estmos creando, al finalizar debe ir al paso 2 para subir la imagen
+          this.currentStep = 2;
+        });
+    }
+  }
 
 
   cambiarImagen(file: File) {
@@ -170,7 +282,10 @@ export class BannerEditComponent implements OnInit {
       .then(img => {
         this.banner.img = img;
         this.loadingImage = false;
-        Swal.fire('Guardado', 'La imagen fue actualizada', 'success');
+        Swal.fire('Listo', 'Imagen subida correctamente', 'success');
+        // Aquí ya puedes cerrar el modal o refrescar la lista
+        this.refreshBannerList.emit();
+        this.onClose();
       }).catch(err => {
         this.loadingImage = false;
         Swal.fire('Error', 'No se pudo subir la imagen', 'error');
@@ -178,50 +293,6 @@ export class BannerEditComponent implements OnInit {
       })
   }
 
-
-
-
-
-  editCurso() {
-
-    const formData = new FormData();
-    formData.append('titulo', this.bannerForm.get('titulo').value);
-    formData.append('target', this.bannerForm.get('target').value);
-    formData.append('gotBoton', this.bannerForm.get('gotBoton').value);
-    formData.append('botonName', this.bannerForm.get('botonName').value);
-    formData.append('description', this.bannerForm.get('description').value);
-    formData.append('url', this.bannerForm.get('url').value);
-    formData.append('color', this.bannerForm.get('color').value);
-    formData.append('colortext', this.bannerForm.get('colortext').value);
-    formData.append('colortextboton', this.bannerForm.get('colortextboton').value);
-
-
-    if (this.banner) {
-      //actualizar
-      const data = {
-        ...this.bannerForm.value,
-        _id: this.banner._id
-      }
-
-      this.bannerService.updateBanner(data).subscribe(
-        resp => {
-          Swal.fire('Actualizado', `Actualizado correctamente`, 'success');
-          this.router.navigateByUrl(`/dashboard/banners`);
-        });
-
-    } else {
-      //crear
-      const data = {
-        ...this.bannerForm.value
-      }
-      this.bannerService.createBanner(data).subscribe(
-        (resp: any) => {
-          Swal.fire('Creado', ` creado correctamente`, 'success');
-          this.router.navigateByUrl(`/dashboard/banners`);
-        });
-    }
-    return false;
-  }
 
   //ckeditor
 

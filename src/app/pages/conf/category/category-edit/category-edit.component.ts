@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
@@ -7,28 +7,27 @@ import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { Category } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category.service';
+declare var bootstrap: any;
 
 @Component({
-    selector: 'app-category-edit',
-    templateUrl: './category-edit.component.html',
-    styleUrls: ['./category-edit.component.css'],
-    standalone: false
+  selector: 'app-category-edit',
+  templateUrl: './category-edit.component.html',
+  styleUrls: ['./category-edit.component.css'],
+  standalone: false
 })
-export class CategoryEditComponent implements OnInit {
+export class CategoryEditComponent implements OnInit, OnChanges {
+  @Input() categorySeleccionado: Category;
+  @Output() refreshCatList: EventEmitter<void> = new EventEmitter<void>();
+  @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
-  title : string;
-
+  title: string;
   public categoryForm: FormGroup;
   public category: Category;
   public usuario: User;
-  categories: Category;
   error: string;
-
-  idcategory:any;
-
+  idcategory: any;
   public msm_error = '';
-
-  public categorySeleccionado: Category;
+  currentStep = 1;
 
   constructor(
     private fb: FormBuilder,
@@ -42,82 +41,91 @@ export class CategoryEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe( ({id}) => this.cargarCategory(id));
     this.validarFormulario();
-    this.getCategories();
-    window.scrollTo(0,0);
-
-    if(this.categorySeleccionado){
-      //actualizar
-      this.title = 'Creando Categoría';
-
-    }else{
-      //crear
-      this.title = 'Editar Categoría';
-    }
   }
 
-  validarFormulario(){
-    this.categoryForm = this.fb.group({
-      nombre: ['',Validators.required],
-    })
-  }
+  ngOnChanges(changes: SimpleChanges): void {
 
-  cargarCategory(_id: string){
-    if (_id !== null && _id !== undefined) {
+    if (
+      changes['categorySeleccionado'] &&
+      changes['categorySeleccionado'].currentValue
+    ) {
       this.title = 'Editando Categoría';
-      this.categoryService.getCategory(_id).subscribe(
-        res => {
-          this.categoryForm.patchValue({
-            id: res._id,
-            nombre: res.nombre,
-          });
-          this.categorySeleccionado = res;
-          console.log(this.categorySeleccionado);
-        }
-      );
+      const category = changes['categorySeleccionado'].currentValue;
+      this.categoryForm.patchValue({
+        id: category._id,
+        nombre: category.nombre,
+      });
+      this.categorySeleccionado = category;
+      this.title = 'Editando Categoría';
     } else {
       this.title = 'Creando Categoría';
     }
-
   }
 
-  updateCategory(){
+  onClose() {
+    this.categorySeleccionado = null;
+    this.categoryForm.reset();
+    this.title = 'Creando Categoría';
+    // Also reset default values if needed
+    this.categoryForm.patchValue({
+      id: null,
+      nombre: null,
+    });
+    // Emit event to parent to reset the projectSeleccionado variable
 
-    const {nombre } = this.categoryForm.value;
+    this.closeModal.emit();
+  }
 
-    if(this.categorySeleccionado){
+  validarFormulario() {
+    this.categoryForm = this.fb.group({
+      nombre: ['', Validators.required],
+    })
+  }
+
+  updateCategory() {
+
+    const { nombre } = this.categoryForm.value;
+
+    if (this.categorySeleccionado) {
       //actualizar
       const data = {
         ...this.categoryForm.value,
         _id: this.categorySeleccionado._id
       }
       this.categoryService.updateCategory(data).subscribe(
-        resp =>{
+        resp => {
           Swal.fire('Actualizado', `${nombre}  actualizado correctamente`, 'success');
-          this.router.navigateByUrl(`/dashboard/categories`);
-          console.log(this.categorySeleccionado);
+          // Close modal programmatically
+          const modalElement = document.getElementById('editCategory');
+          const modal = bootstrap.Modal.getInstance(modalElement);
+          if (modal) {
+            modal.hide();
+
+          }
+          // Emit event to refresh project list
+          this.refreshCatList.emit();
+          this.ngOnInit()
         });
 
-    }else{
+    } else {
       //crear
       this.categoryService.createCategory(this.categoryForm.value)
-      .subscribe( (resp: any) =>{
-        Swal.fire('Creado', `${nombre} creado correctamente`, 'success');
-        this.router.navigateByUrl(`/dashboard/categories`);
-        // this.enviarNotificacion();
-      })
+        .subscribe((resp: any) => {
+          Swal.fire('Creado', `${nombre} creado correctamente`, 'success');
+          // Close modal programmatically
+          const modalElement = document.getElementById('editCategory');
+          const modal = bootstrap.Modal.getInstance(modalElement);
+          if (modal) {
+            modal.hide();
+
+          }
+          // Emit event to refresh project list
+          this.refreshCatList.emit();
+          this.ngOnInit()
+        })
     }
 
-  }
-
-  getCategories(): void {
-    this.categoryService.getCategories().subscribe(
-      res =>{
-        this.categories = res;
-        error => this.error = error
-      }
-    );
   }
 
 }

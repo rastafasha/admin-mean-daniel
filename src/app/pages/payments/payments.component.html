@@ -56,9 +56,12 @@
                                     <td>
                                         <img [src]="pago.img | imagenPipe: 'pagos'" style="width:60px; height: 60px;" alt="">
                                     </td>
-                                    <th scope="row"><a [routerLink]="['/dashboard/payment-detail', pago._id]">{{pago.referencia}}</a></th>
+                                    <th scope="row">
+                                        <a (click)="onViewPago(pago)" data-bs-toggle="modal" class="cursor"
+                                            data-bs-target="#viewPago">{{pago.referencia}}</a>
+                                    </th>
                                     <th><a [routerLink]="['/dashboard/user/', pago.usuario.uid]">{{pago.usuario.username}}</a></th>
-                                    <td>{{pago.monto}}</td>
+                                    <td>{{pago.monto|currency}}</td>
 
                                     <td>
                                         <span class="badge bg-success" *ngIf="pago.status === 'COMPLETED'">Completado</span>
@@ -86,3 +89,4 @@
     </div>
 </div>
 <!-- End #main-->
+ <app-payment-details  [pagoSeleccionado]="pagoSeleccionado" (closeModal)="onClose()" #viewPago></app-payment-details>

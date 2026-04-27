@@ -21,6 +21,7 @@ export class LateralIndexComponent implements OnInit {
   error: string;
   msm_error: string;
   loading = false;
+  adSeleccionado: Sideadvice;
 
   constructor(
     private sideadviceService: SideadviceService,
@@ -29,11 +30,11 @@ export class LateralIndexComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.getCursos();
+    this.getAds();
     window.scrollTo(0,0);
   }
 
-  getCursos(): void {
+  getAds(): void {
     this.loading = true;
     this.sideadviceService.getBanners().subscribe(
       res =>{
@@ -58,7 +59,7 @@ export class LateralIndexComponent implements OnInit {
       if (result.isConfirmed) {
         this.sideadviceService.deleteBanner(sideadvice).subscribe(
           response =>{
-            this.getCursos();
+            this.getAds();
           }
           );
         Swal.fire(
@@ -84,7 +85,7 @@ export class LateralIndexComponent implements OnInit {
     this.sideadviceService.desactivar(id).subscribe(
       response=>{
         Swal.fire('Actualizado', `desactivado correctamente`, 'success');
-        this.getCursos();
+        this.getAds();
       },
       error=>{
         this.msm_error = 'No se pudo desactivar el archivo, vuelva a intenter.'
@@ -97,13 +98,27 @@ export class LateralIndexComponent implements OnInit {
       response=>{
 
         Swal.fire('Actualizado', `actualizado correctamente`, 'success');
-        this.getCursos();
+        this.getAds();
       },
       error=>{
         this.msm_error = 'No se pudo activar el archivo, vuelva a intenter.'
       }
     )
   }
+
+   onEditProject(banner: Sideadvice) {
+        this.adSeleccionado = banner;
+      }
+    
+      openEditModal(): void {
+        this.adSeleccionado = null;
+      }
+    
+      onCloseModal(): void {
+        this.adSeleccionado = null;
+      }
+    
+      onClose(){}
 
 
 }

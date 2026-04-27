@@ -25,10 +25,12 @@
                     </div>
                     <div class="col-xs-1 col-sm-1">
                         <div class="text-right">
-                            <button class="btn btn-primary" [routerLink]="['/dashboard/publicidad-lateral/create/']">
-                                <i class="fa fa-pencil"></i>
-                                Crear
-                            </button>
+                           <button (click)="openEditModal()" class="btn btn-outline-success"
+                                            data-toggle="tooltip" data-original-title="Edit"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#editAd">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
                         </div>
                     </div>
                 </div>
@@ -91,8 +93,10 @@
                                     </td>
                                     <td class="text-nowrap text-center">
                                         
-                                        <button [routerLink]="['/dashboard/publicidad-lateral/edit', sideadvice._id]" class="btn btn-outline-success"
-                                            data-toggle="tooltip" data-original-title="Edit">
+                                        <button (click)="onEditProject(sideadvice)" class="btn btn-outline-success"
+                                            data-toggle="tooltip" data-original-title="Edit"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#editAd">
                                             <i class="fa fa-edit"></i>
                                         </button>
                                          &nbsp;
@@ -117,4 +121,5 @@
     </div>
 
 </div>
-<!--/main-->
+
+<app-lateral-edit (refreshAdList)="getAds()" [adSeleccionado]="adSeleccionado" (closeModal)="onClose()" #editAd></app-lateral-edit>

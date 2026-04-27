@@ -20,8 +20,6 @@ export class PublicidadComponent implements OnInit {
             <li>Crear Ads Publicitarios de la Barra lateral</li>
             <li>Entra en la Sección Lateral</li>
             <li>Gestiona los Ads Publicitarios</li>
-            <li>Primero Crea un Banner: con el boton Crear, luego de Creado, Edita el Banner y Agrega una imagen</li>
-            
           </ul>`;
 
   constructor(

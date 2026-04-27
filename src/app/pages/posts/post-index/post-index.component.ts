@@ -34,8 +34,6 @@ export class PostIndexComponent implements OnInit {
           <ul>
             <li>Crear Post Para el blog</li>
             <li>En esta sección Post podrás gestionar cada Post </li>
-            <li>Primero Crea un Post: con el boton Crear, luego de Creado, Edita el Post y Agrega una imagen</li>
-            
           </ul>`;
 
   constructor(

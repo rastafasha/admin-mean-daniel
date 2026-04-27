@@ -24,6 +24,7 @@ export class CategoryIndexComponent implements OnInit {
   error: string;
   msm_error: string;
   loading = false;
+  categorySeleccionado: Category;
 
   query:string ='';
   info = `
@@ -107,5 +108,20 @@ export class CategoryIndexComponent implements OnInit {
       )
     }
   }
+
+  onEditProject(category: Category) {
+        this.categorySeleccionado = category;
+      }
+    
+      openEditModal(): void {
+        this.categorySeleccionado = null;
+      }
+    
+      onCloseModal(): void {
+        this.categorySeleccionado = null;
+      }
+    
+      onClose(){}
+      
 
 }

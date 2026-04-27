@@ -9,12 +9,8 @@ import { PostService } from 'src/app/services/post.service';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { FileUploadService } from 'src/app/services/file-upload.service';
-
 //ckeditor
-
 import * as Decoupled from '@ckeditor/ckeditor5-build-decoupled-document';
-
-
 interface HtmlInputEvent extends Event {
   target: HTMLInputElement & EventTarget;
 }

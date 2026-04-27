@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Payment } from 'src/app/models/payment';
@@ -8,19 +8,22 @@ import { User } from 'src/app/models/user';
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/services/user.service';
 import { FileUploadService } from 'src/app/services/file-upload.service';
-import { Post } from 'src/app/models/post';
+declare var bootstrap: any;
 @Component({
     selector: 'app-payment-details',
     templateUrl: './payment-details.component.html',
     styleUrls: ['./payment-details.component.css'],
     standalone: false
 })
-export class PaymentDetailsComponent implements OnInit {
+export class PaymentDetailsComponent implements OnInit, OnChanges {
+  @Input() pagoSeleccionado;
+  @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
   title = "Detalle Compra";
   public payment: Payment[] =[];
   public pago: Payment;
   public blogs: any = {};
+  public blog: any = {};
   error: string;
   loading = false;
 
@@ -29,7 +32,6 @@ export class PaymentDetailsComponent implements OnInit {
   public pagos: Payment;
   user: User;
 
-  pagoSeleccionado: Payment;
 
   public imagenSubir: File;
   public imgTemp: any = null;
@@ -49,38 +51,47 @@ export class PaymentDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    window.scrollTo(0,0);
-    this.activatedRoute.params.subscribe( ({id}) => this.getPagoById(id));
+    this.usuario = JSON.parse(localStorage.getItem('user'));
     this.activatedRoute.params.subscribe( ({id}) => this.cargarPayment(id));
     this.validarFormulario();
-    this.getUser();
   }
-  getUserPayment(_id:string){
-    
-    this.paymentService.getPagosbyUser(_id).subscribe(
-      res =>{
-        this.payment = res;
-        error => this.error = error
-        
-      }
-    );
+  
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if (
+      changes['pagoSeleccionado'] &&
+      changes['pagoSeleccionado'].currentValue
+    ) {
+      
+      this.pagoSeleccionado ;
+      this.usuario = this.pagoSeleccionado.usuario
+      this.blog = this.pagoSeleccionado.blog
+
+      const pago = changes['pagoSeleccionado'].currentValue;
+      this.paymentForm.patchValue({
+        id: pago._id,
+        validacion: pago.validacion,
+      });
+    } 
   }
 
-  getUser(): void {
-    this.usuario = JSON.parse(localStorage.getItem('user'));
-  }
+   onClose() {
+    this.pagoSeleccionado = null;
+    this.paymentForm.reset();
+    this.title = 'Creando Pago';
+    // Also reset default values if needed
+    this.paymentForm.patchValue({
+      id: null,
+      status: null,
+      validacion: null,
+      user_id: null,
+    });
+    // Emit event to parent to reset the projectSeleccionado variable
 
-  getPagoById(_id:string){
-    this.loading = true;
-    this.paymentService.getPagoById(_id).subscribe(
-      res =>{
-        this.pago = res;
-        this.blogs = res.blog;
-        error => this.error = error;
-        this.loading = false;
-      }
-    );
+    this.closeModal.emit();
   }
+  
+
 
 
   validarFormulario(){
@@ -139,31 +150,5 @@ export class PaymentDetailsComponent implements OnInit {
 
   }
 
-  cambiarImagen(file: File){
-    this.imagenSubir = file;
-
-    if(!file){
-      return this.imgTemp = null;
-    }
-
-    const reader = new FileReader();
-    const url64 = reader.readAsDataURL(file);
-
-    reader.onloadend = () =>{
-      this.imgTemp = reader.result;
-    }
-  }
-
-  subirImagen(){
-    this.fileUploadService
-    .actualizarFoto(this.imagenSubir, 'pagos', this.pagoSeleccionado._id)
-    .then(img => { this.pagoSeleccionado.img = img;
-      Swal.fire('Guardado', 'La imagen fue actualizada', 'success');
-
-    }).catch(err =>{
-      Swal.fire('Error', 'No se pudo subir la imagen', 'error');
-
-    })
-  }
 
 }

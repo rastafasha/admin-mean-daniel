@@ -52,9 +52,6 @@ const childRoutes: Routes = [
     { path: 'rolesconf', component: RolesViewComponent, data:{title:'Planes'} },
 
     { path: 'categories', component: CategoryIndexComponent, data:{title:'Categoria'} },
-    { path: 'categoria/crear', component: CategoryEditComponent, data:{title:'Crear Categoria'} },
-    { path: 'category/:id', component: CategoryIndexComponent, data:{title:'Categoria'} },
-    { path: 'category/edit/:id', component: CategoryEditComponent, data:{title:'Editar Categoria'} },
     
 
     { path: 'products', component: ProductListComponent, data:{title:'paypal-subcription'} },
@@ -79,15 +76,11 @@ const childRoutes: Routes = [
     { path: 'editor/create', component: EditorEditComponent, data:{title:'Crear Editor'} },
     { path: 'editor/edit/:id', component: EditorEditComponent, data:{title:'Editar Editor'} },
     // posts
-    { path: 'posts', component: PostIndexComponent, data:{title:'Metodo de Pago'} },
-    { path: 'blog/create', component: PostEditComponent, data:{title:'Crear Metodo de Pago'} },
-    { path: 'post/:id', component: PostIndexComponent, data:{title:'Metodo de Pago'} },
-    { path: 'post/edit/:id', component: PostEditComponent, data:{title:'Editar Metodo de Pago'} },
+    { path: 'posts', component: PostIndexComponent, data:{title:'Blog'} },
+    { path: 'post/:id', component: PostIndexComponent, data:{title:'Blog'} },
 
     //banner
     { path: 'banners', component: BannerIndexComponent, data:{title:'Banners'} },
-    { path: 'banner/create', component: BannerEditComponent, data:{title:'Crear Banner'} },
-    { path: 'banner/edit/:id', component: BannerEditComponent, data:{title:'Editar Banner'} },
 
     //admin
     { path: 'compras',   component: PaymentsComponent, data:{title:'Pagos'} },
@@ -107,8 +100,6 @@ const childRoutes: Routes = [
     //publicidad
     { path: 'publicidad', component: PublicidadComponent, data:{title:'publicidad'} },
     { path: 'publicidad-lateral', component: LateralIndexComponent, data:{title:'publicidad'} },
-    { path: 'publicidad-lateral/create', component: LateralEditComponent, data:{title:'Editar publicidad'} },
-    { path: 'publicidad-lateral/edit/:id', component: LateralEditComponent, data:{title:'Editar publicidad'} },
     
     { path: 'help', component: HelpComponent, data:{title:'Ayuda'} },
     { path: 'contact', component: ContactComponent, data:{title:'Contacto'} },

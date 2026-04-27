@@ -25,6 +25,7 @@ export class PaymentsComponent implements OnInit {
   public user;
 
   query: string = '';
+  pagoSeleccionado: Payment;
 
 
   constructor(
@@ -78,5 +79,16 @@ export class PaymentsComponent implements OnInit {
       )
     }
   }
+
+  onViewPago(pago: Payment) {
+      this.pagoSeleccionado = pago;
+    }
+  
+  
+    onCloseModal(): void {
+      this.pagoSeleccionado = null;
+    }
+  
+    onClose(){}
 
 }

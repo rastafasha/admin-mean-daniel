@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { planPaypalSubcription, productPaypalSubcription } from 'src/app/models/planPaypalSubcription';
@@ -7,16 +7,19 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 const urlFront = environment.urlFrontPage;
 const urlImage = environment.imageURLProductsub;
+declare var bootstrap: any;
 @Component({
   selector: 'app-product-edit',
   standalone: false,
   templateUrl: './product-edit.component.html',
   styleUrl: './product-edit.component.css'
 })
-export class ProductEditComponent {
+export class ProductEditComponent implements OnInit, OnChanges {
+  @Input() productSeleccionado: productPaypalSubcription;
+  @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
+  @Output() refreshProductList: EventEmitter<void> = new EventEmitter<void>();
   public productopaypalForm: FormGroup;
 
-  public productpaypalSeleccionado: planPaypalSubcription;
 
   title: string;
   error: string;
@@ -34,17 +37,20 @@ export class ProductEditComponent {
 
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(({ id }) => this.getProduct(id));
     this.validarFormularioProducto();
   }
+  ngOnChanges(changes: SimpleChanges): void {
 
-
-   getProduct(id) {
-    if (id !== null && id !== undefined) {
+    if (
+      changes['productSeleccionado'] &&
+      changes['productSeleccionado'].currentValue
+    ) {
       this.title = 'Editando Product';
-      this.planpaypalService.getProductPaypal(id).subscribe(
+      const product = changes['productSeleccionado'].currentValue;
+
+      this.planpaypalService.getProductPaypal(this.productSeleccionado.id).subscribe(
         (res: any) => {
-          this.productpaypalSeleccionado = res;
+          this.productSeleccionado = res;
           // Extraemos los valores de la estructura de PayPal
           const ciclyData = res.billing_cycles ? res.billing_cycles[0] : null;
 
@@ -57,14 +63,30 @@ export class ProductEditComponent {
           });
         }
       );
+
+      this.productSeleccionado = product;
+      this.title = 'Editando Product';
     } else {
       this.title = 'Creando Product';
     }
-    this.validarFormularioProducto();
   }
 
+  onClose() {
+    this.productSeleccionado = null;
+    this.productopaypalForm.reset();
+    this.title = 'Creando Proyecto';
+    // Also reset default values if needed
+    this.productopaypalForm.patchValue({
+      id: null,
+      name: null,
+      description: null,
+      type: null,
+      category: null,
+    });
+    // Emit event to parent to reset the projectSeleccionado variable
 
-
+    this.closeModal.emit();
+  }
 
   validarFormularioProducto() {
     this.productopaypalForm = this.fb.group({
@@ -75,8 +97,6 @@ export class ProductEditComponent {
       image_url: [''],
     })
   }
-
-
 
 
   updateProduct() {
@@ -90,17 +110,24 @@ export class ProductEditComponent {
     const { name, description, type, image_url,
       category } = this.productopaypalForm.value;
 
-    if (this.productpaypalSeleccionado) {
+    if (this.productSeleccionado) {
       //actualizar
       const data = {
         ...this.productopaypalForm.value,
-        id: this.productpaypalSeleccionado.id
+        id: this.productSeleccionado.id
       }
       this.planpaypalService.updateProduct(data).subscribe(
         resp => {
           Swal.fire('Actualizado', `actualizado correctamente`, 'success');
-          this.ngOnInit();
-          console.log('actualizado', resp);
+          // Close modal programmatically
+          const modalElement = document.getElementById('editProduct');
+          const modal = bootstrap.Modal.getInstance(modalElement);
+          if (modal) {
+            modal.hide();
+          }
+          // Emit event to refresh project list
+          this.refreshProductList.emit();
+          this.ngOnInit()
         });
 
     } else {
@@ -117,6 +144,15 @@ export class ProductEditComponent {
       this.planpaypalService.createProducSubcription(productData).subscribe((resp: any) => {
         const newProductId = resp.id; // Este es el ID que usarás en el formulario del PLAN
         Swal.fire('Producto Creado', `ID: ${newProductId}`, 'success');
+        // Close modal programmatically
+          const modalElement = document.getElementById('editProduct');
+          const modal = bootstrap.Modal.getInstance(modalElement);
+          if (modal) {
+            modal.hide();
+          }
+          // Emit event to refresh project list
+          this.refreshProductList.emit();
+          this.ngOnInit()
 
       });
 

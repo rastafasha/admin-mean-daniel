@@ -39,6 +39,7 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
 import { PaypalsubcriptionModule } from './paypalsubcription/paypalsubcription.module';
 import { PublicidadModule } from './publicidad/publicidad.module';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { EditoresComponent } from './editor/editores/editores.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     PostIndexComponent,
     PostEditComponent,
     EditorEditComponent,
+    EditoresComponent,
     BannerEditComponent,
     BannerIndexComponent,
     BusquedaComponent
@@ -82,6 +84,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     PostIndexComponent,
     PostEditComponent,
     EditorEditComponent,
+    EditoresComponent,
     BannerEditComponent,
     BannerIndexComponent,
     BusquedaComponent

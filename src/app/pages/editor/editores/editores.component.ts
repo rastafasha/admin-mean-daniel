@@ -21,6 +21,7 @@ export class EditoresComponent implements OnInit {
   error: string;
   msm_error: string;
   loading = false;
+  editorSeleccionado: User;
 
   constructor(
     private userService: UserService,
@@ -70,5 +71,19 @@ export class EditoresComponent implements OnInit {
     });
 
   }
+
+  onEditProject(editor: User) {
+      this.editorSeleccionado = editor;
+    }
+  
+    openEditModal(): void {
+      this.editorSeleccionado = null;
+    }
+  
+    onCloseModal(): void {
+      this.editorSeleccionado = null;
+    }
+  
+    onClose(){}
 
 }

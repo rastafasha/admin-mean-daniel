@@ -20,6 +20,7 @@ export class ProductListComponent {
   productsPaypal: productPaypalSubcription;
   p: number = 1;
   count: number = 8;
+  productSeleccionado:productPaypalSubcription;
 
   constructor(
     private planpaypalService: PlanPaypalSubcriptionService,
@@ -69,7 +70,20 @@ export class ProductListComponent {
       });
     }
 
+onEditProject(product: productPaypalSubcription) {
+    this.productSeleccionado = product;
+    console.log(this.productSeleccionado)
+  }
 
+  openEditModal(): void {
+    this.productSeleccionado = null;
+  }
+
+  onCloseModal(): void {
+    this.productSeleccionado = null;
+  }
+
+  onClose(){}
 
 
 

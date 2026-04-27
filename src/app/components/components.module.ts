@@ -16,7 +16,6 @@ import { ReciboFacturaComponent } from './recibo-factura/recibo-factura.componen
 import { PlanesyproductosComponent } from './planesyproductos/planesyproductos.component';
 import { ProductItemComponent } from './product-item/product-item.component';
 import {PipesModule} from '../pipes/pipes.module';
-import { EditoresComponent } from './editores/editores.component';
 import { ModalCondicionesComponent } from './modal-condiciones/modal-condiciones.component';
 import { SubscripcionesRecientesComponent } from './subscripciones-recientes/subscripciones-recientes.component';
 import { ModalInicialComponent } from './modal-inicial/modal-inicial.component';
@@ -29,7 +28,6 @@ import { ModalInstruccionesComponent } from './modal-instrucciones/modal-instruc
     PlanesyproductosComponent,
     ProductItemComponent,
     UsuariosRecientesComponent,
-    EditoresComponent,
     ModalCondicionesComponent,
     SubscripcionesRecientesComponent,
     ModalInicialComponent,
@@ -41,7 +39,6 @@ import { ModalInstruccionesComponent } from './modal-instrucciones/modal-instruc
     PlanesyproductosComponent,
     ProductItemComponent,
     UsuariosRecientesComponent,
-    EditoresComponent,
     ModalCondicionesComponent,
     SubscripcionesRecientesComponent,
     ModalInicialComponent,
