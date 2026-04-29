@@ -58,7 +58,9 @@ export class HeaderComponent implements OnInit {
     this.getItem();
     this.total = this.getTotal();
 
-
+     if (localStorage.getItem('dark')) {
+      this.darkmode('dark');
+    }
   }
 
 

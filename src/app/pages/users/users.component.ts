@@ -68,8 +68,8 @@ export class UsersComponent implements OnInit {
     this.userService.getUsuarios().subscribe(
       res => {
         this.usuarios = res;
-        error => this.error = error;
         this.loading = false;
+        error => this.error = error;
       }
     );
   }

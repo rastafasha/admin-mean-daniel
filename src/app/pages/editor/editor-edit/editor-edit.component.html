@@ -13,6 +13,7 @@
                             <div class="row">
                                 <div class="col-12 col-md-6">
                                     <div class="form-group ">
+                                        <label >Username <span class="required">*</span></label>
                                         <input class="form-control" type="text" formControlName="username"
                                             placeholder="username">
                                         <div *ngIf="editorForm.get('username')?.touched && editorForm.get('username')?.invalid"
@@ -28,6 +29,7 @@
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <div class="form-group ">
+                                        <label >Email <span class="required">*</span></label>
                                         <input class="form-control" type="text" formControlName="email"
                                             placeholder="Email">
                                         <div *ngIf="editorForm.get('email')?.touched && editorForm.get('email')?.invalid"
@@ -45,6 +47,7 @@
                             <div class="row">
                                 <div class="col-12 col-md-6">
                                     <div class="form-group ">
+                                        <label >Contraseña <span class="required">*</span></label>
                                         <input class="form-control" type="password" autocomplete="false"
                                             formControlName="password" placeholder="Contraseña">
                                             <div *ngIf="editorForm.get('password')?.touched && editorForm.get('password')?.invalid"
@@ -60,6 +63,7 @@
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <div class="form-group">
+                                        <label >Confirmar Contraseña <span class="required">*</span></label>
                                         <input class="form-control" type="password" autocomplete="false"
                                             formControlName="password2" placeholder="Confirmar Contraseña">
                                             <div *ngIf="editorForm.get('password2')?.touched && editorForm.get('password2')?.invalid"
