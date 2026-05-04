@@ -108,9 +108,9 @@ export class PaypalsubcriptionEditComponent implements OnInit, OnChanges {
 
 
   getProductos(): void {
-    this.planpaypalService.getProductPaypalsPage().subscribe(
+    this.planpaypalService.getProducts().subscribe(
       res => {
-        this.productPaypal = res.productPaypal.products;
+        this.productPaypal = res;
         error => this.error = error;
       }
     );

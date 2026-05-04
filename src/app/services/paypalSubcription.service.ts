@@ -93,8 +93,13 @@ export class PlanPaypalSubcriptionService {
     
   // }
 
-  getPlanPaypalsPage(pagina: number = 1): Observable<any> {
-  return this.http.get<planPaypalSubcription>(`${baseUrl}/paypal/planes-paypal?page=${pagina}`);
+//   getPlanPaypalsPage(pagina: number = 1): Observable<any> {
+//   return this.http.get<planPaypalSubcription>(`${baseUrl}/paypal/planes-paypal?page=${pagina}`);
+// }
+
+getPlanPaypalsPage(page: number, limit: number = 50) {
+  // Ahora tú controlas el crecimiento desde aquí
+  return this.http.get<planPaypalSubcription>(`${baseUrl}/paypal/planes-paypal?page=${page}&limit=${limit}`);
 }
 
 

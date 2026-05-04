@@ -43,7 +43,7 @@ export class PaypalsubcriptionIndexComponent implements OnInit {
 
   getPlanes(): void {
     this.loading = true;
-    this.planpaypalService.getPlanPaypalsPage().subscribe(
+    this.planpaypalService.getPlanPaypalsPage(this.p, this.count).subscribe(
       (res:any) => {
         this.plans = res.planPaypal.plans;
         error => this.error = error;
@@ -62,7 +62,7 @@ export class PaypalsubcriptionIndexComponent implements OnInit {
     } else {
       this.busquedasService.searchGlobal(this.query).subscribe(
         (resp: any) => {
-          this.plans = resp.plans;
+          this.plans = resp.planpaypals;
         }
       )
     }

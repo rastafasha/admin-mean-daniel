@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { planPaypalSubcription, productPaypalSubcription } from 'src/app/models/planPaypalSubcription';
+import { BusquedasService } from 'src/app/services/busqueda.service';
 import { PlanPaypalSubcriptionService } from 'src/app/services/paypalSubcription.service';
 import Swal from 'sweetalert2';
 
@@ -21,9 +22,11 @@ export class ProductListComponent {
   p: number = 1;
   count: number = 8;
   productSeleccionado: productPaypalSubcription;
+  query: string = '';
 
   constructor(
     private planpaypalService: PlanPaypalSubcriptionService,
+    private busquedasService: BusquedasService,
   ) { }
 
 
@@ -35,11 +38,15 @@ export class ProductListComponent {
     this.loading = true;
     this.planpaypalService.getProducts().subscribe(
       (res: any) => {
-        this.productsPaypal = res.products;
+        this.productsPaypal = res;
         error => this.error = error;
         this.loading = false;
       }
     );
+  }
+
+  PageSize() {
+    this.getProductos();
   }
 
 
@@ -84,6 +91,18 @@ export class ProductListComponent {
   }
 
   onClose() { }
+
+   search(): void {
+    if (!this.query) {
+      this.ngOnInit();
+    } else {
+      this.busquedasService.searchGlobal(this.query).subscribe(
+        (resp: any) => {
+          this.productsPaypal = resp.planpaypals;
+        }
+      )
+    }
+  }
 
 
 

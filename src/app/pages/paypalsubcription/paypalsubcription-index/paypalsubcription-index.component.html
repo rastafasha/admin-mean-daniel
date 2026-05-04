@@ -24,7 +24,7 @@
                                         <button id="button-addon1" type="submit" class="btn btn-link text-primary"
                                             (click)="search()" name="submit" data-toggle="tooltip"
                                             title="mostrar todos"><i class="fa fa-search"></i></button>
-                                            <a href="javascript:;" (click)="PageSize()" class="btn btn-primary ms-2 "
+                                        <a href="javascript:;" (click)="PageSize()" class="btn btn-primary ms-2 "
                                             style="border-radius: 100px;"><i class="fa fa-refresh"></i></a>
                                     </div>
                                 </div>
@@ -57,8 +57,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr
-                                    *ngFor="let plan of plans |  paginate: { itemsPerPage: count, currentPage: p }">
+                                <tr *ngFor="let plan of plans |  paginate: { itemsPerPage: count, currentPage: p }">
 
                                     <td>{{plan.name}}</td>
                                     <td>{{plan.product_id}}</td>
@@ -70,14 +69,7 @@
                                         <span class="badge bg-danger" *ngIf="plan.status === 'INACTIVE'">Inactivo</span>
                                     </td>
                                     <td>
-                                        <!-- <button type="button" class="btn btn-success" *ngIf="plan.status == 'INACTIVE'"
-                                            (click)="activar(plan.id)"><span class="fa fa-check"></span>
-                                            Activar</button>
-                                        <button type="button" class="btn btn-primary" *ngIf="plan.status == 'ACTIVE'"
-                                            (click)="desactivar(plan.id)"><span class="fa fa-check"></span>
-                                            Desactivar</button> -->
-
-                                            <div class="form-check form-switch">
+                                        <div class="form-check form-switch">
                                             <input class="form-check-input" type="checkbox" role="switch"
                                                 [id]="'switch' + plan.id" [checked]="plan.status === 'ACTIVE'"
                                                 (change)="toggleStatus(plan)">
@@ -94,8 +86,8 @@
                                             <i class="fa fa-edit"></i>
                                         </button>
                                         &nbsp;
-                                        <button (click)="eliminarPlan(plan.id)" class="btn btn-outline-danger" data-toggle="tooltip"
-                                            data-original-title="Borrar">
+                                        <button (click)="eliminarPlan(plan.id)" class="btn btn-outline-danger"
+                                            data-toggle="tooltip" data-original-title="Borrar">
                                             <i class="fa fa-trash text-danger"></i>
                                         </button>
                                     </td>
@@ -113,4 +105,5 @@
     </div>
 </div>
 <!--/main-->
-<app-paypalsubcription-edit (refreshPlanesList)="getPlanes()" [planSeleccionado]="planSeleccionado" (closeModal)="onClose()" #editPlan></app-paypalsubcription-edit>
+<app-paypalsubcription-edit (refreshPlanesList)="getPlanes()" [planSeleccionado]="planSeleccionado"
+    (closeModal)="onClose()" #editPlan></app-paypalsubcription-edit>
