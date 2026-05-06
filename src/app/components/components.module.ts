@@ -13,8 +13,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { PagosRecientesComponent } from './pagos-recientes/pagos-recientes.component';
 import { UsuariosRecientesComponent } from './usuarios-recientes/usuarios-recientes.component';
 import { ReciboFacturaComponent } from './recibo-factura/recibo-factura.component';
-import { PlanesyproductosComponent } from './planesyproductos/planesyproductos.component';
-import { ProductItemComponent } from './product-item/product-item.component';
 import {PipesModule} from '../pipes/pipes.module';
 import { ModalCondicionesComponent } from './modal-condiciones/modal-condiciones.component';
 import { SubscripcionesRecientesComponent } from './subscripciones-recientes/subscripciones-recientes.component';
@@ -25,8 +23,6 @@ import { ModalInstruccionesComponent } from './modal-instrucciones/modal-instruc
   declarations: [
     PagosRecientesComponent,
     ReciboFacturaComponent,
-    PlanesyproductosComponent,
-    ProductItemComponent,
     UsuariosRecientesComponent,
     ModalCondicionesComponent,
     SubscripcionesRecientesComponent,
@@ -36,8 +32,6 @@ import { ModalInstruccionesComponent } from './modal-instrucciones/modal-instruc
   exports: [
     PagosRecientesComponent,
     ReciboFacturaComponent,
-    PlanesyproductosComponent,
-    ProductItemComponent,
     UsuariosRecientesComponent,
     ModalCondicionesComponent,
     SubscripcionesRecientesComponent,

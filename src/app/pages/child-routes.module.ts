@@ -9,10 +9,7 @@ import { ContactComponent } from './contact/contact.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { HelpComponent } from './help/help.component';
-import { PaymentDetailsComponent } from './payments/payment-details/payment-details.component';
-import { PaymentEditComponent } from './payments/payment-edit/payment-edit.component';
 import { PaymentsComponent } from './payments/payments.component';
-import { ReportarPagoComponent } from './payments/reportar-pago/reportar-pago.component';
 import { UserHistorialpagosComponent } from './user-historialpagos/user-historialpagos.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UsersComponent } from './users/users.component';
@@ -61,7 +58,6 @@ const childRoutes: Routes = [
   
     // 2. Al final las rutas con parámetros genéricos (:id)
     { path: 'paypal-plan/:id', component: PaypalsubcriptionIndexComponent, data:{title:'paypal-subcription'} },
-    
     { path: 'paypal-subcriptions', component: SubcriptionsComponent, data:{title:'Editar paypal-subcription'} },
     { path: 'paypal-subcription/:id', component: SubcriptionComponent, data:{title:'paypal-subcription'} },
 
@@ -75,7 +71,6 @@ const childRoutes: Routes = [
 
     //admin
     { path: 'compras',   component: PaymentsComponent, data:{title:'Pagos'} },
-    { path: 'realizar-pago', component: ReportarPagoComponent, data:{title:'Relizar Pago'} },
 
     //user
     { path: 'users', component: UsersComponent, data:{title:'Usuarios'} },

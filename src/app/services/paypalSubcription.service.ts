@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -30,17 +30,16 @@ export class PlanPaypalSubcriptionService {
 
   constructor(private http: HttpClient) { }
 
-  
 
-  get token():string{
+
+  get token(): string {
     return localStorage.getItem('token') || '';
   }
 
 
-  get headers(){
-    return{
+  get headers() {
+    return {
       headers: {
-        // 'X-PAYPAL-SECURITY-CONTEXT': '{"consumer":{"accountNumber":1181198218909172527,"merchantId":"5KW8F2FXKX5HA"},"merchant":{"accountNumber":1659371090107732880,"merchantId":"2J6QB8YJQSJRJ"},"apiCaller":{"clientId":"AdtlNBDhgmQWi2xk6edqJVKklPFyDWxtyKuXuyVT-OgdnnKpAVsbKHgvqHHP","appId":"APP-6DV794347V142302B","payerId":"2J6QB8YJQSJRJ","accountNumber":"1659371090107732880"},"scopes":["https://api-m.paypal.com/v1/subscription/.*","https://uri.paypal.com/services/subscription","openid"]}',
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
@@ -53,11 +52,11 @@ export class PlanPaypalSubcriptionService {
   }
 
 
-  getPlanPaypals()  {
+  getPlanPaypals() {
     const url = `${baseUrl}/paypal/plans`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, data: planPaypalSubcription}) => resp.data)
+        map((resp: { ok: boolean, data: planPaypalSubcription }) => resp.data)
       )
   }
 
@@ -65,8 +64,8 @@ export class PlanPaypalSubcriptionService {
     const url = `${baseUrl}/paypal/plan/${id}`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, planPaypal: planPaypalSubcription}) => resp.planPaypal)
-        );
+        map((resp: { ok: boolean, planPaypal: planPaypalSubcription }) => resp.planPaypal)
+      );
   }
 
   updatePlan(planPaypal: planPaypalSubcription) {
@@ -75,40 +74,20 @@ export class PlanPaypalSubcriptionService {
 
   }
 
-  createPlanSubcription(planPaypal:any) {
+  createPlanSubcription(planPaypal: any) {
     const url = `${baseUrl}/paypal/create-plan`;
     return this.http.post(url, planPaypal, this.headers);
 
   }
 
+  getPlanPaypalsPage(page: number, limit: number = 50) {
+    return this.http.get<planPaypalSubcription>(`${baseUrl}/paypal/planes-paypal?page=${page}&limit=${limit}`);
+  }
 
-
-
-  // getplanPaypalsPage(pull: boolean= false){
-  //   if(pull) {
-  //     this.paginaPost = 0;
-  //   }
-  //   this.paginaPost ++;
-  //   return this.http.get<planPaypalSubcription>(`${baseUrl}paypal/plans/planes-paypal/${this.paginaPost}`);
-    
-  // }
-
-//   getPlanPaypalsPage(pagina: number = 1): Observable<any> {
-//   return this.http.get<planPaypalSubcription>(`${baseUrl}/paypal/planes-paypal?page=${pagina}`);
-// }
-
-getPlanPaypalsPage(page: number, limit: number = 50) {
-  // Ahora tú controlas el crecimiento desde aquí
-  return this.http.get<planPaypalSubcription>(`${baseUrl}/paypal/planes-paypal?page=${page}&limit=${limit}`);
-}
-
-
-
-  
 
   //products
 
-  createProducSubcription(productPaypal:any) {
+  createProducSubcription(productPaypal: any) {
     const url = `${baseUrl}/paypal/create-product`;
     return this.http.post(url, productPaypal, this.headers);
 
@@ -123,58 +102,67 @@ getPlanPaypalsPage(page: number, limit: number = 50) {
     const url = `${baseUrl}/paypal/product/${id}`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, productPaypal: planPaypalSubcription}) => resp.productPaypal)
-        );
+        map((resp: { ok: boolean, productPaypal: planPaypalSubcription }) => resp.productPaypal)
+      );
   }
 
-  getProductPaypals()  {
+  getProductPaypals() {
     const url = `${baseUrl}/paypal/products`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, data: productPaypalSubcription}) => resp.data)
+        map((resp: { ok: boolean, data: productPaypalSubcription }) => resp.data)
       )
   }
 
-  getProducts()  {
+  getProducts() {
     const url = `${baseUrl}/paypal/products/`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, productPaypals: productPaypalSubcription}) => resp.productPaypals)
+        map((resp: { ok: boolean, productPaypals: productPaypalSubcription }) => resp.productPaypals)
       )
   }
 
   getProductPaypalsPage(page: number = 1): Observable<any> {
-  return this.http.get(`${baseUrl}/paypal/products-paypal?page=${page}`);
-}
-  
+    return this.http.get(`${baseUrl}/paypal/products-paypal?page=${page}`);
+  }
 
-  activar(id: planPaypalSubcription):Observable<any> {
+
+  activar(id: planPaypalSubcription): Observable<any> {
     // const url = `${PAYPAL_API}/v1/billing/plans/${id}/activate`;
     const url = `${baseUrl}/paypal/activar-plan/${id}`;
     return this.http.post(url, this.headers);
 
   }
-  desactivar(id: planPaypalSubcription):Observable<any> {
+  desactivar(id: planPaypalSubcription): Observable<any> {
     // const url = `${PAYPAL_API}/v1/billing/plans/${id}/deactivate`;
     const url = `${baseUrl}/paypal/desactivar-plan/${id}`;
     return this.http.post(url, this.headers);
 
   }
+  deleteProduct(id: any): Observable<any> {
+    // const url = `${PAYPAL_API}/v1/billing/plans/${id}/deactivate`;
+    const url = `${baseUrl}/paypal/productborrar/${id}`;
+    return this.http.post(url, this.headers);
 
-  //get subcription
+  }
 
-  getSubcriptions()  {
+
+
+
+  // subcriptions
+
+  getSubcriptions() {
     const url = `${baseUrl}/subcriptionpaypal`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, subcriptionPaypals: planPaypalSubcription}) => resp.subcriptionPaypals)
+        map((resp: { ok: boolean, subcriptionPaypals: planPaypalSubcription }) => resp.subcriptionPaypals)
       )
   }
-  getRecientes()  {
+  getRecientes() {
     const url = `${baseUrl}/subcriptionpaypal/recientes`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, subcriptions: planPaypalSubcription}) => resp.subcriptions)
+        map((resp: { ok: boolean, subcriptions: planPaypalSubcription }) => resp.subcriptions)
       )
   }
 
@@ -182,43 +170,43 @@ getPlanPaypalsPage(page: number, limit: number = 50) {
     const url = `${baseUrl}/subcriptionpaypal/${_id}`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, subcriptionPaypal: planPaypalSubcription}) => resp.subcriptionPaypal)
-        );
+        map((resp: { ok: boolean, subcriptionPaypal: planPaypalSubcription }) => resp.subcriptionPaypal)
+      );
   }
- 
-  getByUser(usuario:any) {
+
+  getByUser(usuario: any) {
     const url = `${baseUrl}/subcriptionpaypal/user_profile/${usuario}`;
-    return this.http.get<any>(url,this.headers)
+    return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, subcriptions: subcriptionPaypal}) => resp.subcriptions)
+        map((resp: { ok: boolean, subcriptions: subcriptionPaypal }) => resp.subcriptions)
       )
   }
-  
+
 
   // crud
 
-  getPlans()  {
-    const url = `${baseUrl}/planpaypal`;
-    return this.http.get<any>(url, this.headers)
-      .pipe(
-        map((resp:{ok: boolean, planPaypals: planPaypalSubcription}) => resp.planPaypals)
-      )
-  }
+  // getPlans()  {
+  //   const url = `${baseUrl}/planpaypal`;
+  //   return this.http.get<any>(url, this.headers)
+  //     .pipe(
+  //       map((resp:{ok: boolean, planPaypals: planPaypalSubcription}) => resp.planPaypals)
+  //     )
+  // }
 
-  createPlan(planPaypal:any) {
-    const url = `${baseUrl}/planpaypal/crear`;
-    return this.http.post(url, planPaypal, this.headers);
+  // createPlan(planPaypal:any) {
+  //   const url = `${baseUrl}/planpaypal/crear`;
+  //   return this.http.post(url, planPaypal, this.headers);
 
-  }
+  // }
 
-  deleteProduct(product: any) {
-    const url = `${baseUrl}/paypal/productborrar/${product}`;
-    return this.http.delete(url, this.headers);
-  }
+  // deleteProduct(product: any) {
+  //   const url = `${baseUrl}/paypal/productborrar/${product}`;
+  //   return this.http.delete(url, this.headers);
+  // }
 
 
-  
-  
+
+
 
 
 

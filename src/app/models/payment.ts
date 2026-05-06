@@ -1,4 +1,5 @@
-import { Plan } from "./plan";
+
+import { planPaypalSubcription } from "./planPaypalSubcription";
 import { Post } from "./post";
 import { User } from "./user";
 import { environment } from "src/environments/environment";
@@ -10,7 +11,7 @@ export class Payment {
 
     public usuario: User,
     public blog: Post,
-    public plan: Plan,
+    public plan: planPaypalSubcription,
     public monto: string,
     public referencia: string,
     public validacion: string,

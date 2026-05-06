@@ -124,7 +124,7 @@ export class PaypalsubcriptionEditComponent implements OnInit, OnChanges {
       product_id: ['', Validators.required],
       status: ['ACTIVE'],
       total_cycles: [0], // 0 = Cobros recurrentes sin fin
-      fixed_price: [10.00, [Validators.required, Validators.min(1)]],
+      fixed_price: [0, [Validators.required]],
       setup_fee: [0],
       interval_unit: ['MONTH'],
     });
@@ -225,14 +225,8 @@ export class PaypalsubcriptionEditComponent implements OnInit, OnChanges {
         }
       }
 
-      this.planpaypalService.createPlanSubcription(bodyPayPal)
-        .subscribe((resp: any) => {
-          // Swal.fire('Creado', `creado correctamente`, 'success');
-          // this.router.navigateByUrl(`/dashboard/paypal-subcription`);
-          console.log('creadoPaypal', resp);
-        })
 
-      this.planpaypalService.createPlan(this.planpaypalForm.value)
+      this.planpaypalService.createPlanSubcription(this.planpaypalForm.value)
         .subscribe((resp: any) => {
           Swal.fire('Creado', `creado correctamente`, 'success');
           // Close modal programmatically

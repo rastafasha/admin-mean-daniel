@@ -25,7 +25,6 @@ import { HelpComponent } from './help/help.component';
 import { PaymentDetailsComponent } from './payments/payment-details/payment-details.component';
 import { PaymentEditComponent } from './payments/payment-edit/payment-edit.component';
 import { PaymentsComponent } from './payments/payments.component';
-import { ReportarPagoComponent } from './payments/reportar-pago/reportar-pago.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserHistorialpagosComponent } from './user-historialpagos/user-historialpagos.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
@@ -56,7 +55,6 @@ import { EditoresComponent } from './editor/editores/editores.component';
     PaymentDetailsComponent,
     PaymentsComponent,
     PaymentEditComponent,
-    ReportarPagoComponent,
     UserProfileComponent,
     PostIndexComponent,
     PostEditComponent,
@@ -79,7 +77,6 @@ import { EditoresComponent } from './editor/editores/editores.component';
     PaymentDetailsComponent,
     PaymentsComponent,
     PaymentEditComponent,
-    ReportarPagoComponent,
     UserProfileComponent,
     PostIndexComponent,
     PostEditComponent,
