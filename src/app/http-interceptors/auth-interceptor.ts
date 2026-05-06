@@ -14,9 +14,9 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let headers = new HttpHeaders();
       let params = req.params;
-      if (localStorage.getItem('auth_token')) {
+      if (localStorage.getItem('token')) {
         headers = headers.append('Accept', 'application/json')
-          .append('Authorization', 'Bearer ' + localStorage.getItem('auth_token'));
+          .append('Authorization', 'Bearer ' + localStorage.getItem('token'));
       } else {
         headers = headers.append('Accept', 'application/json');
         // params = params.append('page', '1');
@@ -27,12 +27,10 @@ export class AuthInterceptor implements HttpInterceptor {
 
         // 401: Token vencido o inválido
         // 403: No tienes permisos
-        if (error.status === 401 || error.status === 403) {
+        if (error.status === 401 ) {
 
           // 1. Borramos el token para evitar bucles
-          localStorage.removeItem('token');
-          localStorage.removeItem('dark'); 
-          localStorage.removeItem('user'); // Si guardas el usuario, bórralo también
+          localStorage.clear();
 
           // 2. Opcional: Mostrar un mensaje antes de redirigir
           // Usamos SweetAlert2 o un alert simple para avisar
