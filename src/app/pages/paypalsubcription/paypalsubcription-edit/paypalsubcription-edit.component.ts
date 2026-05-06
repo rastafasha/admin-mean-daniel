@@ -79,7 +79,7 @@ export class PaypalsubcriptionEditComponent implements OnInit, OnChanges {
       this.title = 'Creando Plan';
     }
   }
-  
+
   onClose() {
     this.planSeleccionado = null;
     this.title = 'Creando Proyecto';
@@ -119,16 +119,16 @@ export class PaypalsubcriptionEditComponent implements OnInit, OnChanges {
 
 
   validarFormulario() {
-    this.planpaypalForm = this.fb.group({
-      name: ['', Validators.required],
-      product_id: ['', Validators.required],
-      status: ['ACTIVE'],
-      total_cycles: [0], // 0 = Cobros recurrentes sin fin
-      fixed_price: [0, [Validators.required]],
-      setup_fee: [0],
-      interval_unit: ['MONTH'],
-    });
-  }
+  this.planpaypalForm = this.fb.group({
+    name: ['', [Validators.required, Validators.minLength(3)]],
+    product_id: ['', Validators.required], // ID por defecto
+    status: ['ACTIVE'],
+    total_cycles: [0], // 0 = Infinito
+    fixed_price: ['0.00', [Validators.required]], // Por defecto 0.00
+    setup_fee: ['0.00'],
+    interval_unit: ['MONTH', Validators.required], // MONTH, YEAR, etc.
+  });
+}
 
   get name() {
     return this.planpaypalForm.get('name');
@@ -196,6 +196,7 @@ export class PaypalsubcriptionEditComponent implements OnInit, OnChanges {
       const bodyPayPal = {
         product_id: product_id,
         name: name,
+        description: "Acceso limitado a 3 articulos",
         billing_cycles: [
           {
             frequency: {
@@ -205,11 +206,11 @@ export class PaypalsubcriptionEditComponent implements OnInit, OnChanges {
             tenure_type: "REGULAR",
             sequence: 1,
             // Si el usuario pone 0, PayPal lo entiende como cobros infinitos
-            total_cycles: total_cycles,
+           total_cycles: total_cycles || 0,
             pricing_scheme: {
               fixed_price: {
                 // .toFixed(2) asegura que 10 se convierta en "10.00"
-                value: parseFloat(fixed_price).toFixed(2).toString(),
+                value: parseFloat(fixed_price || 0).toFixed(2).toString(), 
                 currency_code: "USD"
               }
             }
@@ -221,12 +222,14 @@ export class PaypalsubcriptionEditComponent implements OnInit, OnChanges {
             value: parseFloat(setup_fee).toFixed(2).toString(),
             currency_code: "USD"
           },
+          setup_fee_failure_action: "CONTINUE",
           payment_failure_threshold: 3
         }
       }
+     
 
-
-      this.planpaypalService.createPlanSubcription(this.planpaypalForm.value)
+      console.log('Objeto que sale hacia el backend:', bodyPayPal);
+      this.planpaypalService.createPlanSubcription(bodyPayPal)
         .subscribe((resp: any) => {
           Swal.fire('Creado', `creado correctamente`, 'success');
           // Close modal programmatically
