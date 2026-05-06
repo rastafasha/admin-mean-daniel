@@ -37,7 +37,6 @@ import { AuthInterceptor } from './http-interceptors/auth-interceptor';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      // useClass: PaypalInterceptor,
       multi: true
     }
   ],

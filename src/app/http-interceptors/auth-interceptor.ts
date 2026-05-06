@@ -12,41 +12,35 @@ export class AuthInterceptor implements HttpInterceptor {
 
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let headers = new HttpHeaders();
-      let params = req.params;
-      if (localStorage.getItem('token')) {
-        headers = headers.append('Accept', 'application/json')
-          .append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-      } else {
-        headers = headers.append('Accept', 'application/json');
-        // params = params.append('page', '1');
-      }
+    const token = localStorage.getItem('token');
+    let authReq = req;
 
-    return next.handle(req.clone({ headers })).pipe(
+    // 1. Si hay token, clonamos la petición UNA SOLA VEZ
+    if (token) {
+      authReq = req.clone({
+        setHeaders: {
+          'x-token': token,
+          'Accept': 'application/json'
+        }
+      });
+    }
+
+    // 2. Pasamos la petición clonada (authReq) directamente
+    return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
-
-        // 401: Token vencido o inválido
-        // 403: No tienes permisos
-        if (error.status === 401 ) {
-
-          // 1. Borramos el token para evitar bucles
+        // SOLO si el error es 401 (Token inválido/expirado)
+        if (error.status === 401) {
           localStorage.clear();
-
-          // 2. Opcional: Mostrar un mensaje antes de redirigir
-          // Usamos SweetAlert2 o un alert simple para avisar
           Swal.fire({
             title: 'Sesión expirada',
-            text: 'Tu sesión ha vencido, por favor inicia sesión nuevamente.',
+            text: 'Por favor inicia sesión nuevamente.',
             icon: 'warning',
             confirmButtonText: 'Ir al Login'
           }).then(() => {
-            // 3. Redirigir al login
             this._router.navigate(['/login']);
           });
-
-
         }
-
+        // Si el error es 0, 403 o 500, el interceptor NO hace nada y deja que el componente lo maneje
         return throwError(() => error);
       })
     );
