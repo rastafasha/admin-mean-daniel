@@ -20,7 +20,6 @@ export class ProductEditComponent implements OnInit, OnChanges {
   @Output() refreshProductList: EventEmitter<void> = new EventEmitter<void>();
   public productopaypalForm: FormGroup;
 
-
   title: string;
   error: string;
 
@@ -30,9 +29,7 @@ export class ProductEditComponent implements OnInit, OnChanges {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
     private planpaypalService: PlanPaypalSubcriptionService,
-    private activatedRoute: ActivatedRoute,
   ) { }
 
 
@@ -48,18 +45,17 @@ export class ProductEditComponent implements OnInit, OnChanges {
       this.title = 'Editando Product';
       const product = changes['productSeleccionado'].currentValue;
 
-      this.planpaypalService.getProductPaypal(this.productSeleccionado.id).subscribe(
+      this.planpaypalService.getProductPaypal(product.id).subscribe(
         (res: any) => {
           this.productSeleccionado = res;
-          // Extraemos los valores de la estructura de PayPal
-          const ciclyData = res.billing_cycles ? res.billing_cycles[0] : null;
+          console.log(res)
 
           this.productopaypalForm.patchValue({
-            id: res.id,
-            name: res.name,
-            description: res.description,
-            type: res.type,
-            category: res.category,
+            id: this.productSeleccionado.id,
+            name: this.productSeleccionado.name,
+            description: this.productSeleccionado.description,
+            type: this.productSeleccionado.type,
+            category: this.productSeleccionado.category,
           });
         }
       );
@@ -74,7 +70,7 @@ export class ProductEditComponent implements OnInit, OnChanges {
   onClose() {
     this.productSeleccionado = null;
     this.productopaypalForm.reset();
-    this.title = 'Creando Proyecto';
+    this.title = 'Creando Product';
     // Also reset default values if needed
     this.productopaypalForm.patchValue({
       id: null,

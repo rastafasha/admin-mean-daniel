@@ -49,6 +49,7 @@
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
+                                    <th>plan_id</th>
                                     <th>product_id</th>
                                     <th>Creado</th>
                                     <th>Status</th>
@@ -60,6 +61,7 @@
                                 <tr *ngFor="let plan of plans |  paginate: { itemsPerPage: count, currentPage: p }">
 
                                     <td>{{plan.name}}</td>
+                                    <td>{{plan.id}}</td>
                                     <td>{{plan.product_id}}</td>
                                     <td>{{plan.create_time |date}} </td>
 
@@ -84,11 +86,6 @@
                                             data-toggle="tooltip" data-original-title="Edit" data-bs-toggle="modal"
                                             data-bs-target="#editPlan">
                                             <i class="fa fa-edit"></i>
-                                        </button>
-                                        &nbsp;
-                                        <button (click)="eliminarPlan(plan.id)" class="btn btn-outline-danger"
-                                            data-toggle="tooltip" data-original-title="Borrar">
-                                            <i class="fa fa-trash text-danger"></i>
                                         </button>
                                     </td>
                                 </tr>

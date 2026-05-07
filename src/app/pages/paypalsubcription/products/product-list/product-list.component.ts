@@ -79,7 +79,6 @@ export class ProductListComponent {
 
   onEditProject(product: productPaypalSubcription) {
     this.productSeleccionado = product;
-    console.log(this.productSeleccionado)
   }
 
   openEditModal(): void {

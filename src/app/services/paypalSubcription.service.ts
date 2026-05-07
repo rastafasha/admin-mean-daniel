@@ -98,14 +98,17 @@ export class PlanPaypalSubcriptionService {
 
   }
 
-  getProductPaypal(id: string) {
+  // getProductPaypal(id: string) {
+  //   const url = `${baseUrl}/paypal/product/${id}`;
+  //   return this.http.get<any>(url, this.headers)
+  //     .pipe(
+  //       map((resp: { ok: boolean, productPaypal: planPaypalSubcription }) => resp.productPaypal)
+  //     );
+  // }
+getProductPaypal(id: string) {
     const url = `${baseUrl}/paypal/product/${id}`;
-    return this.http.get<any>(url, this.headers)
-      .pipe(
-        map((resp: { ok: boolean, productPaypal: planPaypalSubcription }) => resp.productPaypal)
-      );
+    return this.http.get<any>(url, this.headers);
   }
-
   getProductPaypals() {
     const url = `${baseUrl}/paypal/products`;
     return this.http.get<any>(url, this.headers)

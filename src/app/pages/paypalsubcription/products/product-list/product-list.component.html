@@ -47,6 +47,7 @@
                                 <tr>
                                     <th>Nombre</th>
                                     <th>product_id</th>
+                                    <th>description</th>
                                     <th>Creado</th>
                                     <th class="text-nowrap">Acciones</th>
                                 </tr>
@@ -57,6 +58,7 @@
 
                                     <td>{{product.name}}</td>
                                     <td>{{product.id}}</td>
+                                    <td>{{product.description | slice:0:20}}...</td>
                                     <td>{{product.create_time | date}} </td>
                                     <td class="text-nowrap text-center">
 
@@ -64,11 +66,6 @@
                                             data-toggle="tooltip" data-original-title="Edit" data-bs-toggle="modal"
                                             data-bs-target="#editProduct">
                                             <i class="fa fa-edit"></i>
-                                        </button>
-                                        &nbsp;
-                                        <button (click)="eliminarProduct(product.id)" class="btn btn-outline-danger"
-                                            data-toggle="tooltip" data-original-title="Borrar">
-                                            <i class="fa fa-trash text-danger"></i>
                                         </button>
                                     </td>
                                 </tr>
