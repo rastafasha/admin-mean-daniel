@@ -25,7 +25,17 @@ export class PaypalsubcriptionIndexComponent implements OnInit {
   loading = false;
   data: any
   query: string = '';
-  planSeleccionado:planPaypalSubcription;
+  planSeleccionado: planPaypalSubcription;
+
+  info = `
+  <p>En esta sección:</p>
+          <ul>
+            <li>Solo se pueden crear planes</li>
+            <li>Seleccionar un Producto Anteriormente creado para relacionarlo al plan</li>
+            <li>Solo se puede activar y desactivar planes</li>
+            <li>Para ver las subscripciones del plan solo se mostrarian los activos</li>
+           
+          </ul>`;
 
   constructor(
     private planpaypalService: PlanPaypalSubcriptionService,
@@ -44,7 +54,7 @@ export class PaypalsubcriptionIndexComponent implements OnInit {
   getPlanes(): void {
     this.loading = true;
     this.planpaypalService.getPlanPaypalsPage(this.p, this.count).subscribe(
-      (res:any) => {
+      (res: any) => {
         this.plans = res.planPaypal.plans;
         error => this.error = error;
         this.loading = false;
@@ -56,7 +66,7 @@ export class PaypalsubcriptionIndexComponent implements OnInit {
     this.getPlanes();
   }
 
-   search(): void {
+  search(): void {
     if (!this.query) {
       this.ngOnInit();
     } else {
@@ -68,13 +78,13 @@ export class PaypalsubcriptionIndexComponent implements OnInit {
     }
   }
 
- toggleStatus(plan: any) {
-  if (plan.status === 'ACTIVE') {
-    this.desactivar(plan.id);
-  } else {
-    this.activar(plan.id);
+  toggleStatus(plan: any) {
+    if (plan.status === 'ACTIVE') {
+      this.desactivar(plan.id);
+    } else {
+      this.activar(plan.id);
+    }
   }
-}
 
   desactivar(id) {
     this.planpaypalService.desactivar(id).subscribe(
@@ -102,20 +112,24 @@ export class PaypalsubcriptionIndexComponent implements OnInit {
   }
 
   onEditProject(plan: planPaypalSubcription) {
-      this.planSeleccionado = plan;
-      console.log(this.planSeleccionado)
-    }
-  
-    openEditModal(): void {
-      this.planSeleccionado = null;
-    }
-  
-    onCloseModal(): void {
-      this.planSeleccionado = null;
-    }
-  
-    onClose() { }
+    this.planSeleccionado = plan;
+    console.log(this.planSeleccionado)
+  }
 
- 
+  openEditModal(): void {
+    this.planSeleccionado = null;
+  }
+
+  onCloseModal(): void {
+    this.planSeleccionado = null;
+  }
+
+  onViewSubscripciones(plan: planPaypalSubcription) {
+    this.planSeleccionado = plan;
+  }
+
+  onClose() { }
+
+
 
 }

@@ -9,6 +9,11 @@
 
         <div class="clear"></div>
         <section class="section dashboard">
+            <button class="btn btn-outline-primary btn-sm rounded-circle shadow-sm" (click)="instruccionesModal.open()"
+                title="Ayuda de la sección">
+                <i class="fa fa-question"></i>
+            </button>
+            <br>
             <!-- Recent Pagos -->
             <div class="container">
                 <div class="row">
@@ -61,7 +66,11 @@
                                 <tr *ngFor="let plan of plans |  paginate: { itemsPerPage: count, currentPage: p }">
 
                                     <td>{{plan.name}}</td>
-                                    <td>{{plan.id}}</td>
+                                    <td >
+                                        <a (click)="onViewSubscripciones(plan)" data-bs-toggle="modal" class="cursor"
+                                            data-bs-target="#viewSubscripciones">{{plan.id}}
+                                        </a>
+                                        </td>
                                     <td>{{plan.product_id}}</td>
                                     <td>{{plan.create_time |date}} </td>
 
@@ -85,7 +94,7 @@
                                         <button (click)="onEditProject(plan)" class="btn btn-outline-success"
                                             data-toggle="tooltip" data-original-title="Edit" data-bs-toggle="modal"
                                             data-bs-target="#editPlan">
-                                            <i class="fa fa-edit"></i>
+                                            <i class="fa fa-eye"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -104,3 +113,6 @@
 <!--/main-->
 <app-paypalsubcription-edit (refreshPlanesList)="getPlanes()" [planSeleccionado]="planSeleccionado"
     (closeModal)="onClose()" #editPlan></app-paypalsubcription-edit>
+
+<app-subcriptions (refreshPlanesList)="getPlanes()" [planSeleccionado]="planSeleccionado" (closeModal)="onClose()" #viewSubscripciones></app-subcriptions>
+<app-modal-instrucciones [info]="info" sectionId="planes_paypal" #instruccionesModal></app-modal-instrucciones>

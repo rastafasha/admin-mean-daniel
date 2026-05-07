@@ -148,7 +148,10 @@ getProductPaypal(id: string) {
     return this.http.post(url, this.headers);
 
   }
-
+getSubcription(_id: string) {
+    const url = `${baseUrl}/paypal/subcription/${_id}`;
+    return this.http.get<any>(url, this.headers);
+  }
 
 
 
@@ -169,13 +172,7 @@ getProductPaypal(id: string) {
       )
   }
 
-  getSubcription(_id: string) {
-    const url = `${baseUrl}/subcriptionpaypal/${_id}`;
-    return this.http.get<any>(url, this.headers)
-      .pipe(
-        map((resp: { ok: boolean, subcriptionPaypal: planPaypalSubcription }) => resp.subcriptionPaypal)
-      );
-  }
+  
 
   getByUser(usuario: any) {
     const url = `${baseUrl}/subcriptionpaypal/user_profile/${usuario}`;

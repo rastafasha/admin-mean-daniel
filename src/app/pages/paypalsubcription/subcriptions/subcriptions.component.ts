@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { HttpBackend } from '@angular/common/http';
 import { User } from 'src/app/models/user';
 import { PlanPaypalSubcriptionService } from 'src/app/services/paypalSubcription.service';
@@ -11,9 +11,13 @@ import { BusquedasService } from 'src/app/services/busqueda.service';
     styleUrls: ['./subcriptions.component.css'],
     standalone: false
 })
-export class SubcriptionsComponent implements OnInit {
+export class SubcriptionsComponent implements OnInit, OnChanges {
 
-  title = "Paypal | Subcripciones"
+   @Input() planSeleccionado;
+  @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
+  @Output() refreshPlanesList: EventEmitter<void> = new EventEmitter<void>();
+
+  // title = "Paypal | Subcripciones"
 
   subcriptionPaypals: planPaypalSubcription;
   subcriptions: any ;
@@ -35,6 +39,34 @@ export class SubcriptionsComponent implements OnInit {
   ngOnInit(): void {
     this.getSubcriptions();
     window.scrollTo(0,0);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if (
+      changes['planSeleccionado'] &&
+      changes['planSeleccionado'].currentValue
+    ) {
+      const plan = changes['planSeleccionado'].currentValue;
+      
+      this.planSeleccionado ;
+      this.planPaypalSubcriptionService.getSubcription(plan.id).subscribe(
+      res =>{
+        console.log(res)
+        this.subcriptions = res;
+        error => this.error = error;
+      }
+    );
+
+      
+    } 
+  }
+
+   onClose() {
+    this.planSeleccionado = null;
+    // Emit event to parent to reset the projectSeleccionado variable
+    this.refreshPlanesList.emit();
+    this.closeModal.emit();
   }
 
   getSubcriptions(): void {

@@ -1,19 +1,14 @@
 <!-- =======| Main |======= -->
-<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
-
-    <div class="col-xs-12">
-        <div class="leftside">
-            <!-- Page Title -->
-            <app-back-button [title]="title"></app-back-button>
-        </div>
-        
-        <div class="clear"></div>
-
-
-        <section class="section dashboard">
-
-
-            <!-- Recent Pagos -->
+<div class="modal fade" id="viewSubscripciones" tabindex="-1" aria-labelledby="subsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="subsModalLabel">{{planSeleccionado.name}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="onClose()"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Recent Pagos -->
             <div class="container">
                 <div class="row">
                     <div class="col-xs-11 col-sm-11">
@@ -79,10 +74,13 @@
                 </div>
             </div>
             <!-- End Recent Pagos -->
-
-        </section>
-
-
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    (click)="onClose()">Cerrar</button>
+            </div>
+        </div>
     </div>
 </div>
-<!--/main-->
+
+
