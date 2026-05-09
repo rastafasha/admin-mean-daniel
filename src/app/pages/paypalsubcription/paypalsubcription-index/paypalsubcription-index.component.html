@@ -9,7 +9,7 @@
 
         <div class="clear"></div>
         <section class="section dashboard">
-            <button class="btn btn-outline-primary btn-sm rounded-circle shadow-sm" (click)="instruccionesModal.open()"
+            <button class="btn btn-outline-primary btn-sm rounded-circle shadow-sm" (click)="instruccionesModalPlan.open()"
                 title="Ayuda de la sección">
                 <i class="fa fa-question"></i>
             </button>
@@ -67,10 +67,15 @@
 
                                     <td>{{plan.name}}</td>
                                     <td >
-                                        <a (click)="onViewSubscripciones(plan)" data-bs-toggle="modal" class="cursor"
+                                       <span *ngIf="plan.status === 'INACTIVE'">
+                                        {{plan.id}}
+                                       </span>
+                                       <span *ngIf="plan.status === 'ACTIVE'">
+                                         <a (click)="onViewSubscripciones(plan)" data-bs-toggle="modal" class="cursor"
                                             data-bs-target="#viewSubscripciones">{{plan.id}}
                                         </a>
-                                        </td>
+                                       </span>
+                                    </td>
                                     <td>{{plan.product_id}}</td>
                                     <td>{{plan.create_time |date}} </td>
 
@@ -115,4 +120,4 @@
     (closeModal)="onClose()" #editPlan></app-paypalsubcription-edit>
 
 <app-subcriptions (refreshPlanesList)="getPlanes()" [planSeleccionado]="planSeleccionado" (closeModal)="onClose()" #viewSubscripciones></app-subcriptions>
-<app-modal-instrucciones [info]="info" sectionId="planes_paypal" #instruccionesModal></app-modal-instrucciones>
+<app-modal-instrucciones [info]="info" sectionId="planes" #instruccionesModalPlan></app-modal-instrucciones>

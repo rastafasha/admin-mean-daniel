@@ -4,6 +4,7 @@ import { User } from 'src/app/models/user';
 import { PlanPaypalSubcriptionService } from 'src/app/services/paypalSubcription.service';
 import { planPaypalSubcription } from 'src/app/models/planPaypalSubcription';
 import { BusquedasService } from 'src/app/services/busqueda.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-subcriptions',
@@ -32,6 +33,7 @@ export class SubcriptionsComponent implements OnInit, OnChanges {
   constructor(
     private planPaypalSubcriptionService: PlanPaypalSubcriptionService,
     private busquedasService: BusquedasService,
+    private router: Router,
     handler: HttpBackend
   ) {
    }
@@ -51,7 +53,7 @@ export class SubcriptionsComponent implements OnInit, OnChanges {
       
       this.planSeleccionado ;
       this.planPaypalSubcriptionService.getSubcription(plan.id).subscribe(
-      res =>{
+      (res:any) =>{
         console.log(res)
         this.subcriptions = res;
         error => this.error = error;
@@ -95,5 +97,8 @@ export class SubcriptionsComponent implements OnInit, OnChanges {
       )
     }    
   }
+
+  
+
 
 }

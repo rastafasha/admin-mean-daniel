@@ -1,5 +1,4 @@
-<div class="card-body">
-
+<div class="col-12">
     <table class="table table-borderless table-responsive">
         <thead>
             <tr>
@@ -14,18 +13,15 @@
         <tbody *ngFor="let subcripcion of subcriptionPaypals| slice: 0:5">
             <tr>
                 <td>
-                    <a [routerLink]="['/dashboard/paypal-subcription/', subcripcion._id]">
-                    {{subcripcion.orderID | slice: 0:8}}...</a>
+                    {{subcripcion.orderID | slice: 0:8}}...
                 </td>
-                <td><a [routerLink]="['/dashboard/user/', subcripcion.usuario.uid]">
+                <td>
                     {{subcripcion.usuario.uid | slice: 0:8}}...
-                </a>
+                </td>
                 <td>{{subcripcion.monto|currency}}</td>
                 <td>
-                    <span class="badge bg-success" *ngIf="subcripcion.status === 'COMPLETED'">Completado</span>
-                    <span class="badge bg-primary" *ngIf="subcripcion.status === 'PENDING'">Pendiente</span>
-                    <span class="badge bg-danger" *ngIf="subcripcion.status === 'CANCELED'">Cancelado</span>
-                    <span class="badge bg-danger" *ngIf="subcripcion.status === 'REJECTED'">Rechazado</span>
+                    <span class="badge bg-success" *ngIf="subcripcion.status === 'ACTIVE'">Activo</span>
+                    <span class="badge bg-danger" *ngIf="subcripcion.status === 'INACTIVE'">Inactivo</span>
                 </td>
                 <td>{{subcripcion.createdAt | date:'MMM d, y, h:mm:ss a'}}</td>
             </tr>
@@ -34,8 +30,8 @@
         </tbody>
     </table>
     <div class="col-xs-12 col-sm-3">
-        <button class="btn btn-primary" routerLink="./paypal-subcriptions">
-      Ver todos
-    </button>
+        <button class="btn btn-primary" routerLink="./paypal-plans">
+            Ver todos
+        </button>
     </div>
 </div>

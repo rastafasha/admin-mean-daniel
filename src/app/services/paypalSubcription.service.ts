@@ -148,8 +148,8 @@ getProductPaypal(id: string) {
     return this.http.post(url, this.headers);
 
   }
-getSubcription(_id: string) {
-    const url = `${baseUrl}/paypal/subcription/${_id}`;
+getSubcription(id: string) {
+    const url = `${baseUrl}/paypal/subcription/${id}`;
     return this.http.get<any>(url, this.headers);
   }
 

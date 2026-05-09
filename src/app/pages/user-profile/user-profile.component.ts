@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Payment } from 'src/app/models/payment';
@@ -6,7 +6,7 @@ import { User } from 'src/app/models/user';
 import { PaymentService } from 'src/app/services/payment.service';
 import { UserService } from 'src/app/services/user.service';
 import { ProfileService } from 'src/app/services/profile.service';
-import { Profile } from 'src/app/models/profile';
+import { Profile, RedesSociales } from 'src/app/models/profile';
 import { Post } from 'src/app/models/post';
 import { PostService } from 'src/app/services/post.service';
 import { planPaypalSubcription } from 'src/app/models/planPaypalSubcription';
@@ -19,7 +19,6 @@ import { PlanPaypalSubcriptionService } from 'src/app/services/paypalSubcription
   standalone: false
 })
 export class UserProfileComponent implements OnInit {
-
   title = "Detalles de la cuenta";
   usuario: User;
   user: User;
@@ -36,6 +35,7 @@ export class UserProfileComponent implements OnInit {
 
   p: number = 1;
   count: number = 8;
+  redssociales: RedesSociales[] = [];
 
   constructor(
     private userService: UserService,
@@ -54,10 +54,7 @@ export class UserProfileComponent implements OnInit {
     this.closeMenu();
     this.activatedRoute.params.subscribe(({ id }) => this.getUserRemoto(id));
     this.activatedRoute.params.subscribe(({ id }) => this.getProfile(id));
-    this.activatedRoute.params.subscribe(({ id }) => this.getPagos(id));
     this.activatedRoute.params.subscribe(({ id }) => this.getBlogs(id));
-    this.activatedRoute.params.subscribe(({ id }) => this.getUserSubcription(id));
-
   }
 
   closeMenu() {
@@ -84,8 +81,15 @@ export class UserProfileComponent implements OnInit {
   getProfile(id: string) {
 
     this.profileService.getByUser(id).subscribe(
-      res => {
-        this.profile = res[0];
+      (res:any) => {
+        this.profile = res.profile;
+        this.subcriptions = res.profile.subcription;
+        this.pagos = res.profile.pagos;
+        if (typeof res.profile.redssociales === 'string') {
+            this.redssociales = JSON.parse(res.profile.redssociales);
+          } else {
+            this.redssociales = res.profile.redssociales || [];
+          }
         error => this.error = error;
       }
     );
@@ -93,14 +97,6 @@ export class UserProfileComponent implements OnInit {
 
   }
 
-  getPagos(id) {
-    this.paymentService.getPagosbyUser(id).subscribe(
-      res => {
-        this.pagos = res;
-        error => this.error = error;
-      }
-    );
-  }
   getUserSubcription(id: string) {
 
     this.subcriptionPaypalService.getByUser(id).subscribe((data: any) => {
