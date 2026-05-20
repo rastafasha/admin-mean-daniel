@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 
 declare var bootstrap: any;
@@ -28,9 +27,8 @@ export class EditorEditComponent implements OnInit, OnChanges {
   errors: any = null;
 
   constructor(
-    private router: Router,
     private fb: FormBuilder,
-    private usuarioService: UserService,
+    private authService: AuthService,
   ) {
     this.editorForm = this.fb.group({
       id: [''],
@@ -42,8 +40,7 @@ export class EditorEditComponent implements OnInit, OnChanges {
     });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
 
@@ -96,7 +93,7 @@ export class EditorEditComponent implements OnInit, OnChanges {
       return
     }
 
-    this.usuarioService.crearEditor(this.editorForm.value).subscribe(
+    this.authService.crearEditor(this.editorForm.value).subscribe(
       resp => {
         Swal.fire('Creado', ` creado correctamente`, 'success');
         // Close modal programmatically

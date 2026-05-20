@@ -1,16 +1,14 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Category } from 'src/app/models/category';
 import { Post } from 'src/app/models/post';
 import { CategoryService } from 'src/app/services/category.service';
 import { PostService } from 'src/app/services/post.service';
-import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/services/user.service';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 //ckeditor
 import * as Decoupled from '@ckeditor/ckeditor5-build-decoupled-document';
+import { AuthService } from 'src/app/services/auth.service';
 interface HtmlInputEvent extends Event {
   target: HTMLInputElement & EventTarget;
 }
@@ -44,7 +42,7 @@ export class PostEditComponent implements OnInit, OnChanges {
   public imagePath: string;
 
   public msm_error = '';
-  public user: User;
+  public user: any;
   public categories: Category;
   public title: string;
   public uid: string;
@@ -59,23 +57,20 @@ export class PostEditComponent implements OnInit, OnChanges {
     private fb: FormBuilder,
     private postService: PostService,
     private categoryService: CategoryService,
-    private userService: UserService,
+    private authService: AuthService,
     private fileUploadService: FileUploadService,
 
   ) {
-    this.user = userService.usuario;
+    
   }
 
   ngOnInit(): void {
     this.validarFormulario();
     this.getCategories();
-    this.getUser();
-  }
-
-  getUser(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
+    this.user = this.authService.getLocalStorage();
     this.uid = this.user.uid;
   }
+
 
   getCategories(): void {
     this.categoryService.getCategories().subscribe(

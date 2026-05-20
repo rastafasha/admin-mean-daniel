@@ -1,20 +1,14 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {environment} from '../../environments/environment';
-
-import { RegisterForm } from '../auth/interfaces/register-form.interface';
-import { LoginForm } from '../auth/interfaces/login-form.interface';
 import { CargarUsuario } from '../auth/interfaces/cargar-usuarios.interface';
-
-import {tap, map, catchError} from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
-import { Router } from '@angular/router';
+import { map} from 'rxjs/operators';
+import { Observable} from 'rxjs';
 import { User } from '../models/user';
 
-// declare const gapi: any;
-
 const base_url = environment.apiUrl;
-const userGoogle = environment.clientGoogle
+// declare const gapi: any;
+// const userGoogle = environment.clientGoogle
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +20,6 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
-    private ngZone: NgZone
     ) {
       // this.googleInit();
   }
@@ -52,81 +44,6 @@ export class UserService {
     }
   }
 
-
-
-  guardarLocalStorage(token: string, user: any){
-    localStorage.setItem('token', token);
-    // localStorage.setItem('user', user);
-    localStorage.setItem('user', JSON.stringify(user));
-  }
-
-
-  // googleInit(){
-
-  //   return new Promise<void>((resolve) =>{
-
-  //     gapi.load('auth2', () =>{
-  //       this.auth2 = gapi.auth2.init({
-  //         client_id: userGoogle,
-  //         cookiepolicy: 'single_host_origin',
-  //       });
-  //       resolve();
-  //     });
-  //   });
-
-
-  // }
-
-
-  logout(){
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    localStorage.removeItem('dark');
-    this.router.navigateByUrl('/login');
-    // this.auth2.signOut().then(()=>{
-    //   this.ngZone.run(()=>{
-    //     this.router.navigateByUrl('/login');
-    //   })
-    // })
-  }
-
-  validarToken(): Observable<boolean>{
-
-    return this.http.get(`${base_url}/auth/renew`, {
-      headers: {
-        'x-token': this.token
-      }
-    }).pipe(
-      map((resp: any) => {
-        const { username, email, google, role,  uid} = resp.usuario;
-
-        this.usuario = new User(username, email, google, role, uid);
-
-        this.guardarLocalStorage(resp.token, resp.user);
-        return true;
-      }),
-      catchError(error => of(false))
-    );
-  }
-
-  crearUsuario(formData: RegisterForm){
-    return this.http.post(`${base_url}/usuarios/crear`, formData)
-    .pipe(
-      tap((resp: any) => {
-        this.guardarLocalStorage(resp.token, resp.user);
-      })
-    )
-  }
-
-  crearEditor(formData: RegisterForm){
-    return this.http.post(`${base_url}/usuarios/crearEditor`, formData)
-    .pipe(
-      tap((resp: any) => {
-        this.guardarLocalStorage(resp.token, resp.user);
-      })
-    )
-  }
-
   actualizarPerfil(data: {email: string, nombre: string, role: string}){
 
     data = {
@@ -140,24 +57,6 @@ export class UserService {
   update(user: User){
     return this.http.put(`${base_url}/usuarios/editar/${user}`,this.headers);
   }
-
-  login(formData){
-    return this.http.post(`${base_url}/auth/login`, formData)
-    .pipe(
-      tap((resp: any) => {
-        this.guardarLocalStorage(resp.token, resp.user);
-      })
-    )
-  }
-
-  // loginGoogle(token){debugger
-  //   return this.http.post(`${base_url}/auth/google`, {token})
-  //   .pipe(
-  //     tap((resp: any) => {
-  //       this.guardarLocalStorage(resp.token, resp.user);
-  //     })
-  //   )
-  // }
 
   cargarUsuarios(desde: number = 0){
 
@@ -227,38 +126,35 @@ export class UserService {
   }
 
 
-  closeMenu(){
-    var menuLateral = document.getElementsByClassName("sidebar");
-      for (var i = 0; i<menuLateral.length; i++) {
-         menuLateral[i].classList.remove("active");
-
-      }
-  }
-
   searchUsers(usuario:any):Observable<any>{
 
     const url = `${base_url}/todo/coleccion/usuarios/${usuario}`;
     return this.http.get<any>(url, this.headers)
   }
-  set_recovery_token(email):Observable<any>{
 
-    const url = `${base_url}/usuarios/user_token/set/${email}`;
-    return this.http.get<any>(url, this.headers)
-  }
+   // googleInit(){
+
+  //   return new Promise<void>((resolve) =>{
+
+  //     gapi.load('auth2', () =>{
+  //       this.auth2 = gapi.auth2.init({
+  //         client_id: userGoogle,
+  //         cookiepolicy: 'single_host_origin',
+  //       });
+  //       resolve();
+  //     });
+  //   });
 
 
-  verify_token(email,codigo):Observable<any>{
-    const url = `${base_url}/usuarios/user_verify/token/${email}/${codigo}`;
-    return this.http.get<any>(url, this.headers)
-  }
+  // }
 
-  change_password(email,data):Observable<any>{debugger
-    const url = `${base_url}/usuarios/user_password/change/${email}/${data}`;
-    return this.http.put<any>(url, this.headers)
-  }
-  forgotPassword(data):Observable<any>{debugger
-    const url = `${base_url}/usuarios/user_password/change/${data}`;
-    return this.http.put<any>(url, this.headers)
-  }
-
+// loginGoogle(token){debugger
+  //   return this.http.post(`${base_url}/auth/google`, {token})
+  //   .pipe(
+  //     tap((resp: any) => {
+  //       this.guardarLocalStorage(resp.token, resp.user);
+  //     })
+  //   )
+  // }
+ 
 }

@@ -3,10 +3,11 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse
 
 import { catchError, Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
-const CLIENT = 'AQhKPBY5mgg0JustLJCcf6ncmd9RghCiNhXT_b6rNUakyQtnEn8MzCn_dkHAyt5n7_P0Omo5M05to5j0';
-const SECRET = 'EFFuT6X5iP76O94nCeLrILzQCtCpqDc1EbBUMDKlj34B_55Pk_f4reWcvmFArH4oQklbeHZdsunITll0';
-const PAYPAL_API = 'https://api-m.sandbox.paypal.com';
+const CLIENT = environment.clientIdPaypal;
+const SECRET = environment.secretPaypal;
+const PAYPAL_API = environment.paypalApi;
 
 const auth = { user: CLIENT, pass: SECRET };
 

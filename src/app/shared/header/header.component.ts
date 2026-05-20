@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Profile } from 'src/app/models/profile';
 import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -21,58 +22,40 @@ export class HeaderComponent implements OnInit {
   userprofile!: any;
 
 
-  user: User;
+  user: any;
   error: string;
   id:any;
   profile: Profile;
 
   constructor(
     private usuarioService: UserService,
+    private authService: AuthService,
     private router: Router,
     private profileService: ProfileService,
     ) {
-      this.user = usuarioService.usuario;
+      this.user = authService.getLocalStorage();
     }
 
 
 
   ngOnInit() {
-    this.getUser();
+    //verifica que se hallan logueado
+     if(!this.user || !this.user.uid || this.user.uid == null || this.user.uid == undefined){
+      this.router.navigateByUrl('/login');
+    }else{
+      this.id = this.user.uid;
+      this.getProfile();
+    }
+    
      if (localStorage.getItem('dark')) {
       this.darkmode('dark');
     }
+    
   }
 
 
-
-  getUser(): void {
-
-    this.user = JSON.parse(localStorage.getItem('user'));
-    // console.log(this.user);
-    if(!this.user || !this.user.uid || this.user.uid == null || this.user.uid == undefined){
-      this.router.navigateByUrl('/login');
-    }
-      this.id = this.user.uid;
-    //verifica que se hallan logueado
-    if(!this.user || !this.user.uid){
-      this.router.navigateByUrl('/login');
-    }
-
-    this.listar()
-  }
-
-  getUserServer(){
-    this.usuarioService.getUserById(this.user.uid).subscribe(
-      res =>{
-        this.user = res;
-        error => this.error = error
-      }
-    );
-
-  }
-
-  listar(){
-    this.profileService.listarUsuario(this.user.uid).subscribe(
+  getProfile(){
+    this.profileService.listarUsuario(this.id).subscribe(
       response =>{
         this.profile = response;
         // console.log('profileServer',this.profile);
@@ -97,7 +80,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(){
-    this.usuarioService.logout();
+    this.authService.logout();
   }
 
   darkmode(dark:string){

@@ -2,15 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 import { environment } from 'src/environments/environment';
 import { generateSubcription, planPaypalSubcription, productPaypalSubcription } from '../models/planPaypalSubcription';
-import { User } from '../models/user';
 import { subcriptionPaypal } from '../models/subcriptionPaypal';
 
-const CLIENT = 'AQhKPBY5mgg0JustLJCcf6ncmd9RghCiNhXT_b6rNUakyQtnEn8MzCn_dkHAyt5n7_P0Omo5M05to5j0';
-const SECRET = 'EFFuT6X5iP76O94nCeLrILzQCtCpqDc1EbBUMDKlj34B_55Pk_f4reWcvmFArH4oQklbeHZdsunITll0';
-const PAYPAL_API = 'https://api-m.sandbox.paypal.com';
+const CLIENT = environment.clientIdPaypal;
+const SECRET = environment.secretPaypal;
+const PAYPAL_API = environment.paypalApi;
 
 const auth = { user: CLIENT, pass: SECRET };
 

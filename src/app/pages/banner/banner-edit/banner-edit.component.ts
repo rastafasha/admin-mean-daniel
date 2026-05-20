@@ -11,6 +11,7 @@ import { BannerService } from 'src/app/services/banner.service';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 //ckeditor
 import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
+import { AuthService } from 'src/app/services/auth.service';
 declare var bootstrap: any;
 @Component({
   selector: 'app-banner-edit',
@@ -38,7 +39,7 @@ export class BannerEditComponent implements OnInit, OnChanges {
   public imgTemp: any = null;
   imagePath: string;
   title: string;
-  public user: User;
+  public user: any;
   uid: string;
   error: string;
   uploadError: string;
@@ -47,20 +48,17 @@ export class BannerEditComponent implements OnInit, OnChanges {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
     private bannerService: BannerService,
-    private activatedRoute: ActivatedRoute,
-    private userService: UserService,
-    private sanitizer: DomSanitizer,
+    private authService: AuthService,
     private fileUploadService: FileUploadService,
   ) {
-    this.user = this.userService.usuario;
+    this.user = this.authService.getLocalStorage();
   }
 
   ngOnInit(): void {
     this.validarFormulario();
-    this.getUser();
     window.scrollTo(0, 0);
+    this.uid = this.user.uid;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -91,10 +89,7 @@ export class BannerEditComponent implements OnInit, OnChanges {
     }
   }
 
-  getUser(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
-    this.uid = this.user.uid;
-  }
+  
 
   onClose() {
     this.bannerSeleccionado = null;

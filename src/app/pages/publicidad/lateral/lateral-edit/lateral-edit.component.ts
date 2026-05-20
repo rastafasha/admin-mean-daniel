@@ -1,13 +1,10 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { environment } from 'src/environments/environment';
-import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/services/user.service';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { Sideadvice } from 'src/app/models/sideadvice';
 import { SideadviceService } from 'src/app/services/sideadvice.service';
+import { AuthService } from 'src/app/services/auth.service';
 declare var bootstrap: any;
 @Component({
   selector: 'app-lateral-edit',
@@ -33,7 +30,7 @@ export class LateralEditComponent implements OnInit, OnChanges {
   loading: boolean = false;
   loadingImage: boolean = false;
 
-  public user: User;
+  public user: any;
   uid: string;
 
   error: string;
@@ -42,19 +39,16 @@ export class LateralEditComponent implements OnInit, OnChanges {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
     private sideadviceService: SideadviceService,
-    private activatedRoute: ActivatedRoute,
-    private userService: UserService,
+    private authService: AuthService,
     private fileUploadService: FileUploadService,
   ) {
-    this.user = this.userService.usuario;
   }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.validarFormulario();
-    this.user = JSON.parse(localStorage.getItem('user'));
+    this.user = this.authService.getLocalStorage();
     this.uid = this.user.uid;
   }
 
@@ -97,8 +91,6 @@ export class LateralEditComponent implements OnInit, OnChanges {
 
     this.closeModal.emit();
   }
-
-
 
   validarFormulario() {
     this.sideadviceForm = this.fb.group({

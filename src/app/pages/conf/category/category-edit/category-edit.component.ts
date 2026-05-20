@@ -7,6 +7,7 @@ import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { Category } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category.service';
+import { AuthService } from 'src/app/services/auth.service';
 declare var bootstrap: any;
 
 @Component({
@@ -31,12 +32,10 @@ export class CategoryEditComponent implements OnInit, OnChanges {
 
   constructor(
     private fb: FormBuilder,
-    private usuarioService: UserService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
+    private authService: AuthService,
     private categoryService: CategoryService,
   ) {
-    this.usuario = usuarioService.usuario;
+    this.usuario = this.authService.getLocalStorage();
     const base_url = environment.apiUrl;
   }
 

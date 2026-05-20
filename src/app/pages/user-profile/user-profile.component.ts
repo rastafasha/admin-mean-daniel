@@ -11,6 +11,7 @@ import { Post } from 'src/app/models/post';
 import { PostService } from 'src/app/services/post.service';
 import { planPaypalSubcription } from 'src/app/models/planPaypalSubcription';
 import { PlanPaypalSubcriptionService } from 'src/app/services/paypalSubcription.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -20,7 +21,7 @@ import { PlanPaypalSubcriptionService } from 'src/app/services/paypalSubcription
 })
 export class UserProfileComponent implements OnInit {
   title = "Detalles de la cuenta";
-  usuario: User;
+  usuario: any;
   user: User;
   profile: Profile;
   public blogs: Post;
@@ -39,6 +40,7 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private authService: AuthService,
     private profileService: ProfileService,
     private paymentService: PaymentService,
     private postService: PostService,
@@ -46,40 +48,29 @@ export class UserProfileComponent implements OnInit {
     private subcriptionPaypalService: PlanPaypalSubcriptionService,
 
   ) {
-    this.usuario = userService.usuario;
+    
   }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    this.closeMenu();
+    this.usuario = this.authService.getLocalStorage();
+    this.authService.closeMenu();
     this.activatedRoute.params.subscribe(({ id }) => this.getUserRemoto(id));
     this.activatedRoute.params.subscribe(({ id }) => this.getProfile(id));
     this.activatedRoute.params.subscribe(({ id }) => this.getBlogs(id));
   }
-
-  closeMenu() {
-    var menuLateral = document.getElementsByClassName("sidebar");
-    for (var i = 0; i < menuLateral.length; i++) {
-      menuLateral[i].classList.remove("active");
-
-    }
-  }
-
-
 
   getUserRemoto(id) {
     this.userService.getUserById(id).subscribe(
       res => {
         this.usuario = res;
         error => this.error = error;
-        // console.log(this.usuario);
       }
     );
 
   }
 
   getProfile(id: string) {
-
     this.profileService.getByUser(id).subscribe(
       (res:any) => {
         this.profile = res.profile;
@@ -98,7 +89,6 @@ export class UserProfileComponent implements OnInit {
   }
 
   getUserSubcription(id: string) {
-
     this.subcriptionPaypalService.getByUser(id).subscribe((data: any) => {
       this.subcriptions = data;
     });
